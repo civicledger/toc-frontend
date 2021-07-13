@@ -5,11 +5,11 @@ import Login from "../components/Login";
 const Home = () => {
   const location = useLocation();
   return (
-    <div className="App container mx-auto min-h-screen flex flex-col">
+    <div className="container mx-auto">
       <Nav />
       <Switch location={location} key={location.key}>
         <Route path="/" exact></Route>
-        <Route path="/login/" exact>
+        <Route path="/login" exact>
           <Login />
         </Route>
       </Switch>

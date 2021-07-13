@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex">
+    <div className="flex min-h-screen">
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({
