@@ -21,7 +21,7 @@ const Login = () => {
       >
         {(props) => (
           <form
-            className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16"
+            className="w-full max-w-md m-auto bg-white rounded-lg border border-primary py-10 px-16"
             onSubmit={props.handleSubmit}
           >
             <h1 className="text-xl font-medium text-primary mt-4 mb-12 text-center">
@@ -36,7 +36,7 @@ const Login = () => {
               />
             )}
             <input
-              className="w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"
+              className="w-full p-2 text-primary border rounded-md outline-none text-sm mb-4"
               type="email"
               name="email"
               placeholder="Your Email"
@@ -53,7 +53,7 @@ const Login = () => {
               />
             )}
             <input
-              className="w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"
+              className="w-full p-2 text-primary border rounded-md outline-none text-sm mb-4"
               type="password"
               name="password"
               placeholder="Your Password"
