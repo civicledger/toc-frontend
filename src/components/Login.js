@@ -24,7 +24,7 @@ const Login = () => {
             className="w-full max-w-md m-auto bg-white rounded-lg border border-primary py-10 px-16"
             onSubmit={props.handleSubmit}
           >
-            <h1 className="text-xl font-medium text-primary mt-4 mb-12 text-center">
+            <h1 className="text-xl font-medium text-xl mt-4 mb-12 text-center">
               Log in to your account
             </h1>
 
@@ -64,7 +64,7 @@ const Login = () => {
 
             <div className="flex justify-center items-center mt-6">
               <button
-                className="bg-gradient-to-r from-blue-400 to-blue-500 py-2 px-4 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark"
+                className="bg-gradient-to-r from-blue-400 to-blue-500 py-2 px-4 text-sm text-white rounded border border-gray-200 focus:outline-none"
                 type="submit"
                 disabled={props.isSubmitting}
               >
