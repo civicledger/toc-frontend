@@ -49,7 +49,7 @@ const Login = () => {
               name="password"
             />
 
-            <div className="flex justify-center items-center mt-6">
+            <div className="flex justify-center mt-6">
               <button
                 className="bg-gradient-to-r from-blue-400 to-blue-500 py-2 px-4 text-sm text-white rounded border border-gray-200 focus:outline-none"
                 type="submit"
