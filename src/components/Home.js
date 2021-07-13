@@ -1,13 +1,12 @@
 import Nav from "./layout/Nav";
-import { Switch, useLocation, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from "../components/Login";
 
 const Home = () => {
-  const location = useLocation();
   return (
     <div className="container mx-auto">
       <Nav />
-      <Switch location={location} key={location.key}>
+      <Switch>
         <Route path="/" exact></Route>
         <Route path="/login" exact>
           <Login />
