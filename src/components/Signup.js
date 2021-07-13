@@ -34,7 +34,7 @@ const Signup = () => {
         {(props) => (
           <Form className="w-full py-10 px-16 max-w-md m-auto rounded-lg border border-primary">
             <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">
-              Sign up
+              Sign Up
             </h1>
             <div className="space-y-4">
               <CustomField type="email" name="email" labelText="Email" />

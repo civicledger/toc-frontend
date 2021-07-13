@@ -15,7 +15,6 @@ const Login = () => {
           password: Yup.string().required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           setTimeout(() => {
             setSubmitting(false);
           }, 400);
@@ -24,7 +23,7 @@ const Login = () => {
         {(props) => (
           <Form className="w-full py-10 px-16 max-w-md m-auto rounded-lg border border-primary">
             <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">
-              Log in to your account
+              Log In
             </h1>
 
             <div className="space-y-4">
