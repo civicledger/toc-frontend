@@ -16,6 +16,11 @@ const Nav = () => {
               Login
             </NavLink>
           </div>
+          <div className="p-2 text-xl">
+            <NavLink to="/signup" exact>
+              Sign up
+            </NavLink>
+          </div>
         </div>
       </div>
     </nav>
