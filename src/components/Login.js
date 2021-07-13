@@ -15,6 +15,7 @@ const Login = () => {
           password: Yup.string().required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
           setTimeout(() => {
             setSubmitting(false);
           }, 400);

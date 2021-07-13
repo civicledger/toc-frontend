@@ -26,7 +26,6 @@ const Signup = () => {
           company: Yup.string().required("Company is required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           setTimeout(() => {
             setSubmitting(false);
           }, 400);
