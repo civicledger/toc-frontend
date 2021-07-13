@@ -12,7 +12,6 @@ const Home = () => {
         <Route path="/login/" exact>
           <Login></Login>
         </Route>
-        <Route path="/signup/" exact></Route>
       </Switch>
     </div>
   );
