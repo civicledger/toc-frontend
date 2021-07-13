@@ -9,10 +9,10 @@ const Home = () => {
       <Nav />
       <Switch location={location} key={location.key}>
         <Route path="/" exact></Route>
-        <Route path="/login" exact>
+        <Route path="/login/" exact>
           <Login></Login>
         </Route>
-        <Route path="/signup" exact></Route>
+        <Route path="/signup/" exact></Route>
       </Switch>
     </div>
   );
