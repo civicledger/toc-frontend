@@ -12,7 +12,7 @@ const Nav = () => {
         </div>
         <div className="flex justify-end">
           <div className="p-2 text-xl">
-            <NavLink to="/Login" exact>
+            <NavLink to="/login" exact>
               Login
             </NavLink>
           </div>
