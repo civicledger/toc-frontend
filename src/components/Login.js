@@ -1,9 +1,20 @@
 import React from "react";
+import { useContext } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import CustomField from "./layout/CustomField";
+import LoginService from "../services/LoginService";
+
+import { useHistory } from "react-router-dom";
+
+import { ACTIONS, LoginContext } from "../utilities/reducers";
+
+const loginService = new LoginService();
 
 const Login = () => {
+  const dispatch = useContext(LoginContext);
+  const history = useHistory();
+
   return (
     <div className="flex min-h-screen">
       <Formik
@@ -15,9 +26,21 @@ const Login = () => {
           password: Yup.string().required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-          }, 400);
+          setSubmitting(true);
+          loginService
+            .logIn(values.email, values.password)
+            .then((response) => {
+              dispatch({
+                type: ACTIONS.SET_USER,
+                payload: { ...response.data, loggedIn: true },
+              });
+              loginService.saveUser(response.data);
+              history.push("/");
+            })
+            .catch()
+            .finally(() => {
+              setSubmitting(false);
+            });
         }}
       >
         {(props) => (
