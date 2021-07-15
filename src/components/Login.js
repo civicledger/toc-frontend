@@ -68,7 +68,7 @@ const Login = () => {
 
             {success && (
               <div className="p-1 text-sm text-green-900">
-                Successfully logged in. Sending you to dashboard.
+                Successfully logged in, sending you to dashboard.
               </div>
             )}
 
