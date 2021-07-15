@@ -1,9 +1,21 @@
-import React from "react";
+import { useContext, useState } from "react";
 import { Formik, Form } from "formik";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+
+import { ACTIONS, LoginContext } from "../utilities/reducers";
 import CustomField from "./layout/CustomField";
+import AuthService from "../services/AuthService";
+
+const authService = new AuthService();
 
 const Login = () => {
+  const { dispatch } = useContext(LoginContext);
+  const [success, setSuccess] = useState(null);
+  const [formErrors, setFormErrors] = useState([]);
+
+  const history = useHistory();
+
   return (
     <div className="flex min-h-screen">
       <Formik
@@ -14,10 +26,29 @@ const Login = () => {
             .required("Required"),
           password: Yup.string().required("Required"),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(true);
+          authService
+            .logIn(values.email, values.password)
+            .then((response) => {
+              setSuccess(true);
+              dispatch({
+                type: ACTIONS.SET_USER,
+                payload: { ...response.data, loggedIn: true },
+              });
+              authService.saveUser(response.data);
+              setTimeout(() => {
+                actions.resetForm();
+                history.push("/");
+              }, 3000);
+            })
+            .catch(({ response }) => {
+              const errors = response.data.errors.map((error) => error.message);
+              setFormErrors(errors);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
+            });
         }}
       >
         {(props) => (
@@ -34,6 +65,16 @@ const Login = () => {
                 labelText="Password"
               />
             </div>
+
+            {success && (
+              <div className="p-1 text-sm text-green-900">
+                Successfully logged in, sending you to dashboard.
+              </div>
+            )}
+
+            {!success && formErrors.length > 0 && (
+              <div className="p-1 text-sm text-red-900">{formErrors}</div>
+            )}
 
             <div className="flex justify-center mt-6">
               <button
