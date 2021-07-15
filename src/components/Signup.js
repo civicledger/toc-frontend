@@ -42,15 +42,7 @@ const Signup = () => {
               }, 3000);
             })
             .catch(({ response }) => {
-              const errors = response.data.errors.reduce(
-                (accumulator, error) => {
-                  if (error.field) {
-                    accumulator.push(`${error.field}: ${error.message}`);
-                  }
-                  return accumulator;
-                },
-                []
-              );
+              const errors = response.data.errors.map((error) => error.message);
               setFormErrors(errors);
             })
             .finally(() => {
