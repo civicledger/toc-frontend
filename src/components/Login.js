@@ -1,18 +1,16 @@
-import React from "react";
 import { useContext } from "react";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import CustomField from "./layout/CustomField";
-import LoginService from "../services/LoginService";
-
 import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
 
 import { ACTIONS, LoginContext } from "../utilities/reducers";
+import CustomField from "./layout/CustomField";
+import AuthService from "../services/AuthService";
 
-const loginService = new LoginService();
+const authService = new AuthService();
 
 const Login = () => {
-  const dispatch = useContext(LoginContext);
+  const { dispatch } = useContext(LoginContext);
   const history = useHistory();
 
   return (
@@ -27,14 +25,14 @@ const Login = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
-          loginService
+          authService
             .logIn(values.email, values.password)
             .then((response) => {
               dispatch({
                 type: ACTIONS.SET_USER,
                 payload: { ...response.data, loggedIn: true },
               });
-              loginService.saveUser(response.data);
+              authService.saveUser(response.data);
               history.push("/");
             })
             .catch()

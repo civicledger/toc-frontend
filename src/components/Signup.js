@@ -1,17 +1,24 @@
-import React from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
 import CustomField from "./layout/CustomField";
+import AuthService from "../services/AuthService";
+
+const authService = new AuthService();
 
 const Signup = () => {
+  const history = useHistory();
+  const [success, setSuccess] = useState(null);
+  const [formErrors, setFormErrors] = useState([]);
+
   return (
     <div className="flex min-h-screen">
       <Formik
         initialValues={{
           email: "",
           password: "",
-          name: "",
-          company: "",
           confirmPassword: "",
         }}
         validationSchema={Yup.object({
@@ -22,13 +29,33 @@ const Signup = () => {
           confirmPassword: Yup.string()
             .oneOf([Yup.ref("password"), null], "Password must match")
             .required("Confirm password is required"),
-          name: Yup.string().required("Name is required"),
-          company: Yup.string().required("Company is required"),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(true);
+          authService
+            .signup(values.email, values.password, values.confirmPassword)
+            .then(() => {
+              setSuccess(true);
+              setTimeout(() => {
+                actions.resetForm();
+                history.push("/login");
+              }, 3000);
+            })
+            .catch(({ response }) => {
+              const errors = response.data.errors.reduce(
+                (accumulator, error) => {
+                  if (error.field) {
+                    accumulator.push(`${error.field}: ${error.message}`);
+                  }
+                  return accumulator;
+                },
+                []
+              );
+              setFormErrors(errors);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
+            });
         }}
       >
         {(props) => (
@@ -48,9 +75,17 @@ const Signup = () => {
                 name="confirmPassword"
                 labelText="Confirm password"
               />
-              <CustomField type="text" name="name" labelText="Name" />
-              <CustomField type="text" name="company" labelText="Company" />
             </div>
+
+            {success && (
+              <div className="p-1 text-sm text-green-900">
+                Successfully signed up. Sending you to login page.
+              </div>
+            )}
+
+            {!success && formErrors.length > 0 && (
+              <div className="p-1 text-sm text-red-900">{formErrors}</div>
+            )}
 
             <div className="mt-6 flex justify-center">
               <button
