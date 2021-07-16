@@ -1,16 +1,17 @@
-import Nav from "./layout/Nav";
 import { Switch, Route } from "react-router-dom";
+
+import GuestNav from "./layout/GuestNav";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import Dashboard from "./Dashboard";
+import GuestDashboard from "./GuestDashboard";
 
-const Home = () => {
+const GuestHome = () => {
   return (
     <div className="container mx-auto">
-      <Nav />
+      <GuestNav />
       <Switch>
         <Route path="/" exact>
-          <Dashboard />
+          <GuestDashboard />
         </Route>
         <Route path="/login" exact>
           <Login />
@@ -23,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GuestHome;
