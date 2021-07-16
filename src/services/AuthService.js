@@ -18,6 +18,11 @@ export default class AuthService extends BaseService {
     localStorage.setItem("token", token);
   }
 
+  logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  }
+
   static getLoggedInUser() {
     const userString = localStorage.getItem("user");
     const token = localStorage.getItem("token");

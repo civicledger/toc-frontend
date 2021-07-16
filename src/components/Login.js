@@ -32,12 +32,13 @@ const Login = () => {
             .logIn(values.email, values.password)
             .then((response) => {
               setSuccess(true);
-              dispatch({
-                type: ACTIONS.SET_USER,
-                payload: { ...response.data, loggedIn: true },
-              });
-              authService.saveUser(response.data);
               setTimeout(() => {
+                dispatch({
+                  type: ACTIONS.SET_USER,
+                  payload: { ...response.data, loggedIn: true },
+                });
+                authService.saveUser(response.data);
+
                 actions.resetForm();
                 history.push("/");
               }, 3000);

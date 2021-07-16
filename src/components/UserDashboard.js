@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { LoginContext } from "../utilities/reducers";
 
-const Dashboard = () => {
+const UserDashboard = () => {
   const {
     login: { user },
   } = useContext(LoginContext);
@@ -18,4 +18,4 @@ const Dashboard = () => {
     </div>
   );
 };
-export default Dashboard;
+export default UserDashboard;
