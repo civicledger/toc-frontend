@@ -37,23 +37,22 @@ const EntityForm = () => {
         })}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
+          setSuccess(false);
           setFormErrors([]);
 
           entityService
             .create(values)
             .then(({ data }) => {
-              console.log(data);
               setSuccess(true);
               actions.resetForm();
               setTimeout(() => {
-                console.log("Here... ... ...");
                 history.push(`/entities/${data.id}`);
               }, 3000);
             })
             .catch(({ response }) => {
               if (!response.data.errors) return;
               const errors = response.data.errors.map(
-                (error) => error.message + " for " + error.field
+                (error) => error.field + ": " + error.message
               );
               setFormErrors(errors);
             })
@@ -100,16 +99,21 @@ const EntityForm = () => {
                   ></Field>
                 </div>
               </div>
-              <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
-                {({ getRootProps, getInputProps }) => (
-                  <section className="bg-gray-100 p-10 text-center border-dashed border-2">
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <p>Drop some files here, or click to select files</p>
-                    </div>
-                  </section>
-                )}
-              </Dropzone>
+
+              <div>
+                <Dropzone
+                  onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <section className="bg-gray-100 p-10 text-center border-dashed border-2">
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Drop some files here, or click to select files</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
 
               <div>
                 <label
@@ -133,13 +137,13 @@ const EntityForm = () => {
 
               {success && (
                 <div className="p-1 text-sm text-green-900">
-                  Successfully created an Entity, sending you to dashboard.
+                  Successfully created an Entity, sending you to Entity page.
                 </div>
               )}
               {!success && formErrors.length > 0 && (
                 <div className="p-1 text-sm text-red-900">{formErrors}</div>
               )}
-              <div className="flex justify-center mt-6">
+              <div className="flex justify-center">
                 <button
                   className="bg-gradient-to-r from-blue-400 to-blue-500 py-2 px-4 text-sm text-white rounded border border-gray-200 focus:outline-none"
                   type="submit"
