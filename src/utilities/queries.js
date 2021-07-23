@@ -1,8 +1,8 @@
-import EntityService from "../services/EntityService";
+import CompanyService from "../services/CompanyService";
 
-const entityService = new EntityService();
+const companyService = new CompanyService();
 
-export const entityQuery = async (id) => {
-  const { data } = await entityService.getOne(id);
+export const companyQuery = async (id) => {
+  const { data } = await companyService.getOne(id);
   return data;
 };

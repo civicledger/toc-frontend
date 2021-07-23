@@ -2,8 +2,8 @@ import { Switch, Route } from "react-router-dom";
 
 import UserNav from "./layout/UserNav";
 import UserDashboard from "./UserDashboard";
-import EntityForm from "./EntityForm";
-import Entity from "./Entity";
+import CompanyForm from "./CompanyForm";
+import Company from "./Company";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
@@ -18,10 +18,10 @@ const UserHome = () => {
             <UserDashboard />
           </Route>
           <Route path="/entities/new">
-            <EntityForm />
+            <CompanyForm />
           </Route>
           <Route path="/entities/:id">
-            <Entity />
+            <Company />
           </Route>
         </Switch>
       </div>

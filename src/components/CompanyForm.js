@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom";
 import { Formik, ErrorMessage, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import EntityService from "../services/EntityService";
+import CompanyService from "../services/CompanyService";
 
-const entityService = new EntityService();
+const companyService = new CompanyService();
 
-const entityTypes = {
+const companyTypes = {
   1: "Company",
   2: "Community group",
   3: "Government agency",
@@ -17,7 +17,7 @@ const entityTypes = {
   6: "Multinational company",
 };
 
-const EntityForm = () => {
+const CompanyForm = () => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const history = useHistory();
@@ -40,7 +40,7 @@ const EntityForm = () => {
           setSuccess(false);
           setFormErrors([]);
 
-          entityService
+          companyService
             .create(values)
             .then(({ data }) => {
               setSuccess(true);
@@ -71,14 +71,12 @@ const EntityForm = () => {
               <div className="space-y-4">
                 <div>
                   <label
-                    htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
+                    htmlFor="name"
                   >
                     Name
                   </label>
-                  <div className="mt-1">
-                    <Field id="name" name="name" type="text"></Field>
-                  </div>
+                  <Field className="mt-1" id="name" name="name" type="text" />
                   <ErrorMessage
                     className="py-1 text-xs text-red-700"
                     component="p"
@@ -88,21 +86,26 @@ const EntityForm = () => {
 
                 <div>
                   <label
-                    htmlFor="description"
                     className="block text-sm font-medium text-gray-700"
+                    htmlFor="description"
                   >
                     Description
                   </label>
-                  <div className="mt-1">
-                    <Field
-                      name="description"
-                      id="description"
-                      as="textarea"
-                    ></Field>
-                  </div>
+                  <Field
+                    className="mt-1"
+                    name="description"
+                    id="description"
+                    as="textarea"
+                  />
                 </div>
 
                 <div>
+                  <label
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    htmlFor="name"
+                  >
+                    Logo
+                  </label>
                   <Dropzone
                     onDrop={(acceptedFiles) => console.log(acceptedFiles)}
                   >
@@ -124,17 +127,15 @@ const EntityForm = () => {
                   >
                     Type
                   </label>
-                  <div className="mt-1">
-                    <Field as="select" id="type" name="type">
-                      {Object.entries(entityTypes).map(([value, name]) => {
-                        return (
-                          <option key={value} value={value}>
-                            {name}
-                          </option>
-                        );
-                      })}
-                    </Field>
-                  </div>
+                  <Field className="mt-1" as="select" id="type" name="type">
+                    {Object.entries(companyTypes).map(([value, name]) => {
+                      return (
+                        <option key={value} value={value}>
+                          {name}
+                        </option>
+                      );
+                    })}
+                  </Field>
                 </div>
 
                 {success && (
@@ -164,4 +165,4 @@ const EntityForm = () => {
   );
 };
 
-export default EntityForm;
+export default CompanyForm;
