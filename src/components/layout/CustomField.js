@@ -2,12 +2,12 @@ import { Field, ErrorMessage } from "formik";
 const CustomField = ({ type, name, labelText }) => {
   return (
     <div>
-      <div className="outline relative border rounded-md focus-within:border-blue-500">
+      <div className="outline relative rounded-md focus-within:border-blue-500">
         <Field
           type={type}
           name={name}
           placeholder=" "
-          className="block w-full p-2 bg-transparent text-base appearance-none focus:outline-none "
+          className="block w-full p-2 bg-transparent text-base appearance-none"
         />
         <label
           htmlFor={name}
