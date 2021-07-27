@@ -3,7 +3,9 @@ import { useRouteMatch } from "react-router-dom";
 
 import { companyQuery } from "../utilities/queries";
 import CompanyHeading from "./CompanyHeading";
-import CompanyContent from "./CompanyContent";
+import CompanyTab from "./CompanyTab";
+import CompanyDetails from "./CompanyDetails";
+import CompanyTabPagination from "./CompanyTabPagination";
 
 const Company = () => {
   const {
@@ -19,7 +21,15 @@ const Company = () => {
   return (
     <div>
       <CompanyHeading company={company} />
-      <CompanyContent />
+      <div className="pt-8 pb-16">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <CompanyTab />
+
+          <CompanyDetails />
+
+          <CompanyTabPagination />
+        </div>
+      </div>
     </div>
   );
 };

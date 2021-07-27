@@ -53,7 +53,7 @@ const CompanyHeading = ({ company }) => {
           </nav>
 
           <div className="flex flex-row mt-2">
-            <div className="flex bg-gray-700 p-1 mr-4 rounded-lg">
+            <div className="flex bg-purple-500 p-1 mr-4 rounded-lg">
               <div href="#" className="w-full group block">
                 <div className="flex items-center">
                   <div>
@@ -123,7 +123,9 @@ const CompanyHeading = ({ company }) => {
               </div>
             </div>
           </div>
+          <div className="mt-2 text-gray-500">{company.description} </div>
         </div>
+
         <div className="mt-5 flex xl:mt-0 xl:ml-4">
           <span className="hidden sm:block">
             <button
@@ -216,44 +218,45 @@ const CompanyHeading = ({ company }) => {
                   </div>
                 </div>
 
-                <ul
-                  className="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0"
-                  tabIndex="-1"
-                  role="listbox"
-                  aria-labelledby="listbox-label"
-                  aria-activedescendant="listbox-option-0"
-                >
-                  <li
-                    className="text-gray-900 cursor-default select-none relative p-4 text-sm"
-                    id="listbox-option-0"
-                    role="option"
+                {false && (
+                  <ul
+                    className="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0"
+                    tabIndex="-1"
+                    role="listbox"
+                    aria-labelledby="listbox-label"
+                    aria-activedescendant="listbox-option-0"
                   >
-                    <div className="flex flex-col">
-                      <div className="flex justify-between">
-                        <p className="font-normal">Published</p>
-                        <span className="text-purple-500">
-                          <svg
-                            className="h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
+                    <li
+                      className="text-gray-900 cursor-default select-none relative p-4 text-sm"
+                      id="listbox-option-0"
+                      role="option"
+                    >
+                      <div className="flex flex-col">
+                        <div className="flex justify-between">
+                          <p className="font-normal">Subscribe</p>
+                          <span className="text-purple-500">
+                            <svg
+                              className="h-5 w-5"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <p className="text-gray-500 mt-2">
+                          Subscribe to watch events for this Entity
+                        </p>
                       </div>
-                      <p className="text-gray-500 mt-2">
-                        This job posting can be viewed by anyone who has the
-                        link.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           </span>
@@ -281,32 +284,34 @@ const CompanyHeading = ({ company }) => {
                 />
               </svg>
             </button>
-            <div
-              className="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="mobile-menu-button"
-              tabIndex="-1"
-            >
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm text-gray-700"
-                role="menuitem"
+            {false && (
+              <div
+                className="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="mobile-menu-button"
                 tabIndex="-1"
-                id="mobile-menu-item-0"
               >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm text-gray-700"
-                role="menuitem"
-                tabIndex="-1"
-                id="mobile-menu-item-1"
-              >
-                View
-              </a>
-            </div>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="mobile-menu-item-0"
+                >
+                  Edit
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="mobile-menu-item-1"
+                >
+                  View
+                </a>
+              </div>
+            )}
           </span>
         </div>
       </div>
