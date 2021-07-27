@@ -4,7 +4,7 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/solid";
 
-const CompanyDetails = () => {
+const UserItem = () => {
   return (
     <div>
       <ul
@@ -58,4 +58,4 @@ const CompanyDetails = () => {
     </div>
   );
 };
-export default CompanyDetails;
+export default UserItem;

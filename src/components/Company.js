@@ -2,10 +2,10 @@ import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 
 import { companyQuery } from "../utilities/queries";
-import CompanyHeading from "./CompanyHeading";
-import CompanyTab from "./CompanyTab";
-import CompanyDetails from "./CompanyDetails";
-import CompanyTabPagination from "./CompanyTabPagination";
+import CompanyHeading from "./company/CompanyHeading";
+import CompanyTab from "./company/CompanyTab";
+import UserItem from "./company/UserItem";
+import CompanyTabPagination from "./company/CompanyTabPagination";
 
 const Company = () => {
   const {
@@ -25,7 +25,7 @@ const Company = () => {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <CompanyTab />
 
-          <CompanyDetails />
+          <UserItem />
 
           <CompanyTabPagination />
         </div>

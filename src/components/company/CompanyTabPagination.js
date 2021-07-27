@@ -39,7 +39,6 @@ const CompanyTabPagination = () => {
           className="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200"
         >
           Next
-          {/* <!-- Heroicon name: solid/arrow-narrow-right --> */}
           <ArrowNarrowRightIcon className="ml-3 h-5 w-5 text-gray-400" />
         </a>
       </div>
