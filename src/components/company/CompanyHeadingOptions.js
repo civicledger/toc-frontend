@@ -4,29 +4,50 @@ import {
   LinkIcon,
   CheckIcon,
   ChevronDownIcon,
+  AnnotationIcon,
 } from "@heroicons/react/solid";
 
 import { LoginContext } from "../../utilities/reducers";
+import MembershipService from "../../services/MembershipService";
+import SubscriptionService from "../../services/SubscriptionService";
+
+const membershipService = new MembershipService();
+const subscriptionService = new SubscriptionService();
 
 const CompanyHeadingOptions = ({ company }) => {
   const {
     login: { user },
   } = useContext(LoginContext);
 
-  if (!company) return "";
-
   const companyUser = company.users.find((e) => {
     return e.id === user.id;
   });
 
-  const relationship = companyUser.relationship;
+  if (!company) return "";
 
-  const isOwner = relationship.type === 1 ? true : false;
+  const relationship = companyUser?.relationship;
+
+  const isOwner = relationship?.type === 1 ? true : false;
   const isMember =
-    relationship.type === 2 && relationship.pending === false ? true : false;
+    relationship?.type === 2 && relationship?.pending === false ? true : false;
   const isPendingMember =
-    relationship.type === 2 && relationship.pending === true ? true : false;
-  const canJoin = relationship.type === 3 ? true : false;
+    relationship?.type === 2 && relationship?.pending === true ? true : false;
+  const isSubscribed = relationship?.type === 3 ? true : false;
+  const isKnownUser = companyUser ? true : false;
+
+  const onSubscribe = () => {
+    subscriptionService
+      .create({ companyId: company.id })
+      .then(window.location.reload())
+      .catch(console.log("error"));
+  };
+
+  const onJoin = () => {
+    membershipService
+      .create({ companyId: company.id })
+      .then(window.location.reload())
+      .catch(console.log("error"));
+  };
 
   return (
     <div className="mt-5 flex xl:mt-0 xl:ml-4">
@@ -41,19 +62,17 @@ const CompanyHeadingOptions = ({ company }) => {
           </button>
         </span>
       )}
-
       {isMember && (
         <span className="hidden sm:block ml-3">
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+            className="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-md shadow-sm text-white"
           >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            <CheckIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
             Joined
           </button>
         </span>
       )}
-
       {isPendingMember && (
         <span className="hidden sm:block ml-3">
           <button
@@ -65,12 +84,12 @@ const CompanyHeadingOptions = ({ company }) => {
           </button>
         </span>
       )}
-
-      {canJoin && (
+      {!isMember && !isOwner && !isPendingMember && (
         <span className="hidden sm:block ml-3">
           <button
             type="button"
             className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+            onClick={() => onJoin()}
           >
             <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
             Join
@@ -78,7 +97,25 @@ const CompanyHeadingOptions = ({ company }) => {
         </span>
       )}
 
-      {!isOwner && (
+      {!isSubscribed && !isOwner && (
+        <span className="sm:ml-3 relative z-0">
+          <div className="relative">
+            <div className="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
+              <div className="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
+                <button
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+                  onClick={() => onSubscribe()}
+                >
+                  <AnnotationIcon className="h-5 w-5" />
+                  <p className="ml-2.5 text-sm font-medium">Subscribe</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </span>
+      )}
+
+      {!isOwner && isKnownUser && isSubscribed && (
         <span className="sm:ml-3 relative z-0">
           <div className="relative">
             <div className="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
