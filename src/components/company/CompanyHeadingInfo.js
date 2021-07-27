@@ -16,7 +16,6 @@ const companyTypes = [
 ];
 
 const CompanyHeadingInfo = ({ company }) => {
-  console.log(company);
   return (
     <div className="flex-1 min-w-0">
       <nav className="flex" aria-label="Breadcrumb">

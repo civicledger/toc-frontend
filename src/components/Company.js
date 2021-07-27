@@ -4,7 +4,6 @@ import { useRouteMatch } from "react-router-dom";
 import { companyQuery } from "../utilities/queries";
 import CompanyHeading from "./company/CompanyHeading";
 import CompanyTab from "./company/CompanyTab";
-import UserItem from "./company/UserItem";
 import CompanyTabPagination from "./company/CompanyTabPagination";
 
 const Company = () => {
@@ -23,9 +22,7 @@ const Company = () => {
       <CompanyHeading company={company} />
       <div className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <CompanyTab />
-
-          <UserItem />
+          <CompanyTab company={company} />
 
           <CompanyTabPagination />
         </div>

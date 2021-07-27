@@ -13,83 +13,85 @@ const CompanyHeadingOptions = ({ company }) => {
     login: { user },
   } = useContext(LoginContext);
 
+  if (!company) return "";
+
+  const companyUser = company.users.find((e) => {
+    return e.id === user.id;
+  });
+
+  const relationship = companyUser.relationship;
+
+  const isOwner = relationship.type === 1 ? true : false;
+  const isMember =
+    relationship.type === 2 && relationship.pending === false ? true : false;
+  const isPendingMember =
+    relationship.type === 2 && relationship.pending === true ? true : false;
+  const canJoin = relationship.type === 3 ? true : false;
+
   return (
     <div className="mt-5 flex xl:mt-0 xl:ml-4">
-      <span className="hidden sm:block">
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-        >
-          <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
-          Edit
-        </button>
-      </span>
+      {isOwner && (
+        <span className="hidden sm:block">
+          <button
+            type="button"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+          >
+            <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            Edit
+          </button>
+        </span>
+      )}
 
-      <span className="hidden sm:block ml-3">
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-        >
-          <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
-          Join
-        </button>
-      </span>
+      {isMember && (
+        <span className="hidden sm:block ml-3">
+          <button
+            type="button"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+          >
+            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            Joined
+          </button>
+        </span>
+      )}
 
-      <span className="sm:ml-3 relative z-0">
-        <div>
-          <label id="listbox-label" className="sr-only">
-            Change subscription status
-          </label>
+      {isPendingMember && (
+        <span className="hidden sm:block ml-3">
+          <button
+            type="button"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+          >
+            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            Pending join request
+          </button>
+        </span>
+      )}
+
+      {canJoin && (
+        <span className="hidden sm:block ml-3">
+          <button
+            type="button"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+          >
+            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            Join
+          </button>
+        </span>
+      )}
+
+      {!isOwner && (
+        <span className="sm:ml-3 relative z-0">
           <div className="relative">
             <div className="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
               <div className="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
-                <div className="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white">
+                <div className="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-md shadow-sm text-white">
                   <CheckIcon className="h-5 w-5" />
                   <p className="ml-2.5 text-sm font-medium">Subscribed</p>
                 </div>
-                <button
-                  type="button"
-                  className="relative inline-flex items-center bg-purple-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-purple-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-                  aria-haspopup="listbox"
-                  aria-expanded="true"
-                  aria-labelledby="listbox-label"
-                >
-                  <span className="sr-only">Change subscription status</span>
-                  <ChevronDownIcon className="h-5 w-5 text-white" />
-                </button>
               </div>
             </div>
-
-            {false && (
-              <ul
-                className="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0"
-                tabIndex="-1"
-                role="listbox"
-                aria-labelledby="listbox-label"
-                aria-activedescendant="listbox-option-0"
-              >
-                <li
-                  className="text-gray-900 cursor-default select-none relative p-4 text-sm"
-                  id="listbox-option-0"
-                  role="option"
-                >
-                  <div className="flex flex-col">
-                    <div className="flex justify-between">
-                      <p className="font-normal">Subscribe</p>
-                      <span className="text-purple-500">
-                        <CheckIcon className="h-5 w-5" />
-                      </span>
-                    </div>
-                    <p className="text-gray-500 mt-2">
-                      Subscribe to watch events for this Entity
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            )}
           </div>
-        </div>
-      </span>
+        </span>
+      )}
 
       <span className="ml-3 relative sm:hidden">
         <button
