@@ -13,7 +13,7 @@ const UserHome = () => {
     <QueryClientProvider client={queryClient}>
       <div className="grid grid-cols-5 min-h-screen">
         <UserNav />
-        <div className="p-10">
+        <div className="p-10 col-span-4">
           <Switch>
             <Route path="/" exact>
               <UserDashboard />
