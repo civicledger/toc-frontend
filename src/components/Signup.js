@@ -17,11 +17,13 @@ const Signup = () => {
     <div className="flex min-h-screen">
       <Formik
         initialValues={{
+          name: "",
           email: "",
           password: "",
           confirmPassword: "",
         }}
         validationSchema={Yup.object({
+          name: Yup.string().required("Required"),
           email: Yup.string()
             .email("Invalid email address")
             .required("Required"),
@@ -33,7 +35,12 @@ const Signup = () => {
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
           authService
-            .signup(values.email, values.password, values.confirmPassword)
+            .signup(
+              values.name,
+              values.email,
+              values.password,
+              values.confirmPassword
+            )
             .then(() => {
               setSuccess(true);
               setTimeout(() => {
@@ -56,6 +63,7 @@ const Signup = () => {
               Sign Up
             </h1>
             <div className="space-y-4">
+              <CustomField type="text" name="name" labelText="Name" />
               <CustomField type="email" name="email" labelText="Email" />
               <CustomField
                 type="password"

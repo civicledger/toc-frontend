@@ -2,6 +2,9 @@ import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 
 import { companyQuery } from "../utilities/queries";
+import CompanyHeading from "./company/CompanyHeading";
+import CompanyTab from "./company/CompanyTab";
+import CompanyTabPagination from "./company/CompanyTabPagination";
 
 const Company = () => {
   const {
@@ -12,11 +15,17 @@ const Company = () => {
     keepPreviousData: true,
   });
 
+  if (!company) return "";
+
   return (
-    <div className="flex min-h-screen">
-      <div className="w-full p-10 max-w-md m-auto rounded-lg border border-primary flex justify-between">
-        <h2 className="text-xl font-semibold">Entity:</h2>
-        <h2 className="text-xl">{company?.name}</h2>
+    <div>
+      <CompanyHeading company={company} />
+      <div className="pt-8 pb-16">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <CompanyTab company={company} />
+
+          <CompanyTabPagination />
+        </div>
       </div>
     </div>
   );
