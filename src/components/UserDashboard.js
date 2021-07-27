@@ -11,7 +11,7 @@ const UserDashboard = () => {
   if (!user) return "";
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex">
       <div className="w-full p-10 max-w-md m-auto rounded-lg border border-primary grid grid-cols-1">
         <div className="flex justify-between">
           <h2 className="text-xl font-semibold">User:</h2>
