@@ -19,21 +19,28 @@ const CompanyHeadingOptions = ({ company }) => {
     login: { user },
   } = useContext(LoginContext);
 
-  const companyUser = company.users.find((e) => {
+  if (!company) return "";
+
+  const companyUsers = company.users.filter((e) => {
     return e.id === user.id;
   });
 
-  if (!company) return "";
+  let isOwner = false;
+  let isMember = false;
+  let isPendingMember = false;
+  let isSubscribed = false;
+  let isKnownUser = false;
 
-  const relationship = companyUser?.relationship;
-
-  const isOwner = relationship?.type === 1 ? true : false;
-  const isMember =
-    relationship?.type === 2 && relationship?.pending === false ? true : false;
-  const isPendingMember =
-    relationship?.type === 2 && relationship?.pending === true ? true : false;
-  const isSubscribed = relationship?.type === 3 ? true : false;
-  const isKnownUser = companyUser ? true : false;
+  companyUsers.forEach((companyUser) => {
+    let relationship = companyUser.relationship;
+    if (relationship?.type === 1) isOwner = true;
+    if (relationship?.type === 2 && relationship?.pending === false)
+      isMember = true;
+    if (relationship?.type === 2 && relationship?.pending === true)
+      isPendingMember = true;
+    if (relationship?.type === 3) isSubscribed = true;
+    if ((isKnownUser = companyUser)) isKnownUser = true;
+  });
 
   const onSubscribe = () => {
     subscriptionService
@@ -149,7 +156,7 @@ const CompanyHeadingOptions = ({ company }) => {
             aria-labelledby="mobile-menu-button"
             tabIndex="-1"
           >
-            <a
+            <button
               href="#"
               className="block px-4 py-2 text-sm text-gray-700"
               role="menuitem"
@@ -157,8 +164,8 @@ const CompanyHeadingOptions = ({ company }) => {
               id="mobile-menu-item-0"
             >
               Edit
-            </a>
-            <a
+            </button>
+            <button
               href="#"
               className="block px-4 py-2 text-sm text-gray-700"
               role="menuitem"
@@ -166,7 +173,7 @@ const CompanyHeadingOptions = ({ company }) => {
               id="mobile-menu-item-1"
             >
               View
-            </a>
+            </button>
           </div>
         )}
       </span>
