@@ -39,20 +39,26 @@ const CompanyHeadingOptions = ({ company }) => {
     if (relationship?.type === 2 && relationship?.pending === true)
       isPendingMember = true;
     if (relationship?.type === 3) isSubscribed = true;
-    if ((isKnownUser = companyUser)) isKnownUser = true;
+    if (isKnownUser === companyUser) isKnownUser = true;
   });
 
   const onSubscribe = () => {
     subscriptionService
       .create({ companyId: company.id })
-      .then(window.location.reload())
+      .then(() => {
+        console.log("success subscribe");
+        isSubscribed = true;
+      })
       .catch(console.log("error"));
   };
 
   const onJoin = () => {
     membershipService
       .create({ companyId: company.id })
-      .then(window.location.reload())
+      .then(() => {
+        console.log("success member");
+        isPendingMember = true;
+      })
       .catch(console.log("error"));
   };
 
