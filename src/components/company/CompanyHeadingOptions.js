@@ -25,38 +25,62 @@ const CompanyHeadingOptions = ({ company }) => {
     return e.id === user.id;
   });
 
-  let isOwner = false;
-  let isMember = false;
-  let isPendingMember = false;
-  let isSubscribed = false;
-  let isKnownUser = false;
-
-  companyUsers.forEach((companyUser) => {
-    let relationship = companyUser.relationship;
-    if (relationship?.type === 1) isOwner = true;
-    if (relationship?.type === 2 && relationship?.pending === false)
-      isMember = true;
-    if (relationship?.type === 2 && relationship?.pending === true)
-      isPendingMember = true;
-    if (relationship?.type === 3) isSubscribed = true;
-    if (isKnownUser === companyUser) isKnownUser = true;
+  const canEdit = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return companyUser.relationship.type === 1;
   });
 
-  const onSubscribe = () => {
+  const isMember = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return (
+      companyUser.relationship.type === 2 &&
+      companyUser.relationship.pending === false
+    );
+  });
+
+  const isPendingMember = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return (
+      companyUser.relationship.type === 2 &&
+      companyUser.relationship.pending === true
+    );
+  });
+
+  const canJoin = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return companyUser.relationship.type !== 1 && !isMember && !isPendingMember;
+  });
+
+  const isSubscribed = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return companyUser.relationship.type === 3;
+  });
+
+  const canSubscribe = companyUsers.some((companyUser) => {
+    console.log(companyUser.relationship);
+    return companyUser.relationship.type !== 1 && !isSubscribed;
+  });
+
+  console.log("canEdit", canEdit);
+  console.log("isMember", isMember);
+  console.log("isPendingMember", isPendingMember);
+  console.log("canJoin", canJoin);
+  console.log("isSubscribed", isSubscribed);
+  console.log("canSubscribe", canSubscribe);
+
+  const createSubscriber = () => {
     subscriptionService
       .create({ companyId: company.id })
       .then(() => {
-        console.log("success subscribe");
         isSubscribed = true;
       })
       .catch(console.log("error"));
   };
 
-  const onJoin = () => {
+  const createMember = () => {
     membershipService
       .create({ companyId: company.id })
       .then(() => {
-        console.log("success member");
         isPendingMember = true;
       })
       .catch(console.log("error"));
@@ -64,7 +88,7 @@ const CompanyHeadingOptions = ({ company }) => {
 
   return (
     <div className="mt-5 flex xl:mt-0 xl:ml-4">
-      {isOwner && (
+      {canEdit && (
         <span className="hidden sm:block">
           <button
             type="button"
@@ -72,6 +96,18 @@ const CompanyHeadingOptions = ({ company }) => {
           >
             <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
             Edit
+          </button>
+        </span>
+      )}
+      {canJoin && (
+        <span className="hidden sm:block ml-3">
+          <button
+            type="button"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
+            onClick={() => createMember()}
+          >
+            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
+            Join
           </button>
         </span>
       )}
@@ -97,27 +133,15 @@ const CompanyHeadingOptions = ({ company }) => {
           </button>
         </span>
       )}
-      {!isMember && !isOwner && !isPendingMember && (
-        <span className="hidden sm:block ml-3">
-          <button
-            type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-            onClick={() => onJoin()}
-          >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
-            Join
-          </button>
-        </span>
-      )}
 
-      {!isSubscribed && !isOwner && (
+      {canSubscribe && (
         <span className="sm:ml-3 relative z-0">
           <div className="relative">
             <div className="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
               <div className="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
                 <button
                   className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-                  onClick={() => onSubscribe()}
+                  onClick={() => createSubscriber()}
                 >
                   <AnnotationIcon className="h-5 w-5" />
                   <p className="ml-2.5 text-sm font-medium">Subscribe</p>
@@ -128,7 +152,7 @@ const CompanyHeadingOptions = ({ company }) => {
         </span>
       )}
 
-      {!isOwner && isKnownUser && isSubscribed && (
+      {isSubscribed && (
         <span className="sm:ml-3 relative z-0">
           <div className="relative">
             <div className="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
