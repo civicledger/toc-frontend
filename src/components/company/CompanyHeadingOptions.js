@@ -4,7 +4,6 @@ import {
   PencilIcon,
   LinkIcon,
   CheckIcon,
-  ChevronDownIcon,
   AnnotationIcon,
 } from "@heroicons/react/solid";
 
