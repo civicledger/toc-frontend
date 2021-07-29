@@ -40,7 +40,7 @@ const CompanyHeadingInfo = ({ company }) => {
 
       <div className="flex mt-2">
         <div className="flex-none mr-4 ">
-          <div className="bg-purple-500 p-1 rounded-lg">
+          <div className="bg-purple-500 p-0.5 rounded-lg">
             <div className="w-full group block">
               <div className="flex items-center">
                 <div>

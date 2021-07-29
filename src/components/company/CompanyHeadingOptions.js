@@ -32,12 +32,16 @@ const CompanyHeadingOptions = ({ company }) => {
     ({ relationship }) => !relationship.pending && relationship.type === 2
   );
 
+  const isPendingMember = userFilter.some(
+    ({ relationship }) => relationship.pending && relationship.type === 2
+  );
+
   const isSubscribed = userFilter.some(
     ({ relationship }) => relationship.type === 3
   );
 
   const canSubscribe = !isSubscribed && !isOwner;
-  const canJoin = !isMember && !isOwner;
+  const canJoin = !isMember && !isOwner && !isPendingMember;
 
   const createSubscriber = () => {
     subscriptionService
