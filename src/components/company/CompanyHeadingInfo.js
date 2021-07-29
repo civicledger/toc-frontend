@@ -22,10 +22,7 @@ const CompanyHeadingInfo = ({ company }) => {
         <ol className="flex items-center space-x-4">
           <li>
             <div>
-              <button
-                href="#"
-                className="text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <button className="text-sm font-medium text-gray-500 hover:text-gray-700">
                 All Entities
               </button>
             </div>
@@ -33,10 +30,7 @@ const CompanyHeadingInfo = ({ company }) => {
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <button
-                href="#"
-                className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <button className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
                 {company.name}
               </button>
             </div>
@@ -46,7 +40,7 @@ const CompanyHeadingInfo = ({ company }) => {
 
       <div className="flex flex-row mt-2">
         <div className="flex bg-purple-500 p-1 mr-4 rounded-lg">
-          <div href="#" className="w-full group block">
+          <div className="w-full group block">
             <div className="flex items-center">
               <div>
                 <img
