@@ -38,16 +38,18 @@ const CompanyHeadingInfo = ({ company }) => {
         </ol>
       </nav>
 
-      <div className="flex flex-row mt-2">
-        <div className="flex bg-purple-500 p-1 mr-4 rounded-lg">
-          <div className="w-full group block">
-            <div className="flex items-center">
-              <div>
-                <img
-                  className="inline-block h-16 w-16 rounded-lg"
-                  src={company.logo}
-                  alt=""
-                />
+      <div className="flex mt-2">
+        <div className="flex-none mr-4 ">
+          <div className="bg-purple-500 p-1 rounded-lg">
+            <div className="w-full group block">
+              <div className="flex items-center">
+                <div>
+                  <img
+                    className="inline-block h-24 w-24 rounded-lg"
+                    src={company.logo}
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -78,7 +80,7 @@ const CompanyHeadingInfo = ({ company }) => {
           </div>
         </div>
       </div>
-      <div className="mt-2 text-gray-500">{company.description} </div>
+      <div className="mt-4 text-gray-500">{company.description} </div>
     </div>
   );
 };
