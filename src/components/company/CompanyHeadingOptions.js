@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useQueryClient } from "react-query";
 import {
   PencilIcon,
   LinkIcon,
@@ -15,6 +16,7 @@ const membershipService = new MembershipService();
 const subscriptionService = new SubscriptionService();
 
 const CompanyHeadingOptions = ({ company }) => {
+  const queryClient = useQueryClient();
   const {
     login: { user },
   } = useContext(LoginContext);
@@ -25,13 +27,11 @@ const CompanyHeadingOptions = ({ company }) => {
     return e.id === user.id;
   });
 
-  const canEdit = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
+  const isOwner = companyUsers.some((companyUser) => {
     return companyUser.relationship.type === 1;
   });
 
   const isMember = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
     return (
       companyUser.relationship.type === 2 &&
       companyUser.relationship.pending === false
@@ -39,51 +39,36 @@ const CompanyHeadingOptions = ({ company }) => {
   });
 
   const isPendingMember = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
     return (
       companyUser.relationship.type === 2 &&
       companyUser.relationship.pending === true
     );
   });
 
-  const canJoin = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
-    return companyUser.relationship.type !== 1 && !isMember && !isPendingMember;
-  });
-
   const isSubscribed = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
     return companyUser.relationship.type === 3;
   });
 
-  const canSubscribe = companyUsers.some((companyUser) => {
-    console.log(companyUser.relationship);
-    return companyUser.relationship.type !== 1 && !isSubscribed;
-  });
-
-  console.log("canEdit", canEdit);
-  console.log("isMember", isMember);
-  console.log("isPendingMember", isPendingMember);
-  console.log("canJoin", canJoin);
-  console.log("isSubscribed", isSubscribed);
-  console.log("canSubscribe", canSubscribe);
+  const canEdit = isOwner;
+  const canSubscribe = !isSubscribed && !isOwner;
+  const canJoin = !isMember && !isOwner && !isPendingMember;
 
   const createSubscriber = () => {
     subscriptionService
       .create({ companyId: company.id })
       .then(() => {
-        isSubscribed = true;
+        queryClient.invalidateQueries("companies");
       })
-      .catch(console.log("error"));
+      .catch((error) => console.log(error));
   };
 
   const createMember = () => {
     membershipService
       .create({ companyId: company.id })
       .then(() => {
-        isPendingMember = true;
+        queryClient.invalidateQueries("companies");
       })
-      .catch(console.log("error"));
+      .catch((error) => console.log(error));
   };
 
   return (
