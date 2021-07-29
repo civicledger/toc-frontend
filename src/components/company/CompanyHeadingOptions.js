@@ -23,35 +23,31 @@ const CompanyHeadingOptions = ({ company }) => {
 
   if (!company) return "";
 
-  const companyUsers = company.users.filter((e) => {
-    return e.id === user.id;
-  });
+  const userFilter = company.users.filter(({ id }) => id === user.id);
 
-  const isOwner = companyUsers.some((companyUser) => {
-    return companyUser.relationship.type === 1;
-  });
+  const isOwner = userFilter.some(
+    ({ relationship }) => relationship.type === 1
+  );
 
-  const isMember = companyUsers.some((companyUser) => {
-    return (
-      companyUser.relationship.type === 2 &&
-      companyUser.relationship.pending === false
-    );
-  });
+  const isMember = userFilter.some(
+    ({ relationship }) => !relationship.pending && relationship.type === 2
+  );
 
-  const isPendingMember = companyUsers.some((companyUser) => {
-    return (
-      companyUser.relationship.type === 2 &&
-      companyUser.relationship.pending === true
-    );
-  });
+  const isSubscribed = userFilter.some(
+    ({ relationship }) => relationship.type === 3
+  );
 
-  const isSubscribed = companyUsers.some((companyUser) => {
-    return companyUser.relationship.type === 3;
-  });
+  console.log(
+    "isOwner",
+    isOwner,
+    "isMember",
+    isMember,
+    "isSubscribed",
+    isSubscribed
+  );
 
-  const canEdit = isOwner;
   const canSubscribe = !isSubscribed && !isOwner;
-  const canJoin = !isMember && !isOwner && !isPendingMember;
+  const canJoin = !isMember && !isOwner;
 
   const createSubscriber = () => {
     subscriptionService
@@ -73,7 +69,7 @@ const CompanyHeadingOptions = ({ company }) => {
 
   return (
     <div className="mt-5 flex xl:mt-0 xl:ml-4">
-      {canEdit && (
+      {isOwner && (
         <span className="hidden sm:block">
           <button
             type="button"
@@ -104,17 +100,6 @@ const CompanyHeadingOptions = ({ company }) => {
           >
             <CheckIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
             Joined
-          </button>
-        </span>
-      )}
-      {isPendingMember && (
-        <span className="hidden sm:block ml-3">
-          <button
-            type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500"
-          >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" />
-            Pending join request
           </button>
         </span>
       )}
