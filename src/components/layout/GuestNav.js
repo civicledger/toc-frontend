@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 const GuestNav = () => {
   return (
-    <nav className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500">
-      <div className="p-2 text-xl text-white grid grid-cols-2 flex justify-between">
+    <nav className="bg-white">
+      <div className="p-2 text-xl text-gray-700 grid grid-cols-2 flex justify-between border-b border-l border-r">
         <div className="flex justify-start">
           <div className="p-2">
             <NavLink to="/" exact>

@@ -19,41 +19,37 @@ const CompanyHeadingInfo = ({ company }) => {
   return (
     <div className="flex-1 min-w-0">
       <nav className="flex" aria-label="Breadcrumb">
-        <ol className="flex items-center space-x-4" role="list">
+        <ol className="flex items-center space-x-4">
           <li>
             <div>
-              <a
-                href="#"
-                className="text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <button className="text-sm font-medium text-gray-500 hover:text-gray-700">
                 All Entities
-              </a>
+              </button>
             </div>
           </li>
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <a
-                href="#"
-                className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <button className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
                 {company.name}
-              </a>
+              </button>
             </div>
           </li>
         </ol>
       </nav>
 
-      <div className="flex flex-row mt-2">
-        <div className="flex bg-purple-500 p-1 mr-4 rounded-lg">
-          <div href="#" className="w-full group block">
-            <div className="flex items-center">
-              <div>
-                <img
-                  className="inline-block h-16 w-16 rounded-lg"
-                  src={company.logo}
-                  alt=""
-                />
+      <div className="flex mt-2">
+        <div className="flex-none mr-4 ">
+          <div className="bg-purple-500 p-0.5 rounded-lg">
+            <div className="w-full group block">
+              <div className="flex items-center">
+                <div>
+                  <img
+                    className="inline-block h-24 w-24 rounded-lg"
+                    src={company.logo}
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -84,7 +80,7 @@ const CompanyHeadingInfo = ({ company }) => {
           </div>
         </div>
       </div>
-      <div className="mt-2 text-gray-500">{company.description} </div>
+      <div className="mt-4 text-gray-500">{company.description} </div>
     </div>
   );
 };

@@ -23,10 +23,6 @@ const navigation = [
   { name: "Find Location", icon: MapIcon, href: "/locations", current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const authService = new AuthService();
 
 const UserNav = () => {
