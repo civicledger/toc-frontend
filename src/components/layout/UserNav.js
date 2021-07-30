@@ -73,7 +73,7 @@ const UserNav = () => {
         </nav>
       </div>
       <div className="flex-shrink-0 flex bg-gray-700 p-4">
-        <div href="#" className="flex-shrink-0 w-full group block">
+        <div href="#" className="flex-shrink-0 w-full block">
           <div className="flex items-center">
             <div>
               <img
@@ -85,7 +85,7 @@ const UserNav = () => {
             <div className="ml-3 flex-grow">
               <p className="text-sm font-medium text-white">{user.name}</p>
               <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
-                <Link to="/profile">View profile</Link>
+                <Link to="/profiles">View profile</Link>
               </p>
             </div>
             <div

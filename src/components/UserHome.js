@@ -4,8 +4,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import UserNav from "./layout/UserNav";
 import UserDashboard from "./UserDashboard";
 import CompanyForm from "./CompanyForm";
-import Company from "./Company";
+import Company from "./pages/Company";
 import Companies from "./pages/Companies";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,7 @@ const UserHome = () => {
     <QueryClientProvider client={queryClient}>
       <div className="grid grid-cols-5 min-h-screen">
         <UserNav />
-        <div className="p-10 col-span-4">
+        <div className="col-span-4">
           <Switch>
             <Route path="/" exact>
               <UserDashboard />
@@ -22,11 +23,17 @@ const UserHome = () => {
             <Route path="/entities/new">
               <CompanyForm />
             </Route>
-            <Route path="/entities">
+            <Route path="/entities" exact>
               <Companies />
             </Route>
             <Route path="/entities/:id">
               <Company />
+            </Route>
+            <Route path="/profiles">
+              <Profile />
+            </Route>
+            <Route path="/profiles/:id">
+              <Profile />
             </Route>
           </Switch>
         </div>

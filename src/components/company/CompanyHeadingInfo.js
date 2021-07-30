@@ -1,4 +1,4 @@
-import { shortDate } from "../../utilities/format";
+import { Link } from "react-router-dom";
 import {
   BriefcaseIcon,
   ChevronRightIcon,
@@ -6,14 +6,16 @@ import {
   CalendarIcon,
 } from "@heroicons/react/solid";
 
-const companyTypes = [
-  "Company",
-  "Community Group",
-  "Government Agency",
-  "Investor",
-  "NFP",
-  "MultiNational Company",
-];
+import { shortDate } from "../../utilities/format";
+
+const companyTypes = {
+  1: "Company",
+  2: "Community Group",
+  3: "Government Agency",
+  4: "Investor",
+  5: "NFP",
+  6: "MultiNational Company",
+};
 
 const CompanyHeadingInfo = ({ company }) => {
   return (
@@ -22,35 +24,32 @@ const CompanyHeadingInfo = ({ company }) => {
         <ol className="flex items-center space-x-4" role="list">
           <li>
             <div>
-              <a
-                href="#"
+              <Link
+                to="/entities"
                 className="text-sm font-medium text-gray-500 hover:text-gray-700"
               >
                 All Entities
-              </a>
+              </Link>
             </div>
           </li>
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <a
-                href="#"
-                className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <span className="ml-4 text-sm font-medium text-gray-500">
                 {company.name}
-              </a>
+              </span>
             </div>
           </li>
         </ol>
       </nav>
 
       <div className="flex flex-row mt-2">
-        <div className="flex bg-purple-500 p-1 mr-4 rounded-lg">
-          <div href="#" className="w-full group block">
+        <div className="flex border bg-white shadow p-1 mr-4 rounded-lg">
+          <div className="w-full group block">
             <div className="flex items-center">
               <div>
                 <img
-                  className="inline-block h-16 w-16 rounded-lg"
+                  className="inline-block h-16 w-16 rounded"
                   src={company.logo}
                   alt=""
                 />
@@ -69,7 +68,7 @@ const CompanyHeadingInfo = ({ company }) => {
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-              Location
+              {company.locations.map((location) => location.name).join(", ")}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <CalendarIcon

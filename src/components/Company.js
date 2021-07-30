@@ -11,9 +11,13 @@ const Company = () => {
     params: { id },
   } = useRouteMatch();
 
-  let { data: company } = useQuery(["companies", id], () => companyQuery(id), {
-    keepPreviousData: true,
-  });
+  const { data: company } = useQuery(
+    ["companies", id],
+    () => companyQuery(id),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   if (!company) return "";
 
@@ -23,8 +27,6 @@ const Company = () => {
       <div className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <CompanyTab company={company} />
-
-          <CompanyTabPagination />
         </div>
       </div>
     </div>

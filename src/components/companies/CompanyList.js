@@ -17,7 +17,7 @@ const CompanyList = ({ companies }) => {
         {companies.map((company) => (
           <li key={company.id}>
             <Link
-              to={`/companies/${company.id}`}
+              to={`/entities/${company.id}`}
               className="block hover:bg-gray-50"
             >
               <div className="px-4 py-4 flex items-center sm:px-6">

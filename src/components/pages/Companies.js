@@ -9,7 +9,7 @@ const Companies = () => {
   const { data: companies = [] } = useQuery("getCompanies", companiesQuery);
 
   return (
-    <>
+    <div className="p-10">
       <PageHeader title="All Entities">
         <li>
           <span>Entities</span>
@@ -19,7 +19,7 @@ const Companies = () => {
       <div className="mt-10">
         <CompanyList companies={companies} />
       </div>
-    </>
+    </div>
   );
 };
 
