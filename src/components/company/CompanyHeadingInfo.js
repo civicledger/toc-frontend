@@ -21,7 +21,7 @@ const CompanyHeadingInfo = ({ company }) => {
   return (
     <div className="flex-1 min-w-0">
       <nav className="flex" aria-label="Breadcrumb">
-        <ol className="flex items-center space-x-4" role="list">
+        <ol className="flex items-center space-x-4">
           <li>
             <div>
               <Link
@@ -83,7 +83,7 @@ const CompanyHeadingInfo = ({ company }) => {
           </div>
         </div>
       </div>
-      <div className="mt-2 text-gray-500">{company.description} </div>
+      <div className="mt-4 text-gray-500">{company.description} </div>
     </div>
   );
 };
