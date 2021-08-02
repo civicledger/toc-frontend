@@ -1,12 +1,8 @@
-import CompanyService from '../services/CompanyService';
-import UserService from '../services/UserService';
-import LocationService from '../services/LocationService';
-import StrategyService from '../services/StrategyService';
-
-const companyService = new CompanyService();
-const userService = new UserService();
-const locationService = new LocationService();
-const strategyService = new StrategyService();
+import { companyService } from '../services/CompanyService';
+import { userService } from '../services/UserService';
+import { locationService } from '../services/LocationService';
+import { strategyService } from '../services/StrategyService';
+import { goalService } from '../services/GoalService';
 
 export const companiesQuery = async () => {
   const { data } = await companyService.getAll();
@@ -28,12 +24,17 @@ export const locationsQuery = async id => {
   return data;
 };
 
-export const strategiesQuery = async () => {
-  const { data } = await strategyService.getAll();
+export const strategiesQuery = async companyId => {
+  const { data } = await strategyService.getAll({ companyId });
   return data;
 };
 
 export const strategyQuery = async id => {
   const { data } = await strategyService.getOne(id);
+  return data;
+};
+
+export const goalsQuery = async id => {
+  const { data } = await goalService.getAll();
   return data;
 };

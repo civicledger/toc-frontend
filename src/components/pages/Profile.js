@@ -1,81 +1,76 @@
-import { useContext } from "react";
-import { useRouteMatch } from "react-router-dom";
-import { useQuery } from "react-query";
-import {
-  CheckIcon,
-  LocationMarkerIcon,
-  ThumbUpIcon,
-  UserIcon,
-} from "@heroicons/react/solid";
-import { LoginContext } from "../../utilities/reducers";
-import { userQuery } from "../../utilities/queries";
+import { useContext } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { CheckIcon, LocationMarkerIcon, ThumbUpIcon, UserIcon } from '@heroicons/react/solid';
+import { LoginContext } from '../../utilities/reducers';
+import { userQuery } from '../../utilities/queries';
 
 const companyTypes = {
-  1: "Company",
-  2: "Community group",
-  3: "Government agency",
-  4: "Investor",
-  5: "NFP",
-  6: "Multinational company",
+  1: 'Company',
+  2: 'Community group',
+  3: 'Government agency',
+  4: 'Investor',
+  5: 'NFP',
+  6: 'Multinational company',
 };
 
 const companyUserRelationshipTypes = {
-  1: "Owner",
-  2: "Member",
-  3: "Subscriber",
+  1: 'Owner',
+  2: 'Member',
+  3: 'Subscriber',
 };
 
 const eventTypes = {
-  applied: { icon: UserIcon, bgColorClass: "bg-gray-400" },
-  advanced: { icon: ThumbUpIcon, bgColorClass: "bg-blue-500" },
-  location: { icon: LocationMarkerIcon, bgColorClass: "bg-red-400" },
-  completed: { icon: CheckIcon, bgColorClass: "bg-green-500" },
+  applied: { icon: UserIcon, bgColorClass: 'bg-gray-400' },
+  advanced: { icon: ThumbUpIcon, bgColorClass: 'bg-blue-500' },
+  location: { icon: LocationMarkerIcon, bgColorClass: 'bg-red-400' },
+  completed: { icon: CheckIcon, bgColorClass: 'bg-green-500' },
 };
 const timeline = [
   {
     id: 1,
     type: eventTypes.applied,
-    content: "Joined Platform",
-    target: "Inclusive Growth",
-    date: "Sep 20",
-    datetime: "2020-09-20",
+    content: 'Joined Platform',
+    target: 'Inclusive Growth',
+    date: 'Sep 20',
+    datetime: '2020-09-20',
   },
   {
     id: 2,
     type: eventTypes.applied,
-    content: "Applied for membership",
-    target: "Civic Ledger",
-    date: "Sep 22",
-    datetime: "2020-09-22",
+    content: 'Applied for membership',
+    target: 'Civic Ledger',
+    date: 'Sep 22',
+    datetime: '2020-09-22',
   },
   {
     id: 3,
     type: eventTypes.completed,
-    content: "Membership approved",
-    target: "Civic Ledger",
-    date: "Sep 28",
-    datetime: "2020-09-28",
+    content: 'Membership approved',
+    target: 'Civic Ledger',
+    date: 'Sep 28',
+    datetime: '2020-09-28',
   },
   {
     id: 4,
     type: eventTypes.location,
     content: "Created strategy 'Water Quality Strategy`",
-    target: "Lake Eyre",
-    date: "Sep 30",
-    datetime: "2020-09-30",
+    target: 'Lake Eyre',
+    date: 'Sep 30',
+    datetime: '2020-09-30',
   },
   {
     id: 5,
     type: eventTypes.completed,
-    content: "Milestone completed",
-    target: "Water Quality Strategy",
-    date: "Oct 4",
-    datetime: "2020-10-04",
+    content: 'Milestone completed',
+    target: 'Water Quality Strategy',
+    date: 'Oct 4',
+    datetime: '2020-10-04',
   },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 const Profile = () => {
@@ -87,13 +82,11 @@ const Profile = () => {
 
   if (!id) id = login.user.id;
 
-  const { data: user } = useQuery(["users", id], () => userQuery(id), {
+  const { data: user } = useQuery(['users', id], () => userQuery(id), {
     keepPreviousData: true,
   });
 
-  if (!user) return "";
-
-  console.log(user);
+  if (!user) return '';
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -103,15 +96,8 @@ const Profile = () => {
           <div className="flex items-center space-x-5">
             <div className="flex-shrink-0">
               <div className="relative">
-                <img
-                  className="h-16 w-16 rounded-full"
-                  src={user.image}
-                  alt=""
-                />
-                <span
-                  className="absolute inset-0 shadow-inner rounded-full"
-                  aria-hidden="true"
-                />
+                <img className="h-16 w-16 rounded-full" src={user.image} alt="" />
+                <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true" />
               </div>
             </div>
             <div>
@@ -141,42 +127,27 @@ const Profile = () => {
             <section aria-labelledby="applicant-information-title">
               <div className="bg-white shadow sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6">
-                  <h2
-                    id="applicant-information-title"
-                    className="text-lg leading-6 font-medium text-gray-900"
-                  >
+                  <h2 id="applicant-information-title" className="text-lg leading-6 font-medium text-gray-900">
                     User Information
                   </h2>
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     <div className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Phone
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900">
-                        0404 240 049
-                      </dd>
+                      <dt className="text-sm font-medium text-gray-500">Phone</dt>
+                      <dd className="mt-1 text-sm text-gray-900">0404 240 049</dd>
                     </div>
                     <div className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Email address
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900">
-                        ricardocooper@example.com
-                      </dd>
+                      <dt className="text-sm font-medium text-gray-500">Email address</dt>
+                      <dd className="mt-1 text-sm text-gray-900">ricardocooper@example.com</dd>
                     </div>
 
                     <div className="sm:col-span-2">
-                      <dt className="text-sm font-medium text-gray-500">
-                        About
-                      </dt>
+                      <dt className="text-sm font-medium text-gray-500">About</dt>
                       <dd className="mt-1 text-sm text-gray-900">
-                        Fugiat ipsum ipsum deserunt culpa aute sint do nostrud
-                        anim incididunt cillum culpa consequat. Excepteur qui
-                        ipsum aliquip consequat sint. Sit id mollit nulla mollit
-                        nostrud in ea officia proident. Irure nostrud pariatur
-                        mollit ad adipisicing reprehenderit deserunt qui eu.
+                        Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
+                        consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing
+                        reprehenderit deserunt qui eu.
                       </dd>
                     </div>
                     {/* <div className="sm:col-span-2">
@@ -236,50 +207,32 @@ const Profile = () => {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Name
                         </th>
 
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Relationship
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {user.companies.map((company) => (
+                      {user.companies.map(company => (
                         <tr key={company.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-10 w-10">
-                                <img
-                                  className="h-10 w-10 rounded-full"
-                                  src={company.logo}
-                                  alt=""
-                                />
+                                <img className="h-10 w-10 rounded-full" src={company.logo} alt="" />
                               </div>
                               <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">
-                                  {company.name}
-                                </div>
-                                <div className="text-sm text-gray-500">
-                                  {companyTypes[company.type]}
-                                </div>
+                                <div className="text-sm font-medium text-gray-900">{company.name}</div>
+                                <div className="text-sm text-gray-500">{companyTypes[company.type]}</div>
                               </div>
                             </div>
                           </td>
 
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {
-                              companyUserRelationshipTypes[
-                                company.relationship.type
-                              ]
-                            }
+                            {companyUserRelationshipTypes[company.relationship.type]}
                           </td>
                         </tr>
                       ))}
@@ -394,15 +347,9 @@ const Profile = () => {
             </section> */}
           </div>
 
-          <section
-            aria-labelledby="timeline-title"
-            className="lg:col-start-3 lg:col-span-1"
-          >
+          <section aria-labelledby="timeline-title" className="lg:col-start-3 lg:col-span-1">
             <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-              <h2
-                id="timeline-title"
-                className="text-lg font-medium text-gray-900"
-              >
+              <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
                 Timeline
               </h2>
 
@@ -413,32 +360,23 @@ const Profile = () => {
                     <li key={item.id}>
                       <div className="relative pb-8">
                         {itemIdx !== timeline.length - 1 ? (
-                          <span
-                            className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
-                            aria-hidden="true"
-                          />
+                          <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                         ) : null}
                         <div className="relative flex space-x-3">
                           <div>
                             <span
                               className={classNames(
                                 item.type.bgColorClass,
-                                "h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                                'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
                               )}
                             >
-                              <item.type.icon
-                                className="w-5 h-5 text-white"
-                                aria-hidden="true"
-                              />
+                              <item.type.icon className="w-5 h-5 text-white" aria-hidden="true" />
                             </span>
                           </div>
                           <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                             <div>
                               <p className="text-sm text-gray-500">
-                                {item.content}{" "}
-                                <span className="font-medium text-gray-900">
-                                  {item.target}
-                                </span>
+                                {item.content} <span className="font-medium text-gray-900">{item.target}</span>
                               </p>
                             </div>
                             <div className="text-right text-sm whitespace-nowrap text-gray-500">
