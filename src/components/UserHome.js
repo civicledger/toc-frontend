@@ -1,12 +1,13 @@
-import { Switch, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Switch, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-import UserNav from "./layout/UserNav";
-import UserDashboard from "./UserDashboard";
-import CompanyForm from "./CompanyForm";
-import Company from "./pages/Company";
-import Companies from "./pages/Companies";
-import Profile from "./pages/Profile";
+import UserNav from './layout/UserNav';
+import UserDashboard from './UserDashboard';
+import CompanyForm from './CompanyForm';
+import Company from './pages/Company';
+import Companies from './pages/Companies';
+import Profile from './pages/Profile';
+import Strategy from './pages/Strategy';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,9 @@ const UserHome = () => {
             </Route>
             <Route path="/profiles/:id">
               <Profile />
+            </Route>
+            <Route path="/strategies/:id">
+              <Strategy />
             </Route>
           </Switch>
         </div>

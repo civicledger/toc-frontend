@@ -1,81 +1,36 @@
-import { Fragment, useState, useReducer } from "react";
-import { useRouteMatch, Link } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useReducer } from 'react';
+import { useRouteMatch, Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { BriefcaseIcon, CalendarIcon, ClockIcon, ChevronRightIcon, LocationMarkerIcon, CheckCircleIcon, MailIcon } from '@heroicons/react/solid';
 
-import { shortRawDate } from "../../utilities/format";
+import CompanyStrategies from '../company/CompanyStrategies';
 
-import {
-  BriefcaseIcon,
-  CalendarIcon,
-  ClockIcon,
-  ChevronRightIcon,
-  LocationMarkerIcon,
-  CheckCircleIcon,
-  MailIcon,
-} from "@heroicons/react/solid";
-
-import { companyQuery } from "../../utilities/queries";
+import { shortRawDate } from '../../utilities/format';
+import { companyQuery, strategiesQuery } from '../../utilities/queries';
 
 const companyTypes = {
-  1: "Company",
-  2: "Community Group",
-  3: "Government Agency",
-  4: "Investor",
-  5: "NFP",
-  6: "MultiNational Company",
-};
-
-const CompanyUserRelationshipTypes = {
-  1: "Owner",
-  2: "Member",
-  3: "Subscriber",
-};
-
-const user = {
-  name: "Whitney Francis",
-  email: "whitneyfrancis@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  1: 'Company',
+  2: 'Community Group',
+  3: 'Government Agency',
+  4: 'Investor',
+  5: 'NFP',
+  6: 'MultiNational Company',
 };
 
 const tabs = [
-  { name: "Owners", type: 1, current: true },
-  { name: "Members", type: 2, current: false },
-  { name: "Subscribers", type: 3, current: false },
-];
-const candidates = [
-  {
-    name: "Emily Selman",
-    email: "emilyselman@example.com",
-    imageUrl:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    applied: "January 7, 2020",
-    appliedDatetime: "2020-07-01T15:34:56",
-    status: "Completed phone screening",
-  },
-  // More candidates...
-];
-const publishingOptions = [
-  {
-    name: "Published",
-    description: "This job posting can be viewed by anyone who has the link.",
-    current: true,
-  },
-  {
-    name: "Draft",
-    description: "This job posting will no longer be publicly accessible.",
-    current: false,
-  },
+  { name: 'Owners', type: 1, current: true },
+  { name: 'Members', type: 2, current: false },
+  { name: 'Subscribers', type: 3, current: false },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 function reducer(state, action) {
   switch (action.type) {
-    case "switchTo":
-      return state.map((tab) => {
+    case 'switchTo':
+      return state.map(tab => {
         tab.current = false;
         if (tab.type === action.selected) tab.current = true;
         return tab;
@@ -88,16 +43,12 @@ function reducer(state, action) {
 const Company = () => {
   const [tabState, dispatch] = useReducer(reducer, tabs);
 
-  const {
-    params: { id },
-  } = useRouteMatch();
+  const { params } = useRouteMatch();
 
-  const { data: company } = useQuery(
-    ["companies", id],
-    () => companyQuery(id),
-    { keepPreviousData: true }
-  );
-  if (!company) return "";
+  const { data: company } = useQuery(['companies', params.id], () => companyQuery(params.id), { keepPreviousData: true });
+  const { data: strategies } = useQuery('strategies', strategiesQuery, { keepPreviousData: true });
+
+  if (!company) return '';
   const countUsers = company.users.reduce(
     (counts, user) => {
       counts[user.relationship.type]++;
@@ -107,10 +58,10 @@ const Company = () => {
   );
 
   const currentFilter = tabState.find(({ current }) => current);
-  const filteredUsers = company.users.filter((user) => {
+  const filteredUsers = company.users.filter(user => {
     return currentFilter.type === user.relationship.type;
   });
-  // console.log(filteredUsers);
+
   return (
     <div className="relative min-h-screen bg-white">
       {/* Page heading */}
@@ -118,13 +69,10 @@ const Company = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
           <div className="flex-1 min-w-0">
             <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-4" role="list">
+              <ol className="flex items-center space-x-4">
                 <li>
                   <div>
-                    <Link
-                      to="/entities"
-                      className="text-sm font-medium text-gray-500 hover:text-gray-700"
-                    >
+                    <Link to="/entities" className="text-sm font-medium text-gray-500 hover:text-gray-700">
                       All Entities
                     </Link>
                   </div>
@@ -132,9 +80,7 @@ const Company = () => {
                 <li>
                   <div className="flex items-center">
                     <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-                    <span className="ml-4 text-sm font-medium text-gray-500">
-                      {company.name}
-                    </span>
+                    <span className="ml-4 text-sm font-medium text-gray-500">{company.name}</span>
                   </div>
                 </li>
               </ol>
@@ -144,19 +90,13 @@ const Company = () => {
                 <div className="w-full group block">
                   <div className="flex items-center">
                     <div>
-                      <img
-                        className="inline-block h-16 w-16 rounded"
-                        src={company.logo}
-                        alt=""
-                      />
+                      <img className="inline-block h-16 w-16 rounded" src={company.logo} alt="" />
                     </div>
                   </div>
                 </div>
               </div>
               <div>
-                <h1 className="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                  {company.name}
-                </h1>
+                <h1 className="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">{company.name}</h1>
                 <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
@@ -164,9 +104,7 @@ const Company = () => {
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                    {company.locations
-                      .map((location) => location.name)
-                      .join(", ")}
+                    {company.locations.map(location => location.name).join(', ')}
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <CalendarIcon
@@ -185,6 +123,8 @@ const Company = () => {
         </div>
       </header>
 
+      <CompanyStrategies strategies={strategies} company={company} />
+
       <main className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="px-4 sm:px-0">
@@ -199,9 +139,9 @@ const Company = () => {
                 id="tabs"
                 name="tabs"
                 className="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
-                defaultValue={tabState.find((tab) => tab.current).name}
+                defaultValue={tabState.find(tab => tab.current).name}
               >
-                {tabState.map((tab) => (
+                {tabState.map(tab => (
                   <option key={tab.name}>{tab.name}</option>
                 ))}
               </select>
@@ -209,27 +149,25 @@ const Company = () => {
             <div className="hidden sm:block">
               <div className="border-b border-gray-200">
                 <nav className="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-                  {tabState.map((tab) => (
+                  {tabState.map(tab => (
                     <span
                       key={tab.name}
                       onClick={() => {
-                        dispatch({ type: "switchTo", selected: tab.type });
+                        dispatch({ type: 'switchTo', selected: tab.type });
                       }}
                       className={classNames(
                         tab.current
-                          ? "border-purple-500 text-purple-600"
-                          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200",
-                        "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
+                          ? 'border-purple-500 text-purple-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200',
+                        'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer'
                       )}
                     >
                       {tab.name}
 
                       <span
                         className={classNames(
-                          tab.current
-                            ? "bg-purple-100 text-purple-600"
-                            : "bg-gray-100 text-gray-900",
-                          "hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block"
+                          tab.current ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900',
+                          'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block'
                         )}
                       >
                         {countUsers[tab.type]}
@@ -242,59 +180,38 @@ const Company = () => {
           </div>
 
           {/* Stacked list */}
-          <ul
-            className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0"
-            role="list"
-          >
-            {filteredUsers.map((candidate) => (
+          <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
+            {filteredUsers.map(candidate => (
               <li key={candidate.email}>
-                <a href="#" className="group block">
+                <Link to={`/profiles/${candidate.id}`} className="group block">
                   <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
                     <div className="min-w-0 flex-1 flex items-center">
                       <div className="flex-shrink-0">
-                        <img
-                          className="h-12 w-12 rounded-full group-hover:opacity-75"
-                          src={candidate.image}
-                          alt=""
-                        />
+                        <img className="h-12 w-12 rounded-full group-hover:opacity-75" src={candidate.image} alt="" />
                       </div>
                       <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                         <div>
-                          <p className="text-sm font-medium text-purple-600 truncate">
-                            {candidate.name}
-                          </p>
+                          <p className="text-sm font-medium text-purple-600 truncate">{candidate.name}</p>
                           <p className="mt-2 flex items-center text-sm text-gray-500">
-                            <MailIcon
-                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
+                            <MailIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                             <span className="truncate">{candidate.email}</span>
                           </p>
                         </div>
                         <div className="hidden md:block">
                           <div>
                             <p className="text-sm text-gray-900">
-                              Applied on{" "}
-                              <time dateTime={candidate.created_at}>
-                                {shortRawDate(candidate.created_at)}
-                              </time>
+                              Applied on <time dateTime={candidate.created_at}>{shortRawDate(candidate.created_at)}</time>
                             </p>
                             <p className="mt-2 flex items-center text-sm text-gray-500">
                               {candidate.relationship.pending && (
                                 <>
-                                  <ClockIcon
-                                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                                    aria-hidden="true"
-                                  />
+                                  <ClockIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
                                   Approval Pending
                                 </>
                               )}
                               {!candidate.relationship.pending && (
                                 <>
-                                  <CheckCircleIcon
-                                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                                    aria-hidden="true"
-                                  />
+                                  <CheckCircleIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
                                   Approved
                                 </>
                               )}
@@ -304,13 +221,10 @@ const Company = () => {
                       </div>
                     </div>
                     <div>
-                      <ChevronRightIcon
-                        className="h-5 w-5 text-gray-400 group-hover:text-gray-700"
-                        aria-hidden="true"
-                      />
+                      <ChevronRightIcon className="h-5 w-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" />
                     </div>
                   </div>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -4,7 +4,6 @@ import { useRouteMatch } from "react-router-dom";
 import { companyQuery } from "../utilities/queries";
 import CompanyHeading from "./company/CompanyHeading";
 import CompanyTab from "./company/CompanyTab";
-import CompanyTabPagination from "./company/CompanyTabPagination";
 
 const Company = () => {
   const {

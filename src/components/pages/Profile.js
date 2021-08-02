@@ -3,21 +3,12 @@ import { useRouteMatch } from "react-router-dom";
 import { useQuery } from "react-query";
 import {
   CheckIcon,
-  PaperClipIcon,
-  QuestionMarkCircleIcon,
   LocationMarkerIcon,
   ThumbUpIcon,
   UserIcon,
 } from "@heroicons/react/solid";
 import { LoginContext } from "../../utilities/reducers";
 import { userQuery } from "../../utilities/queries";
-
-const user = {
-  name: "Whitney Francis",
-  email: "whitney@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-};
 
 const companyTypes = {
   1: "Company",
@@ -34,10 +25,6 @@ const companyUserRelationshipTypes = {
   3: "Subscriber",
 };
 
-const attachments = [
-  { name: "resume_front_end_developer.pdf", href: "#" },
-  { name: "coverletter_front_end_developer.pdf", href: "#" },
-];
 const eventTypes = {
   applied: { icon: UserIcon, bgColorClass: "bg-gray-400" },
   advanced: { icon: ThumbUpIcon, bgColorClass: "bg-blue-500" },
@@ -86,41 +73,7 @@ const timeline = [
     datetime: "2020-10-04",
   },
 ];
-const comments = [
-  {
-    id: 1,
-    name: "Leslie Alexander",
-    date: "4d ago",
-    imageId: "1494790108377-be9c29b29330",
-    body: "Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.",
-  },
-  {
-    id: 2,
-    name: "Michael Foster",
-    date: "4d ago",
-    imageId: "1519244703995-f4e0f30006d5",
-    body: "Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.",
-  },
-  {
-    id: 3,
-    name: "Dries Vincent",
-    date: "4d ago",
-    imageId: "1506794778202-cad84cf45f1d",
-    body: "Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.",
-  },
-];
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  // More people...
-];
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -483,12 +436,9 @@ const Profile = () => {
                             <div>
                               <p className="text-sm text-gray-500">
                                 {item.content}{" "}
-                                <a
-                                  href="#"
-                                  className="font-medium text-gray-900"
-                                >
+                                <span className="font-medium text-gray-900">
                                   {item.target}
-                                </a>
+                                </span>
                               </p>
                             </div>
                             <div className="text-right text-sm whitespace-nowrap text-gray-500">
