@@ -1,5 +1,7 @@
-import BaseService from "./BaseService";
+import BaseService from './BaseService';
 
 export default class SubscriptionService extends BaseService {
-  entity = "subscriptions";
+  entity = 'subscriptions';
 }
+
+export const subscriptionService = new SubscriptionService();

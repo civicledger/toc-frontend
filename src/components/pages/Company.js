@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import { useReducer, useContext } from 'react';
+
 import { useRouteMatch, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { BriefcaseIcon, CalendarIcon, ClockIcon, ChevronRightIcon, LocationMarkerIcon, CheckCircleIcon, MailIcon } from '@heroicons/react/solid';
@@ -6,7 +7,8 @@ import { BriefcaseIcon, CalendarIcon, ClockIcon, ChevronRightIcon, LocationMarke
 import CompanyStrategies from '../company/CompanyStrategies';
 
 import { shortRawDate } from '../../utilities/format';
-import { companyQuery, strategiesQuery } from '../../utilities/queries';
+import { LoginContext } from '../../utilities/reducers';
+import { companyQuery, strategiesQuery, userQuery } from '../../utilities/queries';
 
 const companyTypes = {
   1: 'Company',
@@ -42,13 +44,27 @@ function reducer(state, action) {
 
 const Company = () => {
   const [tabState, dispatch] = useReducer(reducer, tabs);
-
+  const { login } = useContext(LoginContext);
   const { params } = useRouteMatch();
 
   const { data: company } = useQuery(['companies', params.id], () => companyQuery(params.id), { keepPreviousData: true });
-  const { data: strategies } = useQuery('strategies', strategiesQuery, { keepPreviousData: true });
 
-  if (!company) return '';
+  const { data: strategies } = useQuery(['strategies', company?.id], () => strategiesQuery(company?.id), {
+    keepPreviousData: true,
+    enable: !!company,
+  });
+
+  const { data: user } = useQuery(['users', login.user.id], () => userQuery(login.user.id), { keepPreviousData: true });
+
+  if (!company || !user) return '';
+
+  const checkOwnership = user.companies.some(({ id, relationship }) => {
+    if (company.id !== id) return false;
+    if (relationship.type === 1) return true;
+    if (relationship.type === 2 && !relationship.pending) return true;
+    return false;
+  });
+
   const countUsers = company.users.reduce(
     (counts, user) => {
       counts[user.relationship.type]++;
@@ -114,7 +130,7 @@ const Company = () => {
                       fill="currentColor"
                       aria-hidden="true"
                     />
-                    Created on {shortRawDate(company.created_at)}
+                    Created on {shortRawDate(company.createdAt)}
                   </div>
                 </div>
               </div>
@@ -123,7 +139,7 @@ const Company = () => {
         </div>
       </header>
 
-      <CompanyStrategies strategies={strategies} company={company} />
+      <CompanyStrategies strategies={strategies} company={company} isOwner={checkOwnership} />
 
       <main className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -200,7 +216,7 @@ const Company = () => {
                         <div className="hidden md:block">
                           <div>
                             <p className="text-sm text-gray-900">
-                              Applied on <time dateTime={candidate.created_at}>{shortRawDate(candidate.created_at)}</time>
+                              Applied on <time dateTime={candidate.createdAt}>{shortRawDate(candidate.createdAt)}</time>
                             </p>
                             <p className="mt-2 flex items-center text-sm text-gray-500">
                               {candidate.relationship.pending && (

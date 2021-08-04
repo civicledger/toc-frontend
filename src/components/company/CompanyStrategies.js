@@ -3,13 +3,18 @@ import { ChevronRightIcon, LocationMarkerIcon } from '@heroicons/react/solid';
 
 import NewStrategyModal from './NewStrategyModal';
 
-const CompanyStrategies = ({ strategies = [], company }) => (
+const CompanyStrategies = ({ strategies = [], company, isOwner }) => (
   <main className="pt-8 pb-16">
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="px-4 sm:px-0">
         <h2 className="text-lg font-medium text-gray-900">Strategies</h2>
 
         <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
+          {strategies.length === 0 && (
+            <li className="border p-5 text-center">
+              <p>This entity has no public strategies</p>
+            </li>
+          )}
           {strategies.map(strategy => (
             <li key={strategy.id}>
               <Link to={`/strategies/${strategy.id}`} className="group block">
@@ -32,7 +37,7 @@ const CompanyStrategies = ({ strategies = [], company }) => (
           ))}
         </ul>
       </div>
-      <NewStrategyModal company={company} />
+      {isOwner && <NewStrategyModal company={company} />}
     </div>
   </main>
 );

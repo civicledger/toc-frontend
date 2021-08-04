@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_HOST;
 
@@ -30,7 +30,7 @@ export default class BaseService {
   }
 
   getHeaders() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) return {};
 

@@ -1,8 +1,7 @@
-import axios from "axios";
-import BaseService from "./BaseService";
+import BaseService from './BaseService';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_HOST;
-
-export default class LocationsService extends BaseService {
-  entity = "locations";
+export default class LocationService extends BaseService {
+  entity = 'locations';
 }
+
+export const locationService = new LocationService();
