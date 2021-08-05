@@ -52,6 +52,18 @@ export const newIssueValidation = Yup.object().shape({
     .max(50, 'This name is too long to use')
     .required('You must provide a short name for this output.'),
   description: Yup.string()
-    .min(10, 'You must provide a short description of this output')
-    .required('You must provide a short description of this output'),
+    .min(10, 'You must provide a short description of this issue')
+    .required('You must provide a short description of this issue'),
+});
+
+export const newMilestoneValidation = Yup.object().shape({
+  outputId: Yup.string().required('An output is required'),
+  name: Yup.string()
+    .min(2, 'A longer name is required')
+    .max(50, 'This name is too long to use')
+    .required('You must provide a short name for this output.'),
+  description: Yup.string()
+    .min(10, 'You must provide a short description of this milestone')
+    .required('You must provide a short description of this milestone'),
+  date: Yup.date().required('Milestones must provide an estimated date'),
 });
