@@ -23,11 +23,14 @@ const Strategy = () => {
 
   if (!strategy) return '';
 
-  const outcomes = strategy.initiatives.reduce((outcomes, initiative) => {
-    return [...outcomes, ...initiative.outcomes];
+  const outcomes = strategy.outcomes;
+  console.log(outcomes);
+
+  const initiatives = strategy.outcomes.reduce((initiatives, outcome) => {
+    return [...initiatives, ...outcome.initiatives];
   }, []);
 
-  const outputs = strategy.initiatives.reduce((outputs, initiative) => {
+  const outputs = initiatives.reduce((outputs, initiative) => {
     return [...outputs, ...initiative.outputs];
   }, []);
 
@@ -62,7 +65,11 @@ const Strategy = () => {
           <div className="text-lg border m-5 p-5 bg-gray-100 vision">{strategy.vision}</div>
 
           <hr className="my-5" />
-          <h2 className="text-lg font-semibold">Outcomes</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold">Outcomes</h2>
+            {checkOwnership && <NewOutcomeModal strategy={strategy} />}
+          </div>
+          <h2 className="text-lg font-semibold"></h2>
           <div className="m-5 issues grid grid-cols-4 gap-3">
             {outcomes.map(outcome => (
               <div className="rounded shadow flex flex-col" key={outcome.id}>
@@ -72,18 +79,21 @@ const Strategy = () => {
                   <div className="text-right relative pb-10">
                     <span
                       className="p-2 px-4 rounded-full font-semibold text-xs absolute bottom-0 right-0"
-                      style={{ color: `#${outcome.target.goal.colour}`, backgroundColor: `#${outcome.target.goal.secondary_colour}` }}
+                      style={{ color: `#${outcome.goal.colour}`, backgroundColor: `#${outcome.goal.secondary_colour}` }}
                     >
-                      SDG Target {outcome.target.goal.id}.{outcome.target.number}
+                      SDG Target {outcome.goal.id}.{outcome.target.number}
                     </span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          {checkOwnership && <NewOutcomeModal strategy={strategy} />}
+
           <hr className="my-5" />
-          <h2 className="text-lg font-semibold">Outputs</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold">Outputs</h2>
+            {checkOwnership && <NewOutputModal strategy={strategy} />}
+          </div>
           <div className="m-5 issues grid grid-cols-4 gap-3">
             {outputs.map(output => (
               <div className="rounded shadow flex flex-col" key={output.id}>
@@ -92,20 +102,27 @@ const Strategy = () => {
               </div>
             ))}
           </div>
-          {checkOwnership && <NewOutputModal strategy={strategy} />}
+
           <hr className="my-5" />
-          <h2 className="text-lg font-semibold">Initiatives</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold">Initiatives</h2>
+            {checkOwnership && <NewInitiativeModal strategy={strategy} />}
+          </div>
           <div className="m-5 issues grid grid-cols-4 gap-3">
-            {strategy.initiatives.map(initiative => (
+            {initiatives.map(initiative => (
               <div className="rounded shadow flex flex-col" key={initiative.id}>
                 <span className="font-medium p-2 bg-gray-200 rounded-t">{initiative.name}</span>
                 <p className="p-3">{initiative.description}</p>
               </div>
             ))}
           </div>
-          {checkOwnership && <NewInitiativeModal strategy={strategy} />}
+
           <hr className="my-5" />
-          <h2 className="text-lg font-semibold">Issues</h2>
+
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold">Issues</h2>
+            {checkOwnership && <NewIssueModal strategy={strategy} />}
+          </div>
           <div className="m-5 issues grid grid-cols-4 gap-3">
             {strategy.issues.map(issue => (
               <div className="rounded shadow flex flex-col" key={issue.id}>
@@ -114,7 +131,6 @@ const Strategy = () => {
               </div>
             ))}
           </div>
-          {checkOwnership && <NewIssueModal strategy={strategy} />}
         </div>
       </div>
 

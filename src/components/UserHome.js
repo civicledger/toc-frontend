@@ -8,6 +8,8 @@ import Company from './pages/Company';
 import Companies from './pages/Companies';
 import Profile from './pages/Profile';
 import Strategy from './pages/Strategy';
+import Locations from './pages/Locations';
+import Location from './pages/Location';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,12 @@ const UserHome = () => {
             </Route>
             <Route path="/strategies/:id">
               <Strategy />
+            </Route>
+            <Route path="/locations/:id">
+              <Location />
+            </Route>
+            <Route path="/locations">
+              <Locations />
             </Route>
           </Switch>
         </div>

@@ -1,12 +1,12 @@
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import PageHeader from "../layout/PageHeader";
-import CompanyList from "../companies/CompanyList";
+import PageHeader from '../layout/PageHeader';
+import CompanyList from '../company/CompanyList';
 
-import { companiesQuery } from "../../utilities/queries";
+import { companiesQuery } from '../../utilities/queries';
 
 const Companies = () => {
-  const { data: companies = [] } = useQuery("getCompanies", companiesQuery);
+  const { data: companies = [] } = useQuery('getCompanies', companiesQuery);
 
   return (
     <div className="p-10">
