@@ -1,4 +1,4 @@
-const AbletonInitiatives = ({ initiatives, year }) => {
+const ArrangmentInitiatives = ({ initiatives, year }) => {
   const filteredInitiatives = initiatives.filter(initiative => {
     return initiative.outputs.some(({ milestones }) => {
       return milestones.some(milestone => {
@@ -50,4 +50,4 @@ const AbletonInitiatives = ({ initiatives, year }) => {
   );
 };
 
-export default AbletonInitiatives;
+export default ArrangmentInitiatives;

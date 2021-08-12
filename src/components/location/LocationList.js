@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LocationMarkerIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 
 const LocationList = ({ locations, strategies }) => {
   const strategiesObject = strategies.reduce((strategies, strategy) => {

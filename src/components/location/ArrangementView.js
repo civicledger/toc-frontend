@@ -1,8 +1,7 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import AbletonInitiatives from './AbletonInitiatives';
+import ArrangmentInitiatives from './ArrangmentInitiatives';
 
-const AbletonView = ({ strategies, goals }) => {
+const ArrangementView = ({ strategies, goals }) => {
   const outcomes = strategies.reduce((outcomes, strategy) => {
     outcomes = [...outcomes, ...strategy.outcomes];
     return outcomes;
@@ -54,13 +53,13 @@ const AbletonView = ({ strategies, goals }) => {
                           </div>
                         </div>
                         <div className="bg-gray-50 p-3">
-                          <AbletonInitiatives year="2021" initiatives={outcome.initiatives} />
+                          <ArrangmentInitiatives year="2021" initiatives={outcome.initiatives} />
                         </div>
                         <div className="p-3">
-                          <AbletonInitiatives year="2022" initiatives={outcome.initiatives} />
+                          <ArrangmentInitiatives year="2022" initiatives={outcome.initiatives} />
                         </div>
                         <div className="bg-gray-50 p-3">
-                          <AbletonInitiatives year="2023" initiatives={outcome.initiatives} />
+                          <ArrangmentInitiatives year="2023" initiatives={outcome.initiatives} />
                         </div>
                       </Fragment>
                     );
@@ -75,4 +74,4 @@ const AbletonView = ({ strategies, goals }) => {
   );
 };
 
-export default AbletonView;
+export default ArrangementView;

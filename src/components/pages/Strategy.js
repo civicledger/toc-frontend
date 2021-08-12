@@ -69,7 +69,7 @@ const Strategy = () => {
             <h2 className="text-lg font-semibold">Outcomes</h2>
             {checkOwnership && <NewOutcomeModal strategy={strategy} />}
           </div>
-          <h2 className="text-lg font-semibold"></h2>
+
           <div className="m-5 issues grid grid-cols-4 gap-3">
             {outcomes.map(outcome => (
               <div className="rounded shadow flex flex-col" key={outcome.id}>

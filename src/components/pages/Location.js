@@ -6,7 +6,7 @@ import GoogleMapReact from 'google-map-react';
 import { locationQuery, goalsQuery } from '../../utilities/queries';
 
 import PageHeader from '../layout/PageHeader';
-import AbletonView from '../location/AbletonView';
+import ArrangementView from '../location/ArrangementView';
 
 const Location = () => {
   const { params } = useRouteMatch();
@@ -15,7 +15,8 @@ const Location = () => {
   const { data: goals } = useQuery('goals', goalsQuery, { keepPreviousData: true });
   if (!location || !goals) return '';
 
-  const [lat, lng, zoom] = location?.geoPosition?.split(',');
+  let [lat, lng, zoom] = location?.geoPosition?.split(',');
+  zoom = parseInt(zoom);
 
   return (
     <>
@@ -23,7 +24,7 @@ const Location = () => {
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAFFq4EXZl9GzzCt1ceMRlEhc0hH9rFH-g' }}
           defaultCenter={{ lat: parseFloat(lat), lng: parseFloat(lng) }}
-          defaultZoom={7}
+          defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
         ></GoogleMapReact>
       </div>
@@ -51,7 +52,7 @@ const Location = () => {
           <div className="px-5 py-2 text-center">2023</div>
         </div>
 
-        <AbletonView strategies={location.strategies} goals={goals} />
+        <ArrangementView strategies={location.strategies} goals={goals} />
       </div>
     </>
   );
