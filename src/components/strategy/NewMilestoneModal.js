@@ -1,13 +1,14 @@
 import { Fragment, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import DatePicker from 'react-date-picker';
 import { Dialog, Transition } from '@headlessui/react';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { issueService } from '../../services/IssueService';
-import { newIssueValidation } from '../../utilities/validations';
+import { milestoneService } from '../../services/MilestoneService';
+import { newMilestoneValidation } from '../../utilities/validations';
 
-const NewIssueModal = ({ strategy }) => {
+const NewMilestoneModal = ({ strategy, outputs }) => {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
@@ -49,17 +50,17 @@ const NewIssueModal = ({ strategy }) => {
                 <div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      New Issue for {strategy.name}
+                      New Milestone for {strategy.name}
                     </Dialog.Title>
 
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '' }}
-                      validationSchema={newIssueValidation}
+                      initialValues={{ name: '', description: '', outputId: '', date: new Date() }}
+                      validationSchema={newMilestoneValidation}
                       onSubmit={(values, actions) => {
-                        issueService
-                          .create({ ...values, strategyId: strategy.id })
+                        milestoneService
+                          .create(values)
                           .then(() => {
                             queryClient.invalidateQueries(['strategies', strategy.id]);
                             actions.resetForm();
@@ -75,11 +76,28 @@ const NewIssueModal = ({ strategy }) => {
                           <Form>
                             <div className="mt-3">
                               <div className="mb-5">
-                                <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
-                                  Issue Name
+                                <label htmlFor="outputId" className="block font-medium text-gray-700 mb-1">
+                                  Output
+                                </label>
+                                <Field as="select" type="select" name="outputId">
+                                  <option value="">Select an output</option>
+                                  {outputs.map(output => (
+                                    <option value={output.id} key={output.id}>
+                                      {output.name}
+                                    </option>
+                                  ))}
+                                </Field>
+                                {!props.errors.outputId && (
+                                  <p className="text-gray-600 text-sm mt-1 mx-2">The milestone must relate to a specific output</p>
+                                )}
+                                <ErrorMessage component="p" name="outputId" className="text-red-500 text-sm mx-2" />
+                              </div>
+                              <div className="mb-5">
+                                <label htmlFor="name" className="block font-medium text-gray-700 mb-1">
+                                  Milestone Name
                                 </label>
                                 <Field type="text" name="name" />
-                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to identify this issue</p>}
+                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to identify this milestone</p>}
                                 <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>
                               <div className="mb-5">
@@ -88,9 +106,23 @@ const NewIssueModal = ({ strategy }) => {
                                 </label>
                                 <Field as="textarea" type="textarea" name="description" />
                                 {!props.errors.description && (
-                                  <p className="text-gray-600 text-sm mt-1 mx-2">Describe this issue for anyone reading</p>
+                                  <p className="text-gray-600 text-sm mt-1 mx-2">Describe this milestone for anyone reading</p>
                                 )}
                                 <ErrorMessage component="p" name="description" className="text-red-500 text-sm mx-2" />
+                              </div>
+                              <div className="mb-5">
+                                <label htmlFor="description" className="block font-medium text-gray-700 mb-1">
+                                  Milestone Date
+                                </label>
+                                <DatePicker
+                                  onChange={setDate => props.setFieldValue('date', setDate)}
+                                  name="value"
+                                  minDate={new Date()}
+                                  maxDate={new Date(2100, 0, 1)}
+                                  value={props.values.date}
+                                />
+                                {!props.errors.date && <p className="text-gray-600 text-sm mt-1 mx-2">Set the milestone date</p>}
+                                <ErrorMessage component="p" name="date" className="text-red-500 text-sm mx-2" />
                               </div>
                             </div>
                             <hr />
@@ -99,7 +131,7 @@ const NewIssueModal = ({ strategy }) => {
                                 type="submit"
                                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                               >
-                                <PlusCircleIcon className="w-5 inline-block mr-2" /> Create Issue
+                                <PlusCircleIcon className="w-5 inline-block mr-2" /> Create Milestone
                               </button>
                               <button
                                 type="button"
@@ -126,11 +158,11 @@ const NewIssueModal = ({ strategy }) => {
       </Transition.Root>
       <div>
         <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
-          <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Issue
+          <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Milestone
         </button>
       </div>
     </>
   );
 };
 
-export default NewIssueModal;
+export default NewMilestoneModal;

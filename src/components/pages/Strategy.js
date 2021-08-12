@@ -11,6 +11,8 @@ import NewInitiativeModal from '../strategy/NewInitiativeModal';
 import NewIssueModal from '../strategy/NewIssueModal';
 import NewOutcomeModal from '../strategy/NewOutcomeModal';
 import NewOutputModal from '../strategy/NewOutputModal';
+import NewMilestoneModal from '../strategy/NewMilestoneModal';
+import StrategyViewList from '../strategy/StrategyViewList';
 
 import { strategyQuery, userQuery } from '../../utilities/queries';
 
@@ -32,6 +34,11 @@ const Strategy = () => {
 
   const outputs = initiatives.reduce((outputs, initiative) => {
     return [...outputs, ...initiative.outputs];
+  }, []);
+
+  const milestones = outputs.reduce((milestones, output) => {
+    milestones = [...milestones, ...output.milestones];
+    return milestones;
   }, []);
 
   const checkOwnership = user.companies.some(company => {
@@ -90,47 +97,22 @@ const Strategy = () => {
           </div>
 
           <hr className="my-5" />
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Outputs</h2>
+
+          <StrategyViewList title="Outputs" items={outputs}>
             {checkOwnership && <NewOutputModal strategy={strategy} />}
-          </div>
-          <div className="m-5 issues grid grid-cols-4 gap-3">
-            {outputs.map(output => (
-              <div className="rounded shadow flex flex-col" key={output.id}>
-                <span className="font-medium p-2 bg-gray-300 rounded-t">{output.name}</span>
-                <p className="p-3">{output.description}</p>
-              </div>
-            ))}
-          </div>
+          </StrategyViewList>
 
-          <hr className="my-5" />
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Initiatives</h2>
+          <StrategyViewList title="Initiatives" items={strategy.initiatives}>
             {checkOwnership && <NewInitiativeModal strategy={strategy} />}
-          </div>
-          <div className="m-5 issues grid grid-cols-4 gap-3">
-            {initiatives.map(initiative => (
-              <div className="rounded shadow flex flex-col" key={initiative.id}>
-                <span className="font-medium p-2 bg-gray-200 rounded-t">{initiative.name}</span>
-                <p className="p-3">{initiative.description}</p>
-              </div>
-            ))}
-          </div>
+          </StrategyViewList>
 
-          <hr className="my-5" />
-
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Issues</h2>
+          <StrategyViewList title="Issues" items={strategy.issues}>
             {checkOwnership && <NewIssueModal strategy={strategy} />}
-          </div>
-          <div className="m-5 issues grid grid-cols-4 gap-3">
-            {strategy.issues.map(issue => (
-              <div className="rounded shadow flex flex-col" key={issue.id}>
-                <span className="font-medium p-2 bg-gray-100 rounded-t">{issue.name}</span>
-                <p className="p-3">{issue.description}</p>
-              </div>
-            ))}
-          </div>
+          </StrategyViewList>
+
+          <StrategyViewList title="Milestones" items={milestones}>
+            {checkOwnership && <NewMilestoneModal strategy={strategy} outputs={outputs} />}
+          </StrategyViewList>
         </div>
       </div>
 
