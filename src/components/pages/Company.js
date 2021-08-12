@@ -120,7 +120,7 @@ const Company = () => {
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                    {company.locations.map(location => location.name).join(', ')}
+                    {company.places.map(place => place.name).join(', ')}
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <CalendarIcon
