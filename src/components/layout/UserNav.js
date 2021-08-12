@@ -15,7 +15,7 @@ const navigation = [
     count: 7,
   },
   { name: 'All Entities', icon: UsersIcon, href: '/entities', current: false },
-  { name: 'Places', icon: MapIcon, href: '/places', current: false },
+  { name: 'Find Places', icon: MapIcon, href: '/places', current: false },
 ];
 
 const authService = new AuthService();
