@@ -17,9 +17,14 @@ const NewOutputModal = ({ strategy }) => {
   const queryClient = useQueryClient();
 
   if (!strategy) return '';
+
+  const initiatives = strategy.outcomes.reduce((initiatives, outcome) => {
+    return [...initiatives, ...outcome.initiatives];
+  }, []);
+
   const buttonClass = classNames('mt-3 p-2 px-4 text-white rounded', {
-    'bg-gray-500': strategy.initiatives.length === 0,
-    'bg-indigo-500 hover:bg-indigo-600': strategy.initiatives.length > 0,
+    'bg-gray-500': initiatives.length === 0,
+    'bg-indigo-500 hover:bg-indigo-600': initiatives.length > 0,
   });
   return (
     <>
@@ -61,7 +66,7 @@ const NewOutputModal = ({ strategy }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '', initiativeId: strategy.initiatives[0].id }}
+                      initialValues={{ name: '', description: '', initiativeId: initiatives[0]?.id }}
                       validationSchema={newOutputValidation}
                       onSubmit={(values, actions) => {
                         outputService
@@ -141,7 +146,7 @@ const NewOutputModal = ({ strategy }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className={buttonClass} disabled={strategy.initiatives.length === 0} onClick={() => setOpen(true)}>
+        <button className={buttonClass} disabled={initiatives.length === 0} onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Output
         </button>
       </div>

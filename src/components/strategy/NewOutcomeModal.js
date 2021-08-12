@@ -5,8 +5,6 @@ import { PlusCircleIcon } from '@heroicons/react/outline';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import classNames from 'classnames';
 
-import SelectInitiative from './SelectInitiative';
-
 import { goalsQuery } from '../../utilities/queries';
 import { outcomeService } from '../../services/OutcomeService';
 import { newOutcomeValidation } from '../../utilities/validations';
@@ -22,8 +20,7 @@ const NewOutcomeModal = ({ strategy }) => {
 
   if (!strategy) return '';
   const buttonClass = classNames('mt-3 p-2 px-4 text-white rounded', {
-    'bg-gray-500': strategy.initiatives.length === 0,
-    'bg-indigo-500 hover:bg-indigo-600': strategy.initiatives.length > 0,
+    'bg-indigo-500 hover:bg-indigo-600': true,
   });
   return (
     <>
@@ -65,7 +62,7 @@ const NewOutcomeModal = ({ strategy }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '', initiativeId: strategy.initiatives[0].id, targetId: 0 }}
+                      initialValues={{ name: '', description: '', targetId: 0, goalId: 0, strategyId: strategy.id }}
                       validationSchema={newOutcomeValidation}
                       onSubmit={(values, actions) => {
                         outcomeService
@@ -84,16 +81,6 @@ const NewOutcomeModal = ({ strategy }) => {
                         return (
                           <Form>
                             <div className="mt-3">
-                              <div className="mb-5">
-                                <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
-                                  Select an initiative
-                                </label>
-                                <SelectInitiative
-                                  initiatives={strategy.initiatives}
-                                  setInitiative={initiativeId => props.setFieldValue('initiativeId', initiativeId)}
-                                />
-                                <p className="text-gray-600 text-sm mt-1 mx-2">An outcome must be connected to an existing initiative</p>
-                              </div>
                               <div className="mb-5">
                                 <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
                                   Outcome Name
@@ -116,7 +103,14 @@ const NewOutcomeModal = ({ strategy }) => {
                                 <label htmlFor="description" className="block font-medium text-gray-700 mb-1">
                                   SDG Target
                                 </label>
-                                <select name="goal" className="mb-2" onChange={e => setGoalId(e.target.value)}>
+                                <select
+                                  name="goal"
+                                  className="mb-2"
+                                  onChange={e => {
+                                    props.setFieldValue('goalId', e.target.value);
+                                    setGoalId(e.target.value);
+                                  }}
+                                >
                                   <option value="">Select a goal first</option>
                                   {goals.map(goal => (
                                     <option value={goal.id} key={goal.id}>
@@ -170,7 +164,7 @@ const NewOutcomeModal = ({ strategy }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className={buttonClass} disabled={strategy.initiatives.length === 0} onClick={() => setOpen(true)}>
+        <button className={buttonClass} onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Outcome
         </button>
       </div>

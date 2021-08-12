@@ -19,13 +19,18 @@ export const userQuery = async id => {
   return data;
 };
 
-export const locationsQuery = async id => {
+export const locationsQuery = async () => {
   const { data } = await locationService.getAll();
   return data;
 };
 
-export const strategiesQuery = async companyId => {
-  const { data } = await strategyService.getAll({ companyId });
+export const locationQuery = async locationId => {
+  const { data } = await locationService.getOne(locationId);
+  return data;
+};
+
+export const strategiesQuery = async (companyId, locationId) => {
+  const { data } = await strategyService.getAll({ companyId, locationId });
   return data;
 };
 
