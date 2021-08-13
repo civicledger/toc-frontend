@@ -2,11 +2,7 @@ import { useContext } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { HomeIcon, UsersIcon, LogoutIcon, BellIcon, MapIcon } from '@heroicons/react/outline';
 import { LoginContext } from '../../utilities/reducers';
-<<<<<<< HEAD
 import { authService } from '../../services';
-=======
-import AuthService from '../../services/AuthService';
->>>>>>> main
 
 const navigation = [
   { name: 'Dashboard', icon: HomeIcon, href: '/', current: true },
@@ -19,11 +15,7 @@ const navigation = [
     count: 7,
   },
   { name: 'All Entities', icon: UsersIcon, href: '/entities', current: false },
-<<<<<<< HEAD
-  { name: 'Find Place', icon: MapIcon, href: '/places', current: false },
-=======
   { name: 'Find Places', icon: MapIcon, href: '/places', current: false },
->>>>>>> main
 ];
 
 const UserNav = () => {

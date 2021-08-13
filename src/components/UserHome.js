@@ -9,11 +9,8 @@ import Profile from './pages/Profile';
 import Strategy from './pages/Strategy';
 import Places from './pages/Places';
 import Place from './pages/Place';
-<<<<<<< HEAD
 import Outcome from './pages/Outcome';
 import Initiative from './pages/Initiative';
-=======
->>>>>>> main
 
 const queryClient = new QueryClient();
 
@@ -47,15 +44,12 @@ const UserHome = () => {
             </Route>
             <Route path="/places">
               <Places />
-<<<<<<< HEAD
             </Route>
             <Route path="/outcomes/:id">
               <Outcome />
             </Route>
             <Route path="/initiatives/:id">
               <Initiative />
-=======
->>>>>>> main
             </Route>
           </Switch>
         </div>
