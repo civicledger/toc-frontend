@@ -21,6 +21,8 @@ const companyTypes = {
 };
 
 const NewCompanyModal = () => {
+  const [success, setSuccess] = useState(null);
+  const [formErrors, setFormErrors] = useState([]);
   const [open, setOpen] = useState(false);
   const history = useHistory();
 
@@ -71,16 +73,22 @@ const NewCompanyModal = () => {
                       initialValues={{ name: '', description: '', placeId: '', type: '', logo: '' }}
                       validationSchema={newCompanyValidation}
                       onSubmit={(values, actions) => {
+                        actions.setSubmitting(true);
                         companyService
                           .create({ ...values })
                           .then(({ data }) => {
-                            console.log(data);
+                            setSuccess(true);
                             history.push(`/entities/${data.id}`);
                             actions.resetForm();
                             setOpen(false);
                           })
-                          .catch(error => {
-                            console.log(error);
+                          .catch(({ response }) => {
+                            if (!response.data.errors) return;
+                            const errors = response.data.errors.map(error => error.field + ': ' + error.message);
+                            setFormErrors(errors);
+                          })
+                          .finally(() => {
+                            actions.setSubmitting(false);
                           });
                       }}
                     >
@@ -159,6 +167,10 @@ const NewCompanyModal = () => {
                               </div>
                             </div>
                             <hr />
+
+                            {success && <div className="p-1 text-sm text-green-900">Successfully created an Entity, sending you to Entity page.</div>}
+                            {!success && formErrors.length > 0 && <div className="p-1 text-sm text-red-900">{formErrors}</div>}
+
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                               <button
                                 type="submit"
