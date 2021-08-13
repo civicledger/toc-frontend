@@ -26,7 +26,6 @@ const Strategy = () => {
   if (!strategy) return '';
 
   const outcomes = strategy.outcomes;
-  console.log(outcomes);
 
   const initiatives = strategy.outcomes.reduce((initiatives, outcome) => {
     return [...initiatives, ...outcome.initiatives];
@@ -79,8 +78,10 @@ const Strategy = () => {
 
           <div className="m-5 issues grid grid-cols-4 gap-3">
             {outcomes.map(outcome => (
-              <div className="rounded shadow flex flex-col" key={outcome.id}>
-                <span className="font-medium p-2 bg-gray-400 rounded-t">{outcome.name}</span>
+              <div className="rounded shadow flex flex-col group" key={outcome.id}>
+                <span className="font-medium p-2 bg-gray-400 rounded-t">
+                  <Link to={`/outcomes/${outcome.id}`}>{outcome.name}</Link>
+                </span>
                 <div className="flex-grow p-3 bg-gray-50 flex flex-col">
                   <p className="flex-grow">{outcome.description}</p>
                   <div className="text-right relative pb-10">
@@ -92,6 +93,15 @@ const Strategy = () => {
                     </span>
                   </div>
                 </div>
+                <div className="flex justify-end">
+                  <Link
+                    to={`/outcomes/${outcome.id}`}
+                    className="hidden m-3 mt-0 p-1 px-2 pr-1 text-white w-1/2 bg-blue-400 rounded text-sm group-hover:inline-block hover:bg-blue-500"
+                  >
+                    View Detail
+                    <ChevronRightIcon className="float-right h-5" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -102,7 +112,7 @@ const Strategy = () => {
             {checkOwnership && <NewOutputModal strategy={strategy} />}
           </StrategyViewList>
 
-          <StrategyViewList title="Initiatives" items={strategy.initiatives}>
+          <StrategyViewList title="Initiatives" items={initiatives} headerLink="initiatives">
             {checkOwnership && <NewInitiativeModal strategy={strategy} />}
           </StrategyViewList>
 

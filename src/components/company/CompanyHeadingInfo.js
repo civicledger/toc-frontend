@@ -1,20 +1,15 @@
-import { Link } from "react-router-dom";
-import {
-  BriefcaseIcon,
-  ChevronRightIcon,
-  LocationMarkerIcon,
-  CalendarIcon,
-} from "@heroicons/react/solid";
+import { Link } from 'react-router-dom';
+import { BriefcaseIcon, ChevronRightIcon, LocationMarkerIcon, CalendarIcon } from '@heroicons/react/solid';
 
-import { shortDate } from "../../utilities/format";
+import { shortDate } from '../../utilities/format';
 
 const companyTypes = {
-  1: "Company",
-  2: "Community Group",
-  3: "Government Agency",
-  4: "Investor",
-  5: "NFP",
-  6: "MultiNational Company",
+  1: 'Company',
+  2: 'Community Group',
+  3: 'Government Agency',
+  4: 'Investor',
+  5: 'NFP',
+  6: 'MultiNational Company',
 };
 
 const CompanyHeadingInfo = ({ company }) => {
@@ -24,10 +19,7 @@ const CompanyHeadingInfo = ({ company }) => {
         <ol className="flex items-center space-x-4">
           <li>
             <div>
-              <Link
-                to="/entities"
-                className="text-sm font-medium text-gray-500 hover:text-gray-700"
-              >
+              <Link to="/entities" className="text-sm font-medium text-gray-500 hover:text-gray-700">
                 All Entities
               </Link>
             </div>
@@ -35,9 +27,7 @@ const CompanyHeadingInfo = ({ company }) => {
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <span className="ml-4 text-sm font-medium text-gray-500">
-                {company.name}
-              </span>
+              <span className="ml-4 text-sm font-medium text-gray-500">{company.name}</span>
             </div>
           </li>
         </ol>
@@ -48,19 +38,13 @@ const CompanyHeadingInfo = ({ company }) => {
           <div className="w-full group block">
             <div className="flex items-center">
               <div>
-                <img
-                  className="inline-block h-16 w-16 rounded"
-                  src={company.logo}
-                  alt=""
-                />
+                <img className="inline-block h-16 w-16 rounded" src={company.logo} alt="" />
               </div>
             </div>
           </div>
         </div>
         <div>
-          <h1 className="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-            {company.name}
-          </h1>
+          <h1 className="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">{company.name}</h1>
           <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
@@ -68,7 +52,7 @@ const CompanyHeadingInfo = ({ company }) => {
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-              {company.locations.map((location) => location.name).join(", ")}
+              {company.places.map(place => place.name).join(', ')}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <CalendarIcon

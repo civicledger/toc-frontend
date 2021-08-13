@@ -3,19 +3,19 @@ import { useQuery } from 'react-query';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import GoogleMapReact from 'google-map-react';
 
-import { locationQuery, goalsQuery } from '../../utilities/queries';
+import { placeQuery, goalsQuery } from '../../utilities/queries';
 
 import PageHeader from '../layout/PageHeader';
-import ArrangementView from '../location/ArrangementView';
+import ArrangementView from '../place/ArrangementView';
 
-const Location = () => {
+const Place = () => {
   const { params } = useRouteMatch();
 
-  const { data: location } = useQuery('getLocation', () => locationQuery(params.id), { keepPreviousData: true });
+  const { data: place } = useQuery('getPlace', () => placeQuery(params.id), { keepPreviousData: true });
   const { data: goals } = useQuery('goals', goalsQuery, { keepPreviousData: true });
-  if (!location || !goals) return '';
+  if (!place || !goals) return '';
 
-  let [lat, lng, zoom] = location?.geoPosition?.split(',');
+  let [lat, lng, zoom] = place?.geoPosition?.split(',');
   zoom = parseInt(zoom);
 
   return (
@@ -29,18 +29,18 @@ const Location = () => {
         ></GoogleMapReact>
       </div>
       <div className="p-10">
-        <PageHeader title={location.name}>
+        <PageHeader title={place.name}>
           <li>
             <div>
-              <Link to="/locations" className="text-sm font-medium text-gray-500 hover:text-gray-700">
-                All Locations
+              <Link to="/places" className="text-sm font-medium text-gray-500 hover:text-gray-700">
+                All Places
               </Link>
             </div>
           </li>
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <span className="ml-4 text-sm font-medium text-gray-500">{location.name}</span>
+              <span className="ml-4 text-sm font-medium text-gray-500">{place.name}</span>
             </div>
           </li>
         </PageHeader>
@@ -52,10 +52,10 @@ const Location = () => {
           <div className="px-5 py-2 text-center">2023</div>
         </div>
 
-        <ArrangementView strategies={location.strategies} goals={goals} />
+        <ArrangementView strategies={place.strategies} goals={goals} />
       </div>
     </>
   );
 };
 
-export default Location;
+export default Place;

@@ -80,7 +80,6 @@ const Company = () => {
 
   return (
     <div className="relative min-h-screen bg-white">
-      {/* Page heading */}
       <header className="bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
           <div className="flex-1 min-w-0">
@@ -120,7 +119,7 @@ const Company = () => {
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                    {company.locations.map(location => location.name).join(', ')}
+                    {company.places.map(place => place.name).join(', ')}
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500">
                     <CalendarIcon
