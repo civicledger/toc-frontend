@@ -75,7 +75,7 @@ const NewCompanyModal = () => {
                       onSubmit={(values, actions) => {
                         actions.setSubmitting(true);
                         companyService
-                          .create({ ...values })
+                          .create(values)
                           .then(({ data }) => {
                             setSuccess(true);
                             history.push(`/entities/${data.id}`);
