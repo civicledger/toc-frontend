@@ -23,7 +23,7 @@ const companyUserRelationshipTypes = {
 const eventTypes = {
   applied: { icon: UserIcon, bgColorClass: 'bg-gray-400' },
   advanced: { icon: ThumbUpIcon, bgColorClass: 'bg-blue-500' },
-  location: { icon: LocationMarkerIcon, bgColorClass: 'bg-red-400' },
+  place: { icon: LocationMarkerIcon, bgColorClass: 'bg-red-400' },
   completed: { icon: CheckIcon, bgColorClass: 'bg-green-500' },
 };
 const timeline = [
@@ -53,7 +53,7 @@ const timeline = [
   },
   {
     id: 4,
-    type: eventTypes.location,
+    type: eventTypes.place,
     content: "Created strategy 'Water Quality Strategy`",
     target: 'Lake Eyre',
     date: 'Sep 30',

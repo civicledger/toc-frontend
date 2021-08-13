@@ -3,15 +3,17 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import UserNav from './layout/UserNav';
 import UserDashboard from './UserDashboard';
-import CompanyForm from './CompanyForm';
 import Company from './pages/Company';
 import Companies from './pages/Companies';
 import Profile from './pages/Profile';
 import Strategy from './pages/Strategy';
 import Places from './pages/Places';
 import Place from './pages/Place';
+<<<<<<< HEAD
 import Outcome from './pages/Outcome';
 import Initiative from './pages/Initiative';
+=======
+>>>>>>> main
 
 const queryClient = new QueryClient();
 
@@ -24,9 +26,6 @@ const UserHome = () => {
           <Switch>
             <Route path="/" exact>
               <UserDashboard />
-            </Route>
-            <Route path="/entities/new">
-              <CompanyForm />
             </Route>
             <Route path="/entities" exact>
               <Companies />
@@ -48,12 +47,15 @@ const UserHome = () => {
             </Route>
             <Route path="/places">
               <Places />
+<<<<<<< HEAD
             </Route>
             <Route path="/outcomes/:id">
               <Outcome />
             </Route>
             <Route path="/initiatives/:id">
               <Initiative />
+=======
+>>>>>>> main
             </Route>
           </Switch>
         </div>

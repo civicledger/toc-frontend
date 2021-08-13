@@ -20,9 +20,7 @@ const CompanyList = ({ companies }) => {
               <div className="px-4 py-4 flex items-center sm:px-6">
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                   <div className="flex space-x-3">
-                    <div className="w-16">
-                      <img src={company.logo} alt={`${company.name} logo`} />
-                    </div>
+                    <div className="w-16">{company.logo && <img src={company.logo} alt={`${company.name} logo`} />}</div>
                     <div className="truncate">
                       <div className="flex text-sm">
                         <p className="font-medium text-indigo-600 truncate">{company.name}</p>

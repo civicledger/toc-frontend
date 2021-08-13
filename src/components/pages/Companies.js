@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 
 import PageHeader from '../layout/PageHeader';
 import CompanyList from '../company/CompanyList';
+import NewCompanyModal from '../company/NewCompanyModal';
 
 import { companiesQuery } from '../../utilities/queries';
 
@@ -15,6 +16,8 @@ const Companies = () => {
           <span>Entities</span>
         </li>
       </PageHeader>
+
+      <NewCompanyModal />
 
       <div className="mt-10">
         <CompanyList companies={companies} />

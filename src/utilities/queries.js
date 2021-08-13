@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 import { companyService, userService, placeService, goalService, strategyService, outcomeService, initiativeService } from '../services';
+=======
+import { companyService } from '../services/CompanyService';
+import { userService } from '../services/UserService';
+import { placeService } from '../services/PlaceService';
+import { strategyService } from '../services/StrategyService';
+import { goalService } from '../services/GoalService';
+>>>>>>> main
 
 export const companiesQuery = async () => {
   const { data } = await companyService.getAll();

@@ -881,7 +881,6 @@ select {
 }
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -31915,7 +31914,6 @@ input:focus-within ~ label {
   }
 
   .sm\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -62817,7 +62815,6 @@ input:focus-within ~ label {
   }
 
   .md\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -93719,7 +93716,6 @@ input:focus-within ~ label {
   }
 
   .lg\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -124621,7 +124617,6 @@ input:focus-within ~ label {
   }
 
   .xl\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -155523,7 +155518,6 @@ input:focus-within ~ label {
   }
 
   .\32xl\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 
