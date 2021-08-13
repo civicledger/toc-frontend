@@ -1,24 +1,20 @@
-import { useQuery } from "react-query";
-import { useRouteMatch } from "react-router-dom";
+import { useQuery } from 'react-query';
+import { useRouteMatch } from 'react-router-dom';
 
-import { companyQuery } from "../utilities/queries";
-import CompanyHeading from "./company/CompanyHeading";
-import CompanyTab from "./company/CompanyTab";
+import { companyQuery } from '../utilities/queries';
+import CompanyHeading from './company/CompanyHeading';
+import CompanyTab from './company/CompanyTab';
 
 const Company = () => {
   const {
     params: { id },
   } = useRouteMatch();
 
-  const { data: company } = useQuery(
-    ["companies", id],
-    () => companyQuery(id),
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data: company } = useQuery(['companies', id], () => companyQuery(id), {
+    keepPreviousData: true,
+  });
 
-  if (!company) return "";
+  if (!company) return '';
 
   return (
     <div>

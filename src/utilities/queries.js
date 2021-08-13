@@ -1,6 +1,6 @@
 import { companyService } from '../services/CompanyService';
 import { userService } from '../services/UserService';
-import { locationService } from '../services/LocationService';
+import { placeService } from '../services/PlaceService';
 import { strategyService } from '../services/StrategyService';
 import { goalService } from '../services/GoalService';
 
@@ -19,18 +19,18 @@ export const userQuery = async id => {
   return data;
 };
 
-export const locationsQuery = async () => {
-  const { data } = await locationService.getAll();
+export const placesQuery = async () => {
+  const { data } = await placeService.getAll();
   return data;
 };
 
-export const locationQuery = async locationId => {
-  const { data } = await locationService.getOne(locationId);
+export const placeQuery = async placeId => {
+  const { data } = await placeService.getOne(placeId);
   return data;
 };
 
-export const strategiesQuery = async (companyId, locationId) => {
-  const { data } = await strategyService.getAll({ companyId, locationId });
+export const strategiesQuery = async (companyId, placeId) => {
+  const { data } = await strategyService.getAll({ companyId, placeId });
   return data;
 };
 
