@@ -13,7 +13,7 @@ export const newCompanyValidation = Yup.object({
 });
 
 export const newStrategyValidation = Yup.object().shape({
-  locationId: Yup.string().required('A location is required'),
+  placeId: Yup.string().required('A place is required'),
   name: Yup.string()
     .min(2, 'A longer name is required')
     .max(50, 'This name is too long to use')

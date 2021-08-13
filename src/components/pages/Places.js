@@ -2,17 +2,17 @@ import { useQuery } from 'react-query';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import GoogleMapReact from 'google-map-react';
 
-import { locationsQuery, strategiesQuery } from '../../utilities/queries';
+import { placesQuery, strategiesQuery } from '../../utilities/queries';
 
 import PageHeader from '../layout/PageHeader';
-import LocationList from '../location/LocationList';
+import PlaceList from '../place/PlaceList';
 
-const Locations = () => {
-  const { data: locations } = useQuery('getLocations', locationsQuery, { keepPreviousData: true });
+const Places = () => {
+  const { data: places } = useQuery('getPlaces', placesQuery, { keepPreviousData: true });
   const { data: strategies } = useQuery('getStrategies', () => strategiesQuery(), { keepPreviousData: true });
-  if (!strategies || !locations) return '';
+  if (!strategies || !places) return '';
 
-  const [lat, lng] = strategies[0]?.location?.geoPosition?.split(',');
+  const [lat, lng] = strategies[0]?.place?.geoPosition?.split(',');
 
   return (
     <>
@@ -25,21 +25,21 @@ const Locations = () => {
         ></GoogleMapReact>
       </div>
       <div className="p-10">
-        <PageHeader title="All Locations">
+        <PageHeader title="All Places">
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-              <span className="ml-4 text-sm font-medium text-gray-500">All Locations</span>
+              <span className="ml-4 text-sm font-medium text-gray-500">All Places</span>
             </div>
           </li>
         </PageHeader>
 
         <div className="mt-10 mb-10">
-          <LocationList locations={locations} strategies={strategies} />
+          <PlaceList places={places} strategies={strategies} />
         </div>
       </div>
     </>
   );
 };
 
-export default Locations;
+export default Places;

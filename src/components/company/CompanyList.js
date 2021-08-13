@@ -29,7 +29,11 @@ const CompanyList = ({ companies }) => {
                       <div className="mt-2 flex">
                         <div className="flex items-center text-sm text-gray-500">
                           <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+<<<<<<< HEAD
                           <p>Operating in {company.locations.map(location => location.name).join(', ')} </p>
+=======
+                          <p>Operating in {company.places.map(place => place.name).join(', ')} </p>
+>>>>>>> main
                         </div>
                       </div>
                     </div>
