@@ -8,7 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { strategyService } from '../../services/StrategyService';
 import { newStrategyValidation } from '../../utilities/validations';
-import { locationsQuery } from '../../utilities/queries';
+import { placesQuery } from '../../utilities/queries';
 
 const NewStrategyModal = ({ company }) => {
   const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ const NewStrategyModal = ({ company }) => {
 
   const cancelButtonRef = useRef(null);
 
-  const { data: locations = [] } = useQuery('locations', locationsQuery, { keepPreviousData: true });
+  const { data: places = [] } = useQuery('places', placesQuery, { keepPreviousData: true });
 
   if (!company) return '';
 
@@ -60,7 +60,7 @@ const NewStrategyModal = ({ company }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', vision: '', locationId: '' }}
+                      initialValues={{ name: '', vision: '', placeId: '' }}
                       validationSchema={newStrategyValidation}
                       onSubmit={(values, actions) => {
                         strategyService
@@ -81,22 +81,22 @@ const NewStrategyModal = ({ company }) => {
                             <div className="mt-3">
                               <div className="mb-5">
                                 <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
-                                  Location
+                                  Place
                                 </label>
-                                <Field as="select" name="locationId">
-                                  <option value="">Select a location</option>
-                                  {locations.map(location => (
-                                    <option key={location.id} value={location.id}>
-                                      {location.name}
+                                <Field as="select" name="placeId">
+                                  <option value="">Select a place</option>
+                                  {places.map(place => (
+                                    <option key={place.id} value={place.id}>
+                                      {place.name}
                                     </option>
                                   ))}
                                 </Field>
-                                {!props.errors.locationId && (
+                                {!props.errors.placeId && (
                                   <p className="text-gray-600 text-sm mt-1 mx-2">
-                                    Begin creating a new strategy by providing the location for the strategy and some details.
+                                    Begin creating a new strategy by providing the place for the strategy and some details.
                                   </p>
                                 )}
-                                <ErrorMessage component="p" name="locationId" className="text-red-500 text-sm mx-2" />
+                                <ErrorMessage component="p" name="placeId" className="text-red-500 text-sm mx-2" />
                               </div>
                               <div className="mb-5">
                                 <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
