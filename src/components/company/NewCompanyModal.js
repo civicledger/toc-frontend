@@ -8,7 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { companyService } from '../../services/CompanyService';
 import { newCompanyValidation } from '../../utilities/validations';
-import { locationsQuery } from '../../utilities/queries';
+import { placesQuery } from '../../utilities/queries';
 import Dropzone from 'react-dropzone';
 
 const companyTypes = {
@@ -26,7 +26,7 @@ const NewCompanyModal = () => {
 
   const cancelButtonRef = useRef(null);
 
-  const { data: locations = [] } = useQuery('locations', locationsQuery, { keepPreviousData: true });
+  const { data: places = [] } = useQuery('places', placesQuery, { keepPreviousData: true });
 
   return (
     <>
@@ -68,7 +68,7 @@ const NewCompanyModal = () => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '', locationId: '', type: '', logo: '' }}
+                      initialValues={{ name: '', description: '', placeId: '', type: '', logo: '' }}
                       validationSchema={newCompanyValidation}
                       onSubmit={(values, actions) => {
                         companyService
@@ -125,19 +125,19 @@ const NewCompanyModal = () => {
                               </div>
 
                               <div className="mb-5">
-                                <label htmlFor="location" className="block font-medium text-gray-700 mb-1">
+                                <label htmlFor="place" className="block font-medium text-gray-700 mb-1">
                                   Location
                                 </label>
-                                <Field as="select" name="locationId">
+                                <Field as="select" name="placeId">
                                   <option value="">Select a place</option>
-                                  {locations.map(location => (
-                                    <option key={location.id} value={location.id}>
-                                      {location.name}
+                                  {places.map(place => (
+                                    <option key={place.id} value={place.id}>
+                                      {place.name}
                                     </option>
                                   ))}
                                 </Field>
-                                {!props.errors.locationId && <p className="text-gray-600 text-sm mt-1 mx-2">Set place for your Entity</p>}
-                                <ErrorMessage component="p" name="locationId" className="text-red-500 text-sm mx-2 mt-1" />
+                                {!props.errors.placeId && <p className="text-gray-600 text-sm mt-1 mx-2">Set place for your Entity</p>}
+                                <ErrorMessage component="p" name="placeId" className="text-red-500 text-sm mx-2 mt-1" />
                               </div>
 
                               <div className="mb-5">
@@ -155,7 +155,7 @@ const NewCompanyModal = () => {
                                   )}
                                 </Dropzone>
                                 {!props.errors.logo && <p className="text-gray-600 text-sm mt-1 mx-2">Set logo for your Entity</p>}
-                                <ErrorMessage component="p" name="locationId" className="text-red-500 text-sm mx-2 mt-1" />
+                                <ErrorMessage component="p" name="placeId" className="text-red-500 text-sm mx-2 mt-1" />
                               </div>
                             </div>
                             <hr />

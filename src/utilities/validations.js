@@ -9,7 +9,7 @@ export const newCompanyValidation = Yup.object({
     .min(10, 'You must provide a short description of this Entity')
     .required('You must provide a short description of this Entity'),
   type: Yup.number().required('You must select a type for your Entity'),
-  locationId: Yup.string().required('You must select a place'),
+  placeId: Yup.string().required('You must select a place'),
 });
 
 export const newStrategyValidation = Yup.object().shape({
