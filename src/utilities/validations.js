@@ -1,8 +1,15 @@
 import * as Yup from 'yup';
 
 export const newCompanyValidation = Yup.object({
-  name: Yup.string().required('Entity name is required'),
-  type: Yup.string().required('You must select an Entity type'),
+  name: Yup.string()
+    .min(2, 'A longer name is required')
+    .max(50, 'This name is too long to use')
+    .required('You must provide a short name for your Entity.'),
+  description: Yup.string()
+    .min(10, 'You must provide a short description of this Entity')
+    .required('You must provide a short description of this Entity'),
+  type: Yup.number().required('You must select a type for your Entity'),
+  locationId: Yup.string().required('You must select a place'),
 });
 
 export const newStrategyValidation = Yup.object().shape({
