@@ -168,8 +168,11 @@ const NewCompanyModal = () => {
                             </div>
                             <hr />
 
-                            {success && <div className="p-1 text-sm text-green-900">Successfully created an Entity, sending you to Entity page.</div>}
-                            {!success && formErrors.length > 0 && <div className="p-1 text-sm text-red-900">{formErrors}</div>}
+                            {!success && formErrors.length > 0 && (
+                              <div className="grid justify-items-stretch">
+                                <div className="p-1 text-red-900 justify-self-center">{formErrors}</div>
+                              </div>
+                            )}
 
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                               <button

@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import UserNav from './layout/UserNav';
 import UserDashboard from './UserDashboard';
-import CompanyForm from './CompanyForm';
 import Company from './pages/Company';
 import Companies from './pages/Companies';
 import Profile from './pages/Profile';
@@ -22,9 +21,6 @@ const UserHome = () => {
           <Switch>
             <Route path="/" exact>
               <UserDashboard />
-            </Route>
-            <Route path="/entities/new">
-              <CompanyForm />
             </Route>
             <Route path="/entities" exact>
               <Companies />
