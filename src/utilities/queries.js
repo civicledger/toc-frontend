@@ -42,7 +42,6 @@ export const goalsQuery = async () => {
 
 export const outcomeQuery = async id => {
   const { data } = await outcomeService.getOne(id);
-  console.log(data);
   return data;
 };
 
