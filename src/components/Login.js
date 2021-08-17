@@ -1,13 +1,11 @@
-import { useContext, useState } from "react";
-import { Formik, Form } from "formik";
-import { useHistory } from "react-router-dom";
-import * as Yup from "yup";
+import { useContext, useState } from 'react';
+import { Formik, Form } from 'formik';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 
-import { ACTIONS, LoginContext } from "../utilities/reducers";
-import CustomField from "./layout/CustomField";
-import AuthService from "../services/AuthService";
-
-const authService = new AuthService();
+import { ACTIONS, LoginContext } from '../utilities/reducers';
+import CustomField from './layout/CustomField';
+import { authService } from '../services';
 
 const Login = () => {
   const { dispatch } = useContext(LoginContext);
@@ -19,18 +17,16 @@ const Login = () => {
   return (
     <div className="flex min-h-screen">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: '', password: '' }}
         validationSchema={Yup.object({
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Required"),
-          password: Yup.string().required("Required"),
+          email: Yup.string().email('Invalid email address').required('Required'),
+          password: Yup.string().required('Required'),
         })}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
           authService
             .logIn(values.email, values.password)
-            .then((response) => {
+            .then(response => {
               setSuccess(true);
               setTimeout(() => {
                 dispatch({
@@ -40,11 +36,11 @@ const Login = () => {
                 authService.saveUser(response.data);
 
                 actions.resetForm();
-                history.push("/");
+                history.push('/');
               }, 3000);
             })
             .catch(({ response }) => {
-              const errors = response.data.errors.map((error) => error.message);
+              const errors = response.data.errors.map(error => error.message);
               setFormErrors(errors);
             })
             .finally(() => {
@@ -52,30 +48,18 @@ const Login = () => {
             });
         }}
       >
-        {(props) => (
+        {props => (
           <Form className="w-full py-10 px-16 max-w-md m-auto rounded-lg border border-primary">
-            <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">
-              Log In
-            </h1>
+            <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">Log In</h1>
 
             <div className="space-y-4">
               <CustomField type="email" name="email" labelText="Email" />
-              <CustomField
-                type="password"
-                name="password"
-                labelText="Password"
-              />
+              <CustomField type="password" name="password" labelText="Password" />
             </div>
 
-            {success && (
-              <div className="p-1 text-sm text-green-900">
-                Successfully logged in, sending you to dashboard.
-              </div>
-            )}
+            {success && <div className="p-1 text-sm text-green-900">Successfully logged in, sending you to dashboard.</div>}
 
-            {!success && formErrors.length > 0 && (
-              <div className="p-1 text-sm text-red-900">{formErrors}</div>
-            )}
+            {!success && formErrors.length > 0 && <div className="p-1 text-sm text-red-900">{formErrors}</div>}
 
             <div className="flex justify-center mt-6">
               <button

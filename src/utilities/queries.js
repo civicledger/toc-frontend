@@ -1,8 +1,4 @@
-import { companyService } from '../services/CompanyService';
-import { userService } from '../services/UserService';
-import { placeService } from '../services/PlaceService';
-import { strategyService } from '../services/StrategyService';
-import { goalService } from '../services/GoalService';
+import { companyService, userService, placeService, goalService, strategyService, outcomeService, initiativeService } from '../services';
 
 export const companiesQuery = async () => {
   const { data } = await companyService.getAll();
@@ -39,7 +35,17 @@ export const strategyQuery = async id => {
   return data;
 };
 
-export const goalsQuery = async id => {
+export const goalsQuery = async () => {
   const { data } = await goalService.getAll();
+  return data;
+};
+
+export const outcomeQuery = async id => {
+  const { data } = await outcomeService.getOne(id);
+  return data;
+};
+
+export const intiativeQuery = async id => {
+  const { data } = await initiativeService.getOne(id);
   return data;
 };

@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-import CustomField from "./layout/CustomField";
-import AuthService from "../services/AuthService";
-
-const authService = new AuthService();
+import CustomField from './layout/CustomField';
+import { authService } from '../services';
 
 const Signup = () => {
   const history = useHistory();
@@ -17,39 +15,32 @@ const Signup = () => {
     <div className="flex min-h-screen">
       <Formik
         initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
         }}
         validationSchema={Yup.object({
-          name: Yup.string().required("Required"),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Required"),
-          password: Yup.string().required("Required"),
+          name: Yup.string().required('Required'),
+          email: Yup.string().email('Invalid email address').required('Required'),
+          password: Yup.string().required('Required'),
           confirmPassword: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Password must match")
-            .required("Confirm password is required"),
+            .oneOf([Yup.ref('password'), null], 'Password must match')
+            .required('Confirm password is required'),
         })}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
           authService
-            .signup(
-              values.name,
-              values.email,
-              values.password,
-              values.confirmPassword
-            )
+            .signup(values.name, values.email, values.password, values.confirmPassword)
             .then(() => {
               setSuccess(true);
               setTimeout(() => {
                 actions.resetForm();
-                history.push("/login");
+                history.push('/login');
               }, 3000);
             })
             .catch(({ response }) => {
-              const errors = response.data.errors.map((error) => error.message);
+              const errors = response.data.errors.map(error => error.message);
               setFormErrors(errors);
             })
             .finally(() => {
@@ -57,35 +48,19 @@ const Signup = () => {
             });
         }}
       >
-        {(props) => (
+        {props => (
           <Form className="w-full py-10 px-16 max-w-md m-auto rounded-lg border border-primary">
-            <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">
-              Sign Up
-            </h1>
+            <h1 className="mt-4 mb-12 text-xl font-medium text-xl text-center">Sign Up</h1>
             <div className="space-y-4">
               <CustomField type="text" name="name" labelText="Name" />
               <CustomField type="email" name="email" labelText="Email" />
-              <CustomField
-                type="password"
-                name="password"
-                labelText="Password"
-              />
-              <CustomField
-                type="password"
-                name="confirmPassword"
-                labelText="Confirm password"
-              />
+              <CustomField type="password" name="password" labelText="Password" />
+              <CustomField type="password" name="confirmPassword" labelText="Confirm password" />
             </div>
 
-            {success && (
-              <div className="p-1 text-sm text-green-900">
-                Successfully signed up, sending you to login page.
-              </div>
-            )}
+            {success && <div className="p-1 text-sm text-green-900">Successfully signed up, sending you to login page.</div>}
 
-            {!success && formErrors.length > 0 && (
-              <div className="p-1 text-sm text-red-900">{formErrors}</div>
-            )}
+            {!success && formErrors.length > 0 && <div className="p-1 text-sm text-red-900">{formErrors}</div>}
 
             <div className="mt-6 flex justify-center">
               <button
