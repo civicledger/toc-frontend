@@ -89,7 +89,7 @@ const Strategy = () => {
                       className="p-2 px-4 rounded-full font-semibold text-xs absolute bottom-0 right-0"
                       style={{ color: `#${outcome.goal.colour}`, backgroundColor: `#${outcome.goal.secondary_colour}` }}
                     >
-                      SDG Target {outcome.goal.id}.{outcome.target.number}
+                      SDG {outcome.target ? `Target ${outcome.goal.id}.${outcome.target.number}` : `Goal ${outcome.goal.id}`}
                     </span>
                   </div>
                 </div>

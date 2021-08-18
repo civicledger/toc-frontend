@@ -41,6 +41,8 @@ export const newOutcomeValidation = Yup.object().shape({
   description: Yup.string()
     .min(10, 'You must provide a short description of this outcome')
     .required('You must provide a short description of this outcome'),
+  goalId: Yup.number().min(1, 'You must select an SDG Goal').required('You must select an SDG Goal'),
+  targetId: Yup.number().min(1, 'You must select an SDG Target for short term outcome'),
 });
 
 export const newOutputValidation = Yup.object().shape({
