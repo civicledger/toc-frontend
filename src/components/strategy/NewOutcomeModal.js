@@ -150,7 +150,7 @@ const NewOutcomeModal = ({ strategy }) => {
                                   </label>
                                   <select name="targetId" onChange={e => props.setFieldValue('targetId', e.target.value)}>
                                     <option value={0}>Select a Framework Element</option>
-                                    {goals[goalId]?.targets.map(target => (
+                                    {goals[goalId - 1].targets.map(target => (
                                       <option value={target.id} key={target.id}>
                                         {goalId}.{target.number}
                                       </option>
