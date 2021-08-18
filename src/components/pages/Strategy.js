@@ -113,7 +113,7 @@ const Strategy = () => {
               </>
             )}
 
-            {longTermOutcomes.length > 0 && (
+            {shortTermOutcomes.length > 0 && (
               <>
                 <h2 className="text-md font-semibold">Objectives</h2>
                 <div className="p-5 m-5 issues grid grid-cols-4 gap-3">
