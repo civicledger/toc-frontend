@@ -42,7 +42,13 @@ export const newOutcomeValidation = Yup.object().shape({
     .min(10, 'You must provide a short description of this outcome')
     .required('You must provide a short description of this outcome'),
   goalId: Yup.number().min(1, 'You must select a framework').required('You must select a Framework'),
-  targetId: Yup.number().min(1, 'You must select a framework element for short term outcome'),
+  longTerm: Yup.boolean(),
+  targetId: Yup.number().when('longTerm', {
+    is: false,
+    then: Yup.number()
+      .min(1, 'You must select a framework element for short term outcome')
+      .required('You must select a framework element for short term outcome'),
+  }),
 });
 
 export const newOutputValidation = Yup.object().shape({
