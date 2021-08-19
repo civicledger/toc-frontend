@@ -62,7 +62,7 @@ const NewOutcomeModal = ({ strategy }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '', targetId: 0, goalId: 0, strategyId: strategy.id }}
+                      initialValues={{ name: '', description: '', goalId: 0, targetId: undefined, strategyId: strategy.id, longTerm: true }}
                       validationSchema={newOutcomeValidation}
                       onSubmit={(values, actions) => {
                         outcomeService
@@ -86,7 +86,7 @@ const NewOutcomeModal = ({ strategy }) => {
                                   Outcome Name
                                 </label>
                                 <Field type="text" name="name" />
-                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to describe this outcome</p>}
+                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to identify this outcome</p>}
                                 <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>
                               <div className="mb-5">
@@ -100,8 +100,8 @@ const NewOutcomeModal = ({ strategy }) => {
                                 <ErrorMessage component="p" name="description" className="text-red-500 text-sm mx-2" />
                               </div>
                               <div className="mb-5">
-                                <label htmlFor="description" className="block font-medium text-gray-700 mb-1">
-                                  SDG Target
+                                <label htmlFor="goalId" className="block font-medium text-gray-700 mb-1">
+                                  Framework
                                 </label>
                                 <select
                                   name="goal"
@@ -111,26 +111,54 @@ const NewOutcomeModal = ({ strategy }) => {
                                     setGoalId(e.target.value);
                                   }}
                                 >
-                                  <option value="">Select a goal first</option>
+                                  <option value="">Select a framework</option>
                                   {goals.map(goal => (
                                     <option value={goal.id} key={goal.id}>
                                       {goal.id} - {goal.name}
                                     </option>
                                   ))}
                                 </select>
-                                {goalId !== 0 && (
+                                <ErrorMessage component="p" name="goalId" className="text-red-500 text-sm mx-2" />
+                              </div>
+
+                              <div className="mb-5">
+                                <div className="mb-5 relative flex items-start">
+                                  <div className="flex items-center h-5">
+                                    <Field
+                                      name="longTerm"
+                                      type="checkbox"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                      onClick={e => {
+                                        props.setFieldValue('longTerm', e.target.value);
+                                        if (e.target.value) props.setFieldValue('targetId', undefined);
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="ml-3">
+                                    <label htmlFor="longTerm" className="block font-medium text-gray-700 mb-1">
+                                      Long Term
+                                    </label>
+                                    <p className="text-gray-500">Select the type of outcome</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {!props.values.longTerm && goalId > 0 && (
+                                <div className="mb-5">
+                                  <label htmlFor="goalId" className="block font-medium text-gray-700 mb-1">
+                                    Framework Element
+                                  </label>
                                   <select name="targetId" onChange={e => props.setFieldValue('targetId', e.target.value)}>
-                                    <option value="">Select a goal first</option>
-                                    {goals[goalId].targets.map(target => (
+                                    <option value={0}>Select a framework element</option>
+                                    {goals[goalId - 1].targets.map(target => (
                                       <option value={target.id} key={target.id}>
                                         {goalId}.{target.number}
                                       </option>
                                     ))}
                                   </select>
-                                )}
-                                {!props.errors.targetId && <p className="text-gray-600 text-sm mt-1 mx-2">What UN SDG target is this outcome for?</p>}
-                                <ErrorMessage component="p" name="targetId" className="text-red-500 text-sm mx-2" />
-                              </div>
+                                  <ErrorMessage component="p" name="targetId" className="text-red-500 text-sm mx-2" />
+                                </div>
+                              )}
                             </div>
                             <hr />
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
