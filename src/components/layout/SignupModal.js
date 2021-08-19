@@ -1,5 +1,4 @@
 import { Fragment, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { UserAddIcon, CloudUploadIcon } from '@heroicons/react/outline';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -13,8 +12,6 @@ const SignupModal = () => {
   const [formErrors, setFormErrors] = useState([]);
   const [open, setOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
-
-  const history = useHistory();
 
   const cancelButtonRef = useRef(null);
 
