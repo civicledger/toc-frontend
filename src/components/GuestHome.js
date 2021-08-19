@@ -1,23 +1,19 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route } from 'react-router-dom';
 
-import GuestNav from "./layout/GuestNav";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
-import GuestDashboard from "./GuestDashboard";
+import GuestNav from './layout/GuestNav';
+import LoginModal from '../components/layout/LoginModal';
+import SignupModal from '../components/layout/SignupModal';
+import GuestDashboard from './GuestDashboard';
 
 const GuestHome = () => {
   return (
     <div className="container mx-auto">
       <GuestNav />
+      <LoginModal />
+      <SignupModal />
       <Switch>
         <Route path="/" exact>
           <GuestDashboard />
-        </Route>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-        <Route path="/signup" exact>
-          <Signup />
         </Route>
       </Switch>
     </div>
