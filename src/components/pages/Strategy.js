@@ -26,8 +26,8 @@ const Strategy = () => {
 
   if (!strategy) return '';
 
-  const longTermOutcomes = strategy.outcomes.filter(({ longTerm }) => longTerm === true);
-  const shortTermOutcomes = strategy.outcomes.filter(({ longTerm }) => longTerm === false);
+  const longTermOutcomes = strategy.outcomes.filter(({ longTerm }) => longTerm);
+  const shortTermOutcomes = strategy.outcomes.filter(({ longTerm }) => !longTerm);
 
   const initiatives = strategy.outcomes.reduce((initiatives, outcome) => {
     return [...initiatives, ...outcome.initiatives];
