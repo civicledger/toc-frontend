@@ -86,7 +86,7 @@ const NewOutcomeModal = ({ strategy }) => {
                                   Outcome Name
                                 </label>
                                 <Field type="text" name="name" />
-                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to describe this outcome</p>}
+                                {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name to identify this outcome</p>}
                                 <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>
                               <div className="mb-5">
