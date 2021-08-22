@@ -9,8 +9,8 @@ export class AuthService extends BaseService {
     return axios.post('login', { email, password });
   }
 
-  signup(name, email, password, confirmPassword) {
-    return axios.post('signup', { name, email, password, confirmPassword });
+  signup(values) {
+    return axios.post('signup', values);
   }
 
   saveUser({ user, token }) {

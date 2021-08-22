@@ -1,15 +1,14 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { useQuery } from 'react-query';
-import { PlusCircleIcon } from '@heroicons/react/outline';
+import { PlusCircleIcon, CloudUploadIcon } from '@heroicons/react/outline';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Dropzone from 'react-dropzone';
 
-import { companyService } from '../../services/CompanyService';
+import { companyService, documentService } from '../../services';
 import { newCompanyValidation } from '../../utilities/validations';
 import { placesQuery } from '../../utilities/queries';
-import Dropzone from 'react-dropzone';
 
 const companyTypes = {
   1: 'Company',
@@ -24,6 +23,8 @@ const NewCompanyModal = () => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const [open, setOpen] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
+
   const history = useHistory();
 
   const cancelButtonRef = useRef(null);
@@ -116,6 +117,45 @@ const NewCompanyModal = () => {
                               </div>
 
                               <div className="mb-5">
+                                <label htmlFor="logo" className="block font-medium text-gray-700 mb-1">
+                                  Logo
+                                </label>
+                                {!uploadedFile && (
+                                  <Dropzone
+                                    onDrop={async ([file]) => {
+                                      const request = await documentService.upload({
+                                        title: file.name,
+                                        type: 'company',
+                                        document: file,
+                                      });
+
+                                      const data = await request.json();
+                                      setUploadedFile(data);
+                                      props.setFieldValue('logo', data.location);
+                                    }}
+                                  >
+                                    {({ getRootProps, getInputProps }) => (
+                                      <section className="bg-gray-100 p-10 text-center border-dashed border-2">
+                                        <div {...getRootProps()}>
+                                          <input {...getInputProps()} />
+
+                                          <p className="text-gray-600">
+                                            <CloudUploadIcon className="w-14 float-left" />
+                                            Drop some files here, or click to select files
+                                          </p>
+                                        </div>
+                                      </section>
+                                    )}
+                                  </Dropzone>
+                                )}
+                                {uploadedFile && (
+                                  <div className="border p-2">
+                                    File <span className="font-mono text-gray-800 text-sm bg-gray-200 p-1">{uploadedFile.title}</span> uploaded
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="mb-5">
                                 <label htmlFor="type" className="block font-medium text-gray-700 mb-1">
                                   Type
                                 </label>
@@ -134,7 +174,7 @@ const NewCompanyModal = () => {
 
                               <div className="mb-5">
                                 <label htmlFor="place" className="block font-medium text-gray-700 mb-1">
-                                  Location
+                                  Place
                                 </label>
                                 <Field as="select" name="placeId">
                                   <option value="">Select a place</option>
@@ -145,24 +185,6 @@ const NewCompanyModal = () => {
                                   ))}
                                 </Field>
                                 {!props.errors.placeId && <p className="text-gray-600 text-sm mt-1 mx-2">Set place for your Entity</p>}
-                                <ErrorMessage component="p" name="placeId" className="text-red-500 text-sm mx-2 mt-1" />
-                              </div>
-
-                              <div className="mb-5">
-                                <label htmlFor="logo" className="block font-medium text-gray-700 mb-1">
-                                  Logo
-                                </label>
-                                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-                                  {({ getRootProps, getInputProps }) => (
-                                    <section className="bg-gray-100 p-10 text-center border-dashed border-2 rounded-lg">
-                                      <div {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <p>Drop some files here, or click to select files</p>
-                                      </div>
-                                    </section>
-                                  )}
-                                </Dropzone>
-                                {!props.errors.logo && <p className="text-gray-600 text-sm mt-1 mx-2">Set logo for your Entity</p>}
                                 <ErrorMessage component="p" name="placeId" className="text-red-500 text-sm mx-2 mt-1" />
                               </div>
                             </div>

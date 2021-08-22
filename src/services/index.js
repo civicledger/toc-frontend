@@ -1,5 +1,6 @@
 export { authService } from './AuthService';
 export { companyService } from './CompanyService';
+export { documentService } from './DocumentService';
 export { goalService } from './GoalService';
 export { initiativeService } from './InitiativeService';
 export { issueService } from './IssueService';
