@@ -8,11 +8,10 @@ import * as Yup from 'yup';
 import { ACTIONS, LoginContext } from '../../utilities/reducers';
 import { authService } from '../../services';
 
-const NewCompanyModal = () => {
+const LoginModal = ({ open = false, setOpen, openOther }) => {
   const { dispatch } = useContext(LoginContext);
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
-  const [open, setOpen] = useState(false);
 
   const history = useHistory();
 
@@ -105,9 +104,6 @@ const NewCompanyModal = () => {
                               <Field type="password" name="password" placeholder="Password" autoComplete="placelink-password" />
                               <ErrorMessage component="p" name="password" className="text-red-500 text-sm mx-2 mt-1" />
                             </div>
-
-                            {/* <CustomField type="email" name="email" labelText="Email" />
-                            <CustomField type="password" name="password" labelText="Password" /> */}
                           </div>
 
                           {success && <div className="p-1 text-sm text-green-900">Successfully logged in, sending you to dashboard.</div>}
@@ -143,13 +139,8 @@ const NewCompanyModal = () => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div>
-        <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
-          <LoginIcon className="w-5 inline-block mr-2" /> Log In
-        </button>
-      </div>
     </>
   );
 };
 
-export default NewCompanyModal;
+export default LoginModal;

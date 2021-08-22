@@ -7,10 +7,9 @@ import Dropzone from 'react-dropzone';
 
 import { authService, documentService } from '../../services';
 
-const SignupModal = () => {
+const SignupModal = ({ open = false, setOpen, openOther }) => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
-  const [open, setOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
 
   const cancelButtonRef = useRef(null);
@@ -77,6 +76,7 @@ const SignupModal = () => {
                             actions.resetForm();
                             setTimeout(() => {
                               setOpen(false);
+                              openOther(true);
                             }, 5000);
                           })
                           .catch(({ response }) => {
@@ -205,11 +205,6 @@ const SignupModal = () => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div>
-        <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
-          <UserAddIcon className="w-5 inline-block mr-2" /> Sign Up
-        </button>
-      </div>
     </>
   );
 };
