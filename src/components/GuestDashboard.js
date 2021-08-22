@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react';
+import { Popover, Transition } from '@headlessui/react';
 import {
   BeakerIcon,
   GlobeIcon,
@@ -16,10 +16,16 @@ import {
   CubeTransparentIcon,
   LinkIcon,
   XIcon,
-} from '@heroicons/react/outline'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+} from '@heroicons/react/outline';
+import { ChevronDownIcon } from '@heroicons/react/solid';
+import LogoLarge from '../assets/images/logo-full.png';
+
+import SignupModal from './layout/SignupModal';
+import LoginModal from './layout/LoginModal';
 
 const GuestDashboard = () => {
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
 
   const solutions = [
     {
@@ -34,14 +40,19 @@ const GuestDashboard = () => {
       href: '#',
       icon: BeakerIcon,
     },
-    { name: 'Resources and Production', description: "Coordinate initiatives that mitigate material sustainability issues.", href: '#', icon: GlobeIcon },
+    {
+      name: 'Resources and Production',
+      description: 'Coordinate initiatives that mitigate material sustainability issues.',
+      href: '#',
+      icon: GlobeIcon,
+    },
     {
       name: 'Natural Capital Asset Managers',
-      description: "Report on activities that preserve and enhance the natural environment.",
+      description: 'Report on activities that preserve and enhance the natural environment.',
       href: '#',
       icon: CurrencyDollarIcon,
     },
-  ]
+  ];
 
   const features = [
     {
@@ -84,14 +95,18 @@ const GuestDashboard = () => {
       description: 'Define or use established KPIs to demonstrate performance.',
       icon: PresentationChartLineIcon,
     },
-  ]
+  ];
   const metrics = [
-
-    { id: 1, stat: '3', emphasis: 'Global regions', rest: 'including Australia, New Zealand and the Pacific, South and South East Asia, and Europe, Middle East and Africa.' },
+    {
+      id: 1,
+      stat: '3',
+      emphasis: 'Global regions',
+      rest: 'including Australia, New Zealand and the Pacific, South and South East Asia, and Europe, Middle East and Africa.',
+    },
     { id: 2, stat: '1.7M+', emphasis: 'Square kilometres', rest: 'of natural capital assets in Placelink’s platform.' },
     { id: 3, stat: '4', emphasis: 'Large-scale', rest: 'pilot programs currently active.' },
     { id: 4, stat: '1', emphasis: 'Place-based', rest: 'solution.' },
-  ]
+  ];
   const footerNavigation = {
     solutions: [
       { name: 'Marketing', href: '#' },
@@ -121,7 +136,7 @@ const GuestDashboard = () => {
       {
         name: 'Facebook',
         href: '#',
-        icon: (props) => (
+        icon: props => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
               fillRule="evenodd"
@@ -134,7 +149,7 @@ const GuestDashboard = () => {
       {
         name: 'Instagram',
         href: '#',
-        icon: (props) => (
+        icon: props => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
               fillRule="evenodd"
@@ -147,7 +162,7 @@ const GuestDashboard = () => {
       {
         name: 'Twitter',
         href: '#',
-        icon: (props) => (
+        icon: props => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
           </svg>
@@ -156,7 +171,7 @@ const GuestDashboard = () => {
       {
         name: 'GitHub',
         href: '#',
-        icon: (props) => (
+        icon: props => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
               fillRule="evenodd"
@@ -169,7 +184,7 @@ const GuestDashboard = () => {
       {
         name: 'Dribbble',
         href: '#',
-        icon: (props) => (
+        icon: props => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
               fillRule="evenodd"
@@ -180,27 +195,22 @@ const GuestDashboard = () => {
         ),
       },
     ],
-  }
+  };
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
   }
-
 
   return (
     <div className="bg-white">
+      <SignupModal open={signupOpen} setOpen={setSignupOpen} openOther={setLoginOpen} />
+      <LoginModal open={loginOpen} setOpen={setLoginOpen} />
       <header>
         <Popover className="relative bg-white">
           <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="#">
-                <span className="sr-only">Workflow</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
-                  alt=""
-                />
-              </a>
+              <span className="sr-only">Placelink</span>
+              <img className="h-8 w-auto sm:h-10" src={LogoLarge} alt="" />
             </div>
             <div className="-mr-2 -my-2 md:hidden">
               <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
@@ -220,10 +230,7 @@ const GuestDashboard = () => {
                     >
                       <span>Solutions</span>
                       <ChevronDownIcon
-                        className={classNames(
-                          open ? 'text-gray-600' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-gray-500'
-                        )}
+                        className={classNames(open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
                         aria-hidden="true"
                       />
                     </Popover.Button>
@@ -240,13 +247,9 @@ const GuestDashboard = () => {
                       <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                         <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                           <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2">
-                            {solutions.map((item) => (
-                              <a
-                                key={item.name}
-                                href={item.href}
-                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                              >
-                                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-gradient-to-r from-blue-500 to-blue-900 text-white sm:h-12 sm:w-12">
+                            {solutions.map(item => (
+                              <a key={item.name} href={item.href} className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-gradient-to-r from-blue-300 to-blue-900 text-white sm:h-12 sm:w-12">
                                   <item.icon className="h-6 w-6" aria-hidden="true" />
                                 </div>
                                 <div className="ml-4">
@@ -262,19 +265,20 @@ const GuestDashboard = () => {
                   </>
                 )}
               </Popover>
-
-
             </Popover.Group>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <a href="#" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+              <span
+                onClick={() => setLoginOpen(true)}
+                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 cursor-pointer"
+              >
                 Login
-              </a>
-              <a
-                href="#"
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-blue-900 hover:to-blue-900"
+              </span>
+              <span
+                onClick={() => setSignupOpen(true)}
+                className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-blue-900 hover:to-blue-900 cursor-pointer"
               >
                 Sign up
-              </a>
+              </span>
             </div>
           </div>
 
@@ -287,19 +291,12 @@ const GuestDashboard = () => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Popover.Panel
-              focus
-              className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
-            >
+            <Popover.Panel focus className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
               <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                 <div className="pt-5 pb-6 px-5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
-                        alt="Workflow"
-                      />
+                      <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg" alt="Workflow" />
                     </div>
                     <div className="-mr-2">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
@@ -310,12 +307,8 @@ const GuestDashboard = () => {
                   </div>
                   <div className="mt-6">
                     <nav className="grid grid-cols-1 gap-7">
-                      {solutions.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
-                        >
+                      {solutions.map(item => (
+                        <a key={item.name} href={item.href} className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                           <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-gradient-to-r from-blue-500 to-blue-900 text-white">
                             <item.icon className="h-6 w-6" aria-hidden="true" />
                           </div>
@@ -327,28 +320,22 @@ const GuestDashboard = () => {
                 </div>
                 <div className="py-6 px-5">
                   <div className="grid grid-cols-2 gap-4">
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Pricing
-                    </a>
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Partners
-                    </a>
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Company
-                    </a>
+                    <span className="text-base font-medium text-gray-900 hover:text-gray-700">Pricing</span>
+                    <span className="text-base font-medium text-gray-900 hover:text-gray-700">Partners</span>
+                    <span className="text-base font-medium text-gray-900 hover:text-gray-700">Company</span>
                   </div>
                   <div className="mt-6">
-                    <a
-                      href="#"
-                      className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-blue-900 hover:to-blue-900"
+                    <span
+                      onClick={() => setSignupOpen(true)}
+                      className="cursor-pointer w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-blue-900 hover:to-blue-900"
                     >
                       Sign up
-                    </a>
+                    </span>
                     <p className="mt-6 text-center text-base font-medium text-gray-500">
                       Existing customer?
-                      <a href="#" className="text-gray-900">
+                      <span onClick={() => setLoginOpen(true)} className="text-gray-900 cursor-pointer">
                         Sign in
-                      </a>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -365,11 +352,7 @@ const GuestDashboard = () => {
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
               <div className="absolute inset-0">
-                <img
-                  className="h-full w-full object-cover"
-                  src="../images/landingpage-hero.jpeg"
-                  alt="People working on laptops"
-                />
+                <img className="h-full w-full object-cover" src="../images/landingpage-hero.jpeg" alt="People working on laptops" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-900 mix-blend-multiply" />
               </div>
               <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
@@ -378,17 +361,17 @@ const GuestDashboard = () => {
                   <span className="block text-indigo-400">needs partnerships</span>
                 </h1>
                 <p className="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">
-                  Placelink enables strategies and initiatives to be aligned across all organisations in a place, build partnerships, and link investment with ESG and sustainability performance.
+                  Placelink enables strategies and initiatives to be aligned across all organisations in a place, build partnerships, and link
+                  investment with ESG and sustainability performance.
                 </p>
                 <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                   <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
-                    <a
-                      href="#"
-                      className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-900 bg-white hover:bg-blue-50 sm:px-8"
+                    <span
+                      onClick={() => setSignupOpen(true)}
+                      className="cursor-pointer flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-900 bg-white hover:bg-blue-50 sm:px-8"
                     >
                       Get started
-                    </a>
-
+                    </span>
                   </div>
                 </div>
               </div>
@@ -397,7 +380,6 @@ const GuestDashboard = () => {
         </div>
 
         {/* Logo Cloud */}
-
 
         {/* Alternating Feature Sections */}
         <div className="relative pt-16 pb-32 overflow-hidden">
@@ -412,31 +394,27 @@ const GuestDashboard = () => {
                     </span>
                   </div>
                   <div className="mt-6">
-                    <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                      Sustainability strategies that link to place
-                    </h2>
+                    <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">Sustainability strategies that link to place</h2>
                     <p className="mt-4 text-lg text-gray-500">
-                      Placelink enables public sector agencies, businesses, not-for-profits and community organisations to align strategies that affect economic, social, cultural and environmental outcomes in a place. Placelink enables investors to understand the relationships between initiatives and the non-financial performance of assets.
+                      Placelink enables public sector agencies, businesses, not-for-profits and community organisations to align strategies that
+                      affect economic, social, cultural and environmental outcomes in a place. Placelink enables investors to understand the
+                      relationships between initiatives and the non-financial performance of assets.
                     </p>
                     <div className="mt-6">
-                      <a
-                        href="#"
-                        className="inline-flex bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-blue-500 hover:to-blue-900"
+                      <span
+                        onClick={() => setSignupOpen(true)}
+                        className="cursor-pointer inline-flex bg-gradient-to-r from-blue-500 to-blue-900 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-blue-500 hover:to-blue-900"
                       >
                         Get started
-                      </a>
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="mt-8 border-t border-gray-200 pt-6">
                   <blockquote>
-                    <div>
-
-                    </div>
+                    <div></div>
                     <footer className="mt-3">
-                      <div className="flex items-center space-x-3">
-
-                      </div>
+                      <div className="flex items-center space-x-3"></div>
                     </footer>
                   </blockquote>
                 </div>
@@ -458,10 +436,11 @@ const GuestDashboard = () => {
           <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
             <h2 className="text-3xl font-extrabold text-white tracking-tight">A platform for inclusive economic growth</h2>
             <p className="mt-4 max-w-3xl text-lg text-gray-900 font-bold">
-              Placelink is a platform and distributed ledger that enables organisations to link sustainability strategy with places, report ESG performance, and deliver sustainable and inclusive economic growth.
+              Placelink is a platform and distributed ledger that enables organisations to link sustainability strategy with places, report ESG
+              performance, and deliver sustainable and inclusive economic growth.
             </p>
             <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
-              {features.map((feature) => (
+              {features.map(feature => (
                 <div key={feature.name}>
                   <div>
                     <span className="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
@@ -498,18 +477,15 @@ const GuestDashboard = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
             <div className="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
               <h2 className="text-sm font-semibold tracking-wide uppercase">
-                <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
-                  PLATFORM AND SERVICES
-                </span>
+                <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">PLATFORM AND SERVICES</span>
               </h2>
-              <p className="mt-3 text-3xl font-extrabold text-white">
-                Get actionable data that will inform investment and policy decisions
-              </p>
+              <p className="mt-3 text-3xl font-extrabold text-white">Get actionable data that will inform investment and policy decisions</p>
               <p className="mt-5 text-lg text-gray-300">
-                Placelink users are supported by Inclusive Growth Partners, providing strategy, finance, data analytics and governance services that complement the placelink platform.
+                Placelink users are supported by Inclusive Growth Partners, providing strategy, finance, data analytics and governance services that
+                complement the placelink platform.
               </p>
               <div className="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
-                {metrics.map((item) => (
+                {metrics.map(item => (
                   <p key={item.id}>
                     <span className="block text-2xl font-bold text-white">{item.stat}</span>
                     <span className="mt-1 block text-base text-gray-300">
@@ -532,13 +508,12 @@ const GuestDashboard = () => {
               </span>
             </h2>
             <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-
-              <a
-                href="#"
-                className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-500"
+              <span
+                onClick={() => setSignupOpen(true)}
+                className="cursor-pointer flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-500"
               >
                 Get started
-              </a>
+              </span>
             </div>
           </div>
         </div>
@@ -551,16 +526,14 @@ const GuestDashboard = () => {
         <div className="max-w-7xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:pt-0 lg:px-8">
           <div className="mt-12 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between lg:mt-16">
             <div className="flex space-x-6 md:order-2">
-              {footerNavigation.social.map((item) => (
+              {footerNavigation.social.map(item => (
                 <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
               ))}
             </div>
-            <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-              &copy;  2021 Inclusive Growth Pty Ltd. All rights reserved.
-            </p>
+            <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">&copy; 2021 Inclusive Growth Pty Ltd. All rights reserved.</p>
           </div>
         </div>
       </footer>
