@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { clusterQuery } from '../../utilities/queries';
 
 const ClusterOutcomeList = ({ outcome }) => {
-  const { data: clusters } = useQuery(['clusters', outcome.clusters[0]?.id], () => clusterQuery(outcome.clusters[0].id), { keepPreviousData: true });
+  const { data: clusters } = useQuery(['clusters', outcome.clusters[0].id], () => clusterQuery(outcome.clusters[0].id), { keepPreviousData: true });
 
   return (
     <div className="flex-1">

@@ -5,7 +5,7 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import PageHeader from '../layout/PageHeader';
 
 import { outcomeQuery } from '../../utilities/queries';
-import ClusterOutcomeList from './ClusterOutcomeList';
+import ClusterOutcomeList from '../cluster/ClusterOutcomeList';
 
 const Outcome = () => {
   const { params } = useRouteMatch();
