@@ -2,6 +2,8 @@ import { useContext } from 'react';
 
 import { LoginContext } from '../utilities/reducers';
 
+import Feed from './activities/Feed';
+
 const UserDashboard = () => {
   const {
     login: { user },
@@ -11,11 +13,8 @@ const UserDashboard = () => {
 
   return (
     <div className="flex">
-      <div className="w-full p-10 max-w-md m-auto rounded-lg border border-primary grid grid-cols-1">
-        <div className="flex justify-between">
-          <h2 className="text-xl font-semibold">User:</h2>
-          <h2 className="text-xl">{user.email}</h2>
-        </div>
+      <div className="w-full p-10">
+        <Feed />
       </div>
     </div>
   );
