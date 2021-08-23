@@ -5,6 +5,7 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import PageHeader from '../layout/PageHeader';
 
 import { outcomeQuery } from '../../utilities/queries';
+import ClusterOutcomeList from './ClusterOutcomeList';
 
 const Outcome = () => {
   const { params } = useRouteMatch();
@@ -42,7 +43,7 @@ const Outcome = () => {
               src={`https://ig-indicators.sgp1.digitaloceanspaces.com/sdg/goal-${outcome.goalId.toString().padStart(2, '0')}.png`}
             />
             <span className="text-xl pr-3 font-bold" style={{ color: `#${outcome.goal.colour}` }}>
-              {outcome.goalId}.{outcome.target.number}
+              {outcome.target ? `${outcome.goal.id}.${outcome.target.number}` : `${outcome.goal.id}`}
             </span>
           </div>
         </div>
@@ -69,6 +70,12 @@ const Outcome = () => {
         </div>
         <div className="flex-1"></div>
       </div>
+
+      {outcome.clusters.length > 0 && (
+        <div className="mt-6 flex gap-5">
+          <ClusterOutcomeList outcome={outcome} />
+        </div>
+      )}
     </div>
   );
 };

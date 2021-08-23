@@ -22,7 +22,7 @@ const CompanyStrategies = ({ strategies = [], company, isOwner }) => (
                   <div className="min-w-0 w-1/5 flex flex-col px-4">
                     <p className="text-sm font-medium text-indigo-600 truncate">{strategy.name}</p>
                     <p className="text-sm text-gray-500 truncate">
-                      <LocationMarkerIcon className="h-4 inline-block" /> {strategy.place.name}
+                      <LocationMarkerIcon className="h-4 inline-block" /> {strategy.place?.name}
                     </p>
                   </div>
                   <div className="min-w-0 flex-1 flex px-4">

@@ -1,4 +1,13 @@
-import { companyService, userService, placeService, goalService, strategyService, outcomeService, initiativeService } from '../services';
+import {
+  companyService,
+  userService,
+  placeService,
+  goalService,
+  strategyService,
+  outcomeService,
+  initiativeService,
+  clusterService,
+} from '../services';
 
 export const companiesQuery = async () => {
   const { data } = await companyService.getAll();
@@ -47,5 +56,10 @@ export const outcomeQuery = async id => {
 
 export const intiativeQuery = async id => {
   const { data } = await initiativeService.getOne(id);
+  return data;
+};
+
+export const clusterQuery = async id => {
+  const { data } = await clusterService.getOne(id);
   return data;
 };
