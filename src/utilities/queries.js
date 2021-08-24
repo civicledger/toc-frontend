@@ -65,7 +65,7 @@ export const activitiesQuery = async () => {
       createdAt: '2021-08-20T02:52:48.110+07:00',
       company: {
         id: '3a0c8fd2-9d34-4c7a-b37f-386843750a0b',
-        name: 'Abernathy - Wilderman',
+        name: 'Abernathy - Wilderman',  
         description: 'eaque quae quasi quo doloremque quae reprehenderit qui sit',
         logo: 'http://placeimg.com/640/480/people',
         type: 4,
