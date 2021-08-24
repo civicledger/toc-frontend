@@ -14,3 +14,4 @@ export { strategyService } from './StrategyService';
 export { subscriptionService } from './SubscriptionService';
 export { userService } from './UserService';
 export { clusterService } from './ClusterService';
+export { definitionService } from './DefinitionService';

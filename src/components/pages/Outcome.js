@@ -5,7 +5,9 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import PageHeader from '../layout/PageHeader';
 
 import { outcomeQuery } from '../../utilities/queries';
-import ClusterOutcomeList from '../cluster/ClusterOutcomeList';
+import ClusterOutcomeList from '../outcome/ClusterOutcomeList';
+import DefinitionList from '../outcome/DefinitionList';
+import NewDefinitionModal from '../outcome/NewDefinitionModal';
 
 const Outcome = () => {
   const { params } = useRouteMatch();
@@ -68,6 +70,21 @@ const Outcome = () => {
             ))}
           </div>
         </div>
+
+        <div className="flex-1">
+          <div className="mb-5 text-xl font-bold leading-7">KPI</div>
+          <div className="flex justify-end"></div>
+
+          <div className="border divide-y divide-gray-200">
+            <DefinitionList outcome={outcome} />
+          </div>
+
+          <NewDefinitionModal outcome={outcome} />
+        </div>
+      </div>
+
+      <div className="mt-6 flex gap-5">
+        <div className="flex-1"></div>
         <div className="flex-1"></div>
       </div>
 

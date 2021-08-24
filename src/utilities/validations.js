@@ -82,3 +82,7 @@ export const newMilestoneValidation = Yup.object().shape({
     .required('You must provide a short description of this milestone'),
   date: Yup.date().required('Milestones must provide an estimated date'),
 });
+
+export const newDefinitionValidation = Yup.object().shape({
+  description: Yup.string().min(10, 'You must provide a short description of this KPI').required('You must provide a short description of this KPI'),
+});

@@ -7,6 +7,7 @@ import {
   outcomeService,
   initiativeService,
   clusterService,
+  definitionService,
 } from '../services';
 
 export const companiesQuery = async () => {
@@ -61,6 +62,11 @@ export const intiativeQuery = async id => {
 
 export const clusterQuery = async id => {
   const { data } = await clusterService.getOne(id);
+  return data;
+};
+
+export const definitionsQuery = async outcomeId => {
+  const { data } = await definitionService.getAll({ outcomeId });
   return data;
 };
 
