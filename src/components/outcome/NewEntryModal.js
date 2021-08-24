@@ -6,12 +6,27 @@ import { useQueryClient } from 'react-query';
 
 import { entryService } from '../../services';
 import { newEntryValidation } from '../../utilities/validations';
+import EntryDynamicField from './EntryDynamicField';
 
 const NewEntryModal = ({ definition }) => {
-  const [open, setOpen] = useState(false);
+  //
+  const [success, setSuccess] = useState(null);
 
+  const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const cancelButtonRef = useRef(null);
+
+  //
+  const initialValues = definition.fields.reduce((values, field) => {
+    values[field.name] = '';
+    if ([3, 5].includes(field.type)) {
+      values[field.name] = new Date();
+    }
+    if (field.type === 4) {
+      values[field.name] = false;
+    }
+    return values;
+  }, {});
 
   return (
     <>
@@ -53,12 +68,15 @@ const NewEntryModal = ({ definition }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '' }}
+                      initialValues={initialValues}
                       validationSchema={newEntryValidation}
-                      onSubmit={(values, actions) => {
+                      onSubmit={(event, actions) => {
+                        const payload = { definitionId: definition.id, name: definition.entryName, event };
+
                         entryService
-                          .create({ ...values, definitionId: definition.id })
+                          .create(payload)
                           .then(() => {
+                            setSuccess(true);
                             queryClient.invalidateQueries(['definitions']);
                             actions.resetForm();
                             setOpen(false);
@@ -81,6 +99,11 @@ const NewEntryModal = ({ definition }) => {
                                 <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>
                             </div>
+
+                            {definition.fields.map(field => (
+                              <EntryDynamicField field={field} value={props.values[field.name]} setFieldValue={props.setFieldValue} key={field.id} />
+                            ))}
+
                             <hr />
 
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">

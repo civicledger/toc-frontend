@@ -8,6 +8,10 @@ const DefinitionList = ({ outcome }) => {
     keepPreviousData: true,
   });
 
+  const countItems = (items, label) => {
+    return `${items.length} ${label}${items.length === 0 ? '' : 's'}`;
+  };
+
   if (!definitions) return <></>;
 
   return (
@@ -17,10 +21,7 @@ const DefinitionList = ({ outcome }) => {
           <div>
             <span className="block font-bold">{definition.description}</span>
             <div className="align-middle mt-3 flex">
-              {definition.benchmarks.length + ' '}
-              {definition.benchmarks.length > 1 ? 'targets, ' : 'target, '}
-              {definition.entries.length + ' '}
-              {definition.entries.length > 1 ? 'measures' : 'measure'}
+              {countItems(definition.benchmarks, 'target')}, {countItems(definition.entries, 'measure')}
             </div>
             <div className="flex justify-end">
               <NewBenchmarkModal definition={definition} />
