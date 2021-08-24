@@ -7,7 +7,27 @@ import { useQueryClient } from 'react-query';
 import { definitionService } from '../../services';
 import { newDefinitionValidation } from '../../utilities/validations';
 
+const fieldTypes = {
+  1: 'String',
+  2: 'Number',
+  3: 'Date and Time',
+  4: 'Boolean',
+  5: 'Date Only',
+  6: 'Document',
+};
+
 const NewDefinitionModal = ({ outcome }) => {
+  const [dataFields, setDataFields] = useState([]);
+  const [dataFieldsError, setDataFieldsError] = useState('');
+
+  const handleAddDataField = newField => {
+    if (!newField.name || !newField.type) {
+      return false;
+    }
+    setDataFields([...dataFields, newField]);
+    return true;
+  };
+
   const [open, setOpen] = useState(false);
 
   const queryClient = useQueryClient();
@@ -53,11 +73,14 @@ const NewDefinitionModal = ({ outcome }) => {
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ description: '' }}
+                      initialValues={{ description: '', fieldName: '', fieldLabel: '', fieldType: 1 }}
                       validationSchema={newDefinitionValidation}
                       onSubmit={(values, actions) => {
+                        actions.setSubmitting(true);
+                        const { fieldName, fieldType, fieldLabel, ...data } = values;
+
                         definitionService
-                          .create({ ...values, outcomeId: outcome.id })
+                          .create({ ...data, outcomeId: outcome.id, fields: dataFields })
                           .then(() => {
                             queryClient.invalidateQueries(['definitions']);
                             actions.resetForm();
@@ -81,6 +104,98 @@ const NewDefinitionModal = ({ outcome }) => {
                                   <p className="text-gray-600 text-sm mt-1 mx-2">Describe the KPI for anyone interested</p>
                                 )}
                                 <ErrorMessage component="p" name="description" className="text-red-500 text-sm mx-2 mt-1" />
+                              </div>
+
+                              <p className="pb-5 text-sm">
+                                Add the fields that you expect to store with your entry data, including the type, an optional label.
+                              </p>
+
+                              <div className="border rounded-sm mb-10">
+                                {dataFields.length > 0 && (
+                                  <table className="min-w-full divide-y divide-gray-200 text-sm text-left">
+                                    <thead className="bg-gray-100">
+                                      <tr className="font-semibold">
+                                        <th scope="col" className="px-3 py-1">
+                                          Field Name
+                                        </th>
+                                        <th scope="col" className="px-3 py-1">
+                                          Label
+                                        </th>
+                                        <th scope="col" className="px-3 py-1">
+                                          Data Type
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {dataFields.map((field, index) => {
+                                        return (
+                                          <tr key={index} className="px-4 py-3 whitespace-nowrap">
+                                            <td className="px-3 py-1">{field.name}</td>
+                                            <td className="px-3 py-1">{field.label}</td>
+                                            <td className="px-3 py-1">{fieldTypes[field.type]}</td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                )}
+                                {!dataFields.length && <div className="p-3 text-sm text-gray-500">No data definition with this entry</div>}
+                              </div>
+
+                              <div className="grid grid-cols-7 gap-4 gap-y-1 mt-3">
+                                <div className="hidden sm:order-4 sm:inline-block"></div>
+                                <label htmlFor="fieldName" className="col-span-7 sm:col-span-2 sm:order-1 text-sm font-medium text-gray-700">
+                                  Data Field
+                                </label>
+                                <Field name="fieldName" placeholder="eg. customerId" className="col-span-7 sm:col-span-2 sm:order-5 textfield" />
+                                <label htmlFor="fieldLabel" className="col-span-7 sm:col-span-2 sm:order-2 text-sm font-medium text-gray-700">
+                                  Label
+                                </label>
+                                <input
+                                  name="fieldLabel"
+                                  value={props.values.fieldLabel ? props.values.fieldLabel : props.values.fieldName}
+                                  onChange={e => props.setFieldValue('fieldLabel', e.target.value)}
+                                  placeholder="eg. Customer ID"
+                                  className="col-span-7 sm:col-span-2 sm:order-6 textfield"
+                                />
+                                <label htmlFor="fieldType" className="col-span-7 sm:col-span-2 sm:order-3 text-sm font-medium text-gray-700">
+                                  Type
+                                </label>
+                                <Field name="fieldType" as="select" className="col-span-7 sm:col-span-2 sm:order-7 textfield">
+                                  {Object.entries(fieldTypes).map(([value, name]) => {
+                                    return (
+                                      <option key={value} value={value}>
+                                        {name}
+                                      </option>
+                                    );
+                                  })}
+                                </Field>
+
+                                <div className="col-span-7 sm:col-span-1 sm:order-7 relative">
+                                  <button
+                                    className="bg-indigo-500 text-white rounded-sm w-full h-full"
+                                    onClick={event => {
+                                      event.preventDefault();
+
+                                      setDataFieldsError(false);
+                                      const handled = handleAddDataField({
+                                        name: props.values.fieldName,
+                                        label: props.values.fieldLabel,
+                                        type: props.values.fieldType,
+                                      });
+
+                                      if (handled) {
+                                        props.setFieldValue('fieldName', '');
+                                        props.setFieldValue('fieldLabel', '');
+                                        props.setFieldValue('fieldType', 1);
+                                      }
+                                    }}
+                                  >
+                                    <i className="fal fa-plus mr-2"></i>add
+                                  </button>
+                                </div>
+
+                                {dataFieldsError && <p className="col-span-7 ml-6 mb-5 text-xs text-red-500 text-center">{dataFieldsError}</p>}
                               </div>
                             </div>
                             <hr />
