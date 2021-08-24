@@ -15,3 +15,5 @@ export { subscriptionService } from './SubscriptionService';
 export { userService } from './UserService';
 export { clusterService } from './ClusterService';
 export { definitionService } from './DefinitionService';
+export { benchmarkService } from './BenchmarkService';
+export { entryService } from './EntryService';
