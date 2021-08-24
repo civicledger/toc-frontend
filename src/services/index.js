@@ -13,3 +13,4 @@ export { placeService } from './PlaceService';
 export { strategyService } from './StrategyService';
 export { subscriptionService } from './SubscriptionService';
 export { userService } from './UserService';
+export { clusterService } from './ClusterService';
