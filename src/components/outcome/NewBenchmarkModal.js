@@ -44,7 +44,7 @@ const NewBenchmarkModal = ({ definition }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+              <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6 overflow-visible">
                 <div className="">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
@@ -73,7 +73,16 @@ const NewBenchmarkModal = ({ definition }) => {
                         return (
                           <Form>
                             <div className="mt-3">
-                              <div className="mb-20">
+                              <div className="mb-5">
+                                <label htmlFor="value" className="block font-medium text-gray-700 mb-1">
+                                  Value
+                                </label>
+                                <Field type="text" name="value" />
+                                {!props.errors.value && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a value for the target</p>}
+                                <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
+                              </div>
+
+                              <div className="mb-5">
                                 <label htmlFor="date" className="block font-medium text-gray-700 mb-2">
                                   Target Date
                                 </label>
@@ -87,15 +96,6 @@ const NewBenchmarkModal = ({ definition }) => {
                                 />
                                 {!props.errors.date && <p className="text-gray-600 text-sm mt-1 mx-2">Set the target date</p>}
                                 <ErrorMessage component="p" name="date" className="text-red-500 text-sm mx-2" />
-                              </div>
-
-                              <div className="mb-20">
-                                <label htmlFor="value" className="block font-medium text-gray-700 mb-1">
-                                  Value
-                                </label>
-                                <Field type="text" name="value" />
-                                {!props.errors.value && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a value for the target</p>}
-                                <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>
                             </div>
                             <hr />
