@@ -3,7 +3,7 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import { useQuery } from 'react-query';
 import { clusterQuery } from '../../utilities/queries';
 
-const ClusterOutcomeList = ({ outcome }) => {
+const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
   const { data: clusters } = useQuery(['clusters', outcome.clusters[0].id], () => clusterQuery(outcome.clusters[0].id), { keepPreviousData: true });
 
   return (
