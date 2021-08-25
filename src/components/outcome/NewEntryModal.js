@@ -62,10 +62,8 @@ const NewEntryModal = ({ definition }) => {
                       initialValues={initialValues}
                       validationSchema={createValidation(definition)}
                       onSubmit={(values, actions) => {
-                        console.log(initialValues);
                         const { name, ...event } = values;
                         const payload = { definitionId: definition.id, name, event };
-                        console.log('payload', payload);
 
                         entryService
                           .create(payload)

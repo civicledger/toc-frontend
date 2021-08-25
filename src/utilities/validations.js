@@ -87,13 +87,6 @@ export const newDefinitionValidation = Yup.object().shape({
   description: Yup.string().min(10, 'You must provide a short description of this KPI').required('You must provide a short description of this KPI'),
 });
 
-export const newEntryValidation = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'A longer name is required')
-    .max(50, 'This name is too long to use')
-    .required('You must provide a short name for this measure'),
-});
-
 export const newTargetValidation = Yup.object().shape({
   value: Yup.string().required('You must provide a value for the target'),
   date: Yup.date().required('Target must provide an estimated date'),
