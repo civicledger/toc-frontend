@@ -5,26 +5,17 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useQueryClient } from 'react-query';
 
 import { entryService } from '../../services';
-import { newEntryValidation } from '../../utilities/validations';
+import { createValidation } from '../../utilities/createValidation';
 import EntryDynamicField from './EntryDynamicField';
 
 const NewEntryModal = ({ definition }) => {
-  //
-  const [success, setSuccess] = useState(null);
-
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const cancelButtonRef = useRef(null);
 
-  //
   const initialValues = definition.fields.reduce((values, field) => {
-    values[field.name] = '';
-    if ([3, 5].includes(field.type)) {
-      values[field.name] = new Date();
-    }
-    if (field.type === 4) {
-      values[field.name] = false;
-    }
+    if (field.type === 3) values[field.name] = false;
+    if (field.type === 4) values[field.name] = new Date();
     return values;
   }, {});
 
@@ -69,14 +60,16 @@ const NewEntryModal = ({ definition }) => {
 
                     <Formik
                       initialValues={initialValues}
-                      validationSchema={newEntryValidation}
-                      onSubmit={(event, actions) => {
-                        const payload = { definitionId: definition.id, name: definition.entryName, event };
+                      validationSchema={createValidation(definition)}
+                      onSubmit={(values, actions) => {
+                        console.log(initialValues);
+                        const { name, ...event } = values;
+                        const payload = { definitionId: definition.id, name, event };
+                        console.log('payload', payload);
 
                         entryService
                           .create(payload)
                           .then(() => {
-                            setSuccess(true);
                             queryClient.invalidateQueries(['definitions']);
                             actions.resetForm();
                             setOpen(false);
@@ -90,11 +83,11 @@ const NewEntryModal = ({ definition }) => {
                         return (
                           <Form>
                             <div className="mt-3">
-                              <div className="mb-20">
-                                <label htmlFor="value" className="block font-medium text-gray-700 mb-1">
-                                  name
+                              <div className="mb-5">
+                                <label htmlFor="name" className="block font-medium text-gray-700 mb-1">
+                                  Measure Name
                                 </label>
-                                <Field type="text" name="name" />
+                                <Field type="text" name="name" required={true} />
                                 {!props.errors.name && <p className="text-gray-600 text-sm mt-1 mx-2">Provide a name for the measure</p>}
                                 <ErrorMessage component="p" name="name" className="text-red-500 text-sm mx-2" />
                               </div>

@@ -1,19 +1,30 @@
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { ChevronRightIcon } from '@heroicons/react/solid';
+import { useContext } from 'react';
 
 import PageHeader from '../layout/PageHeader';
 
-import { outcomeQuery } from '../../utilities/queries';
+import { outcomeQuery, userQuery } from '../../utilities/queries';
 import ClusterOutcomeList from '../outcome/ClusterOutcomeList';
 import DefinitionList from '../outcome/DefinitionList';
 import NewDefinitionModal from '../outcome/NewDefinitionModal';
+import { LoginContext } from '../../utilities/reducers';
 
 const Outcome = () => {
   const { params } = useRouteMatch();
+  const { login } = useContext(LoginContext);
   const { data: outcome } = useQuery(['outcomes', params.id], () => outcomeQuery(params.id), { keepPreviousData: true });
+  const { data: user } = useQuery(['users', login.user.id], () => userQuery(login.user.id), { keepPreviousData: true });
 
-  if (!outcome) return '';
+  if (!outcome || !user) return '';
+
+  const checkOwnership = user.companies.some(({ id, relationship }) => {
+    if (outcome.strategy.companyId !== id) return false;
+    if (relationship.type === 1) return true;
+    if (relationship.type === 2 && !relationship.pending) return true;
+    return false;
+  });
 
   return (
     <div className="p-10">
@@ -76,10 +87,10 @@ const Outcome = () => {
           <div className="flex justify-end"></div>
 
           <div className="border divide-y divide-gray-200">
-            <DefinitionList outcome={outcome} />
+            <DefinitionList outcome={outcome} checkOwnership={checkOwnership} />
           </div>
 
-          <NewDefinitionModal outcome={outcome} />
+          {checkOwnership && <NewDefinitionModal outcome={outcome} />}
         </div>
       </div>
 

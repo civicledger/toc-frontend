@@ -3,7 +3,7 @@ import { definitionsQuery } from '../../utilities/queries';
 import NewBenchmarkModal from './NewBenchmarkModal';
 import NewEntryModal from './NewEntryModal';
 
-const DefinitionList = ({ outcome }) => {
+const DefinitionList = ({ outcome, checkOwnership }) => {
   const { data: definitions } = useQuery(['definitions', outcome.id], () => definitionsQuery(outcome.id), {
     keepPreviousData: true,
   });
@@ -24,8 +24,8 @@ const DefinitionList = ({ outcome }) => {
               {countItems(definition.benchmarks, 'target')}, {countItems(definition.entries, 'measure')}
             </div>
             <div className="flex justify-end">
-              <NewBenchmarkModal definition={definition} />
-              <NewEntryModal definition={definition} />
+              {checkOwnership && <NewBenchmarkModal definition={definition} />}
+              {checkOwnership && <NewEntryModal definition={definition} />}
             </div>
           </div>
         </div>

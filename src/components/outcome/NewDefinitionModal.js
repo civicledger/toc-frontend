@@ -10,10 +10,8 @@ import { newDefinitionValidation } from '../../utilities/validations';
 const fieldTypes = {
   1: 'String',
   2: 'Number',
-  3: 'Date and Time',
-  4: 'Boolean',
-  5: 'Date Only',
-  6: 'Document',
+  3: 'Boolean',
+  4: 'Date Only',
 };
 
 const NewDefinitionModal = ({ outcome }) => {
@@ -88,13 +86,16 @@ const NewDefinitionModal = ({ outcome }) => {
                           })
                           .catch(error => {
                             console.log(error);
+                          })
+                          .finally(() => {
+                            setDataFields([]);
                           });
                       }}
                     >
                       {props => {
                         return (
                           <Form>
-                            <div className="mt-3">
+                            <div className="mt-3 mb-5">
                               <div className="mb-5">
                                 <label htmlFor="description" className="block font-medium text-gray-700 mb-1">
                                   Description
@@ -106,8 +107,12 @@ const NewDefinitionModal = ({ outcome }) => {
                                 <ErrorMessage component="p" name="description" className="text-red-500 text-sm mx-2 mt-1" />
                               </div>
 
+                              <label htmlFor="description" className="block font-medium text-gray-700 mb-1">
+                                Fields
+                              </label>
+
                               <p className="pb-5 text-sm">
-                                Add the fields that you expect to store with your entry data, including the type, an optional label.
+                                Add the fields that you expect to store with your measure data, including the type, an optional label.
                               </p>
 
                               <div className="border rounded-sm mb-10">
@@ -139,24 +144,25 @@ const NewDefinitionModal = ({ outcome }) => {
                                     </tbody>
                                   </table>
                                 )}
-                                {!dataFields.length && <div className="p-3 text-sm text-gray-500">No data definition with this entry</div>}
+                                {!dataFields.length && <div className="p-3 text-sm text-gray-500">No fields are set with this KPI</div>}
                               </div>
 
                               <div className="grid grid-cols-7 gap-4 gap-y-1 mt-3">
                                 <div className="hidden sm:order-4 sm:inline-block"></div>
                                 <label htmlFor="fieldName" className="col-span-7 sm:col-span-2 sm:order-1 text-sm font-medium text-gray-700">
-                                  Data Field
+                                  Units of measure
                                 </label>
-                                <Field name="fieldName" placeholder="eg. customerId" className="col-span-7 sm:col-span-2 sm:order-5 textfield" />
+                                <Field type="text" name="fieldName" placeholder="eg. kg" className="col-span-7 sm:col-span-2 sm:order-5" />
                                 <label htmlFor="fieldLabel" className="col-span-7 sm:col-span-2 sm:order-2 text-sm font-medium text-gray-700">
                                   Label
                                 </label>
-                                <input
+                                <Field
+                                  type="text"
                                   name="fieldLabel"
                                   value={props.values.fieldLabel ? props.values.fieldLabel : props.values.fieldName}
                                   onChange={e => props.setFieldValue('fieldLabel', e.target.value)}
-                                  placeholder="eg. Customer ID"
-                                  className="col-span-7 sm:col-span-2 sm:order-6 textfield"
+                                  placeholder="eg. Kilograms"
+                                  className="col-span-7 sm:col-span-2 sm:order-6"
                                 />
                                 <label htmlFor="fieldType" className="col-span-7 sm:col-span-2 sm:order-3 text-sm font-medium text-gray-700">
                                   Type
@@ -191,9 +197,10 @@ const NewDefinitionModal = ({ outcome }) => {
                                       }
                                     }}
                                   >
-                                    <i className="fal fa-plus mr-2"></i>add
+                                    <PlusCircleIcon className="w-3 inline-block" /> Add
                                   </button>
                                 </div>
+                                <ErrorMessage component="p" name="fields" className="text-red-500 text-sm mx-2 mt-1" />
 
                                 {dataFieldsError && <p className="col-span-7 ml-6 mb-5 text-xs text-red-500 text-center">{dataFieldsError}</p>}
                               </div>
