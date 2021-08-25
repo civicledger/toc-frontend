@@ -125,7 +125,7 @@ const NewStrategyModal = ({ strategy }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
+        <button className="bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Initiative
         </button>
       </div>

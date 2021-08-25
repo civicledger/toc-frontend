@@ -2,13 +2,27 @@ import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 
-const StrategyViewList = ({ children, items, title, headerLink = false, headerBackground = 'bg-gray-300' }) => {
+const StrategyViewList = ({
+  children,
+  items,
+  title,
+  button = false,
+  checkOwnership = false,
+  headerLink = false,
+  headerBackground = 'bg-gray-300',
+}) => {
   const headerClass = classNames('font-medium p-2 rounded-t', { [headerBackground]: true });
+
+  if (!items.length && !checkOwnership && title !== 'Issues') return '';
 
   return (
     <>
-      <h2 className="text-lg font-semibold">{title}</h2>
+      <div className="flex justify-between">
+        <h2 className="text-lg font-semibold">{title}</h2>
+        {button}
+      </div>
       <div className="m-5 issues grid grid-cols-4 gap-3">
+        {children}
         {items.map(item => (
           <div className="rounded shadow flex flex-col group" key={item.id}>
             <span className={headerClass}>{item.name}</span>
@@ -27,7 +41,6 @@ const StrategyViewList = ({ children, items, title, headerLink = false, headerBa
           </div>
         ))}
       </div>
-      {children}
 
       <hr className="my-5" />
     </>
