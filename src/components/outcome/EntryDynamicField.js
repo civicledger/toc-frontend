@@ -4,15 +4,22 @@ import DatePicker from 'react-date-picker';
 const EntryDynamicField = ({ field, setFieldValue, value }) => {
   return (
     <div className="col-span-2">
-      <label htmlFor={field.name} className="block text-sm font-medium text-gray-700belClasses">
+      <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">
         {field.label || field.name}
         {<span className="text-red-500 ml-2">*</span>}
       </label>
-      {field.type === 3 && <Field type="checkbox" name={field.name} checked={value} className="mt-3" />}
+      {field.type === 3 && (
+        <Field
+          type="checkbox"
+          name={field.name}
+          checked={value}
+          className="mb-5 focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+        />
+      )}
 
       {field.type === 4 && (
         <DatePicker
-          className="textfield w-full"
+          className="textfield w-full mb-5"
           onChange={startDate => setFieldValue(field.name, startDate)}
           name={field.name}
           required={true}
