@@ -6,7 +6,6 @@ const EntryDynamicField = ({ field, setFieldValue, value }) => {
     <div className="col-span-2">
       <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">
         {field.label || field.name}
-        {<span className="text-red-500 ml-2">*</span>}
       </label>
       {field.type === 3 && (
         <Field
