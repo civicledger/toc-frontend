@@ -94,13 +94,12 @@ const Strategy = () => {
             </div>
           )}
 
-          {longTermOutcomes.length > 0 ||
-            (shortTermOutcomes.length > 0 && (
-              <div className="p-10">
-                {longTermOutcomes.length > 0 && <OutcomeList header="Goals" outcomes={longTermOutcomes} />}
-                {shortTermOutcomes.length > 0 && <OutcomeList header="Objectives" outcomes={shortTermOutcomes} />}
-              </div>
-            ))}
+          {strategy.outcomes.length > 0 && (
+            <div className="p-10">
+              <OutcomeList header="Goals" outcomes={longTermOutcomes} />
+              <OutcomeList header="Objectives" outcomes={shortTermOutcomes} />
+            </div>
+          )}
 
           <hr className="my-5" />
 
