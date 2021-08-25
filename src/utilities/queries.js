@@ -71,6 +71,11 @@ export const definitionsQuery = async outcomeId => {
   return data;
 };
 
+export const definitionQuery = async id => {
+  const { data } = await definitionService.getOne(id);
+  return data;
+};
+
 export const activitiesQuery = async () => {
   const { data } = await activityService.getAll();
   return data;
