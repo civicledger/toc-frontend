@@ -131,7 +131,7 @@ const NewBenchmarkModal = ({ definition }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className="mt-2 ml-2 bg-indigo-500 p-2 px-4 text-white text-xs rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
+        <button className="m-2 bg-indigo-500 p-2 text-white text-xs rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-3 inline-block mr-2" /> Add Target
         </button>
       </div>

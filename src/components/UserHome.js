@@ -11,6 +11,7 @@ import Places from './pages/Places';
 import Place from './pages/Place';
 import Outcome from './pages/Outcome';
 import Initiative from './pages/Initiative';
+import Definition from './pages/Definition';
 import Feed from './activities/Feed';
 
 const queryClient = new QueryClient();
@@ -46,8 +47,11 @@ const UserHome = () => {
             <Route path="/places">
               <Places />
             </Route>
-            <Route path="/outcomes/:id">
+            <Route path="/outcomes/:id" exact>
               <Outcome />
+            </Route>
+            <Route path="/outcomes/:id/kpis/:definitionId">
+              <Definition />
             </Route>
             <Route path="/initiatives/:id">
               <Initiative />

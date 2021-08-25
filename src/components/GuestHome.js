@@ -14,9 +14,6 @@ const GuestHome = () => {
           <Route path="/" exact>
             <GuestDashboard />
           </Route>
-          <Route path="/feed">
-            <Feed />
-          </Route>
         </Switch>
       </div>
     </QueryClientProvider>
