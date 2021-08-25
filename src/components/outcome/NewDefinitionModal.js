@@ -11,7 +11,7 @@ const fieldTypes = {
   1: 'String',
   2: 'Number',
   3: 'Boolean',
-  4: 'Date Only',
+  4: 'Date',
 };
 
 const NewDefinitionModal = ({ outcome }) => {
