@@ -179,7 +179,7 @@ const NewDefinitionModal = ({ outcome }) => {
 
                                 <div className="col-span-7 sm:col-span-1 sm:order-7 relative">
                                   <button
-                                    className="bg-indigo-500 text-white rounded-sm w-full h-full"
+                                    className="bg-indigo-500 text-white rounded-lg w-full h-full"
                                     onClick={event => {
                                       event.preventDefault();
 
@@ -197,7 +197,7 @@ const NewDefinitionModal = ({ outcome }) => {
                                       }
                                     }}
                                   >
-                                    <PlusCircleIcon className="w-3 inline-block" /> Add
+                                    <PlusCircleIcon className="w-6 inline-block" />
                                   </button>
                                 </div>
                                 <ErrorMessage component="p" name="fields" className="text-red-500 text-sm mx-2 mt-1" />

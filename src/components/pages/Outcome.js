@@ -9,6 +9,7 @@ import { outcomeQuery, userQuery } from '../../utilities/queries';
 import ClusterOutcomeList from '../outcome/ClusterOutcomeList';
 import DefinitionList from '../outcome/DefinitionList';
 import NewDefinitionModal from '../outcome/NewDefinitionModal';
+import NewInitiativeModal from '../strategy/NewInitiativeModal';
 import { LoginContext } from '../../utilities/reducers';
 
 const Outcome = () => {
@@ -80,6 +81,7 @@ const Outcome = () => {
               </Link>
             ))}
           </div>
+          <NewInitiativeModal outcome={outcome} />
         </div>
 
         <div className="flex-1">

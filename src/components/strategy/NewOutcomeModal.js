@@ -39,6 +39,7 @@ const NewOutcomeModal = ({ strategy, open, setOpen }) => {
         label: `SDG ${goal.id}.${target.number} ${target.name}`,
         description: target.description,
         value: target.id,
+        goalId: goal.id,
       })),
     };
   });
@@ -98,6 +99,7 @@ const NewOutcomeModal = ({ strategy, open, setOpen }) => {
                     }}
                   >
                     {props => {
+                      console.log(props.errors);
                       const formatGroupLabel = data => (
                         <div
                           className="cursor-pointer text-lg"
@@ -131,11 +133,12 @@ const NewOutcomeModal = ({ strategy, open, setOpen }) => {
                                 <Select
                                   options={groupedTargets}
                                   formatGroupLabel={formatGroupLabel}
-                                  onChange={value => {
+                                  onChange={data => {
                                     props.setFieldValue('longTerm', false);
-                                    props.setFieldValue('name', value.label);
-                                    props.setFieldValue('description', value.description);
-                                    props.setFieldValue('targetId', value.value);
+                                    props.setFieldValue('name', data.label);
+                                    props.setFieldValue('description', data.description);
+                                    props.setFieldValue('targetId', data.value);
+                                    props.setFieldValue('goalId', data.goalId);
                                   }}
                                 />
 

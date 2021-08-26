@@ -36,7 +36,7 @@ export const newInitiativeValidation = Yup.object().shape({
 export const newOutcomeValidation = Yup.object().shape({
   name: Yup.string()
     .min(2, 'A longer name is required')
-    .max(50, 'This name is too long to use')
+    .max(255, 'This name is too long to use')
     .required('You must provide a short name for this outcome.'),
   description: Yup.string()
     .min(10, 'You must provide a short description of this outcome')

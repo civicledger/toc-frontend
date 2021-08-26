@@ -113,7 +113,7 @@ const Strategy = () => {
           </StrategyViewList>
 
           <StrategyViewList title="Initiatives" items={initiatives} headerLink="initiatives" checkOwnership={checkOwnership}>
-            {!outputs.length && (
+            {!initiatives.length && (
               <div className="col-span-4 text-center border p-5 bg-yellow-100 rounded border-yellow-600 text-yellow-800">
                 <ExclamationIcon className="h-6 inline-block text-yellow-600 mr-3" /> There are no current initiatives. You can create initiatives
                 directly from any outcome, or{' '}

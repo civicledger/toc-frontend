@@ -10,7 +10,7 @@ const Initiative = () => {
   const { params } = useRouteMatch();
   const { data: initiative } = useQuery(['initiatives', params.id], () => intiativeQuery(params.id), { keepPreviousData: true });
   if (!initiative) return <></>;
-  const outcome = initiative.outcomes[0];
+  const outcome = initiative.outcome;
   const strategy = outcome.strategy;
 
   return (

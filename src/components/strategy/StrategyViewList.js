@@ -25,7 +25,12 @@ const StrategyViewList = ({
         {children}
         {items.map(item => (
           <div className="rounded shadow flex flex-col group" key={item.id}>
-            <span className={headerClass}>{item.name}</span>
+            {headerLink && (
+              <Link to={`/${headerLink}/${item.id}`} className={headerClass}>
+                {item.name}
+              </Link>
+            )}
+            {!headerLink && <span className={headerClass}>{item.name}</span>}
             <p className="p-3">{item.description}</p>
             {headerLink && (
               <div className="flex justify-end">

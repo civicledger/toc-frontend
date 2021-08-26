@@ -7,13 +7,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { initiativeService } from '../../services/InitiativeService';
 import { newInitiativeValidation } from '../../utilities/validations';
 
-const NewStrategyModal = ({ strategy }) => {
+const NewInitiativeModal = ({ outcome }) => {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
   const queryClient = useQueryClient();
 
-  if (!strategy) return '';
+  if (!outcome) return '';
 
   return (
     <>
@@ -49,7 +49,7 @@ const NewStrategyModal = ({ strategy }) => {
                 <div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      New Initiative for {strategy.name}
+                      New Initiative for {outcome.name}
                     </Dialog.Title>
 
                     <hr className="mt-3" />
@@ -59,9 +59,9 @@ const NewStrategyModal = ({ strategy }) => {
                       validationSchema={newInitiativeValidation}
                       onSubmit={(values, actions) => {
                         initiativeService
-                          .create({ ...values, strategyId: strategy.id })
+                          .create({ ...values, outcomeId: outcome.id })
                           .then(() => {
-                            queryClient.invalidateQueries(['strategies', strategy.id]);
+                            queryClient.invalidateQueries(['outcomes', outcome.id]);
                             actions.resetForm();
                             setOpen(false);
                           })
@@ -125,7 +125,7 @@ const NewStrategyModal = ({ strategy }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className="bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
+        <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Initiative
         </button>
       </div>
@@ -133,4 +133,4 @@ const NewStrategyModal = ({ strategy }) => {
   );
 };
 
-export default NewStrategyModal;
+export default NewInitiativeModal;
