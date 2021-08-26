@@ -5,8 +5,6 @@ import CreateStrategyFeed from './NewStrategyFeed';
 import { compareDesc } from 'date-fns';
 import ActivityFilterOptions from './ActivityFilterOptions';
 
-import PageHeader from '../layout/PageHeader';
-
 const Feed = () => {
   const [activeFilters, setActiveFilters] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -34,7 +32,6 @@ const Feed = () => {
 
   return (
     <>
-      <PageHeader title="Feeds"></PageHeader>
       <div className="bg-white shadow overflow-visible sm:rounded-lg m-4">
         <div className="mt-5 md:mt-0 md:col-span-2">
           <ActivityFilterOptions className="overflow-visible" filters={filters} activeFilters={activeFilters} setActiveFilters={setActiveFilters} />
