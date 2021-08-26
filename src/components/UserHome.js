@@ -32,7 +32,7 @@ const UserHome = () => {
             <Route path="/entities/:id">
               <Company />
             </Route>
-            <Route path="/profiles">
+            <Route path="/profiles" exact>
               <Profile />
             </Route>
             <Route path="/profiles/:id">

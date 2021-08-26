@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ChevronRightIcon } from '@heroicons/react/solid';
 import { useQuery } from 'react-query';
+
 import { clusterQuery } from '../../utilities/queries';
 
 const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
@@ -52,15 +52,6 @@ const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
                     </div>
                   </span>
                 </div>
-              </div>
-              <div className="flex justify-end">
-                <Link
-                  to={`/outcomes/${outcome.id}`}
-                  className="hidden m-3 mt-0 p-1 px-2 pr-1 text-white w-1/2 bg-blue-400 rounded text-sm group-hover:inline-block hover:bg-blue-500"
-                >
-                  View Detail
-                  <ChevronRightIcon className="float-right h-5" />
-                </Link>
               </div>
             </div>
           ))}
