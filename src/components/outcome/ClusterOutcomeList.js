@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ChevronRightIcon } from '@heroicons/react/solid';
 import { useQuery } from 'react-query';
+
 import { clusterQuery } from '../../utilities/queries';
 
 const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
