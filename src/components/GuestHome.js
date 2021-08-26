@@ -2,7 +2,6 @@ import { Switch, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import GuestDashboard from './GuestDashboard';
-import Feed from './activities/Feed';
 
 const queryClient = new QueryClient();
 
