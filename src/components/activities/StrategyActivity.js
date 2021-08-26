@@ -3,9 +3,9 @@ import { shortDate, shortTime } from '../../utilities/format';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 
-const NewStrategyFeed = ({ activity }) => {
+const StrategyActivity = ({ activity }) => {
   return (
-    <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 sm:px-6">
+    <div className="shadow rounded px-4 py-5 sm:px-6 sm:px-6">
       <div className="flex justify-between">
         <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
           <div className="flex space-x-3">
@@ -37,7 +37,9 @@ const NewStrategyFeed = ({ activity }) => {
               </div>
 
               <div className="mt-3">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">{activity.name}</h3>
+                <h3 className="leading-6 font-medium text-gray-900">{activity.name}</h3>
+
+                <p>{activity.description}</p>
               </div>
             </div>
           </div>
@@ -72,4 +74,4 @@ const NewStrategyFeed = ({ activity }) => {
   );
 };
 
-export default NewStrategyFeed;
+export default StrategyActivity;

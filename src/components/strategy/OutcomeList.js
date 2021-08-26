@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 
 const OutcomeList = ({ header, outcomes }) => {
+  if (!outcomes.length) return '';
   return (
     <>
       <h2 className="text-md font-semibold">{header}</h2>
