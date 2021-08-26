@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef } from 'react';
 import { useQueryClient } from 'react-query';
 import { Dialog, Transition } from '@headlessui/react';
 import { PlusCircleIcon } from '@heroicons/react/outline';
@@ -7,9 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { issueService } from '../../services/IssueService';
 import { newIssueValidation } from '../../utilities/validations';
 
-const NewIssueModal = ({ strategy }) => {
-  const [open, setOpen] = useState(false);
-
+const NewIssueModal = ({ strategy, open, setOpen }) => {
   const cancelButtonRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -124,11 +122,6 @@ const NewIssueModal = ({ strategy }) => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div>
-        <button className="mt-3 bg-indigo-500 p-2 px-4 text-white rounded hover:bg-indigo-600" onClick={() => setOpen(true)}>
-          <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Issue
-        </button>
-      </div>
     </>
   );
 };

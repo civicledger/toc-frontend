@@ -22,7 +22,7 @@ const NewOutputModal = ({ strategy }) => {
     return [...initiatives, ...outcome.initiatives];
   }, []);
 
-  const buttonClass = classNames('mt-3 p-2 px-4 text-white rounded', {
+  const buttonClass = classNames('p-2 px-4 text-white rounded', {
     'bg-gray-500': initiatives.length === 0,
     'bg-indigo-500 hover:bg-indigo-600': initiatives.length > 0,
   });

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const OutcomeList = ({ header, outcomes }) => {
+  if (!outcomes.length) return '';
   return (
     <>
       <h2 className="text-md font-semibold">{header}</h2>
