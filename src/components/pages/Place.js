@@ -16,7 +16,9 @@ const Place = () => {
 
   if (!places || !goals) return '';
 
-  const place = places.find(place => place.name.toLowerCase() === params.place.split('-').join(' '));
+  const urlString = string => string.toLowerCase().replaceAll(' ', '-');
+
+  const place = places.find(place => params.place === urlString(place.name));
 
   if (!place) return '';
 
