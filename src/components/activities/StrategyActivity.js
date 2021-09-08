@@ -42,7 +42,6 @@ const StrategyActivity = ({ activity }) => {
               </div>
 
               <div className="mt-3">
-                <h3 className="leading-6 font-medium text-gray-900">{activity.name}</h3>
                 <p>{activity.description}</p>
               </div>
             </div>
