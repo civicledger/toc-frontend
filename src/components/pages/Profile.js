@@ -5,6 +5,9 @@ import { CheckIcon, LocationMarkerIcon, ThumbUpIcon, UserIcon } from '@heroicons
 import { LoginContext } from '../../utilities/reducers';
 import { userQuery } from '../../utilities/queries';
 
+import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
+import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
+
 const companyTypes = {
   1: 'Company',
   2: 'Community group',
@@ -96,7 +99,7 @@ const Profile = () => {
           <div className="flex items-center space-x-5">
             <div className="flex-shrink-0">
               <div className="relative">
-                <img className="h-16 w-16 rounded-full" src={user.image} alt="" />
+                <img className="h-16 w-16 rounded-full" src={user.image ? user.image : UserImagePlaceholder} alt="" />
                 <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true" />
               </div>
             </div>
@@ -222,7 +225,7 @@ const Profile = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-10 w-10">
-                                <img className="h-10 w-10 rounded-full" src={company.logo} alt="" />
+                                <img className="h-10 w-10 rounded-full" src={company.logo ? company.logo : CompanyLogoPlaceholder} alt="" />
                               </div>
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">{company.name}</div>

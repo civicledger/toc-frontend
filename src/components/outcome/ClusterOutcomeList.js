@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 import { clusterQuery } from '../../utilities/queries';
+import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
 
 const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
   const { data: clusters } = useQuery(['clusters', outcome.clusters[0].id], () => clusterQuery(outcome.clusters[0].id), { keepPreviousData: true });
@@ -45,7 +46,7 @@ const ClusterOutcomeList = ({ outcome, checkOwnership }) => {
                       <div className="flex overflow-hidden">
                         <img
                           className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
-                          src={outcome.strategy.company.logo}
+                          src={outcome.strategy.company.logo ? outcome.strategy.company.logo : CompanyLogoPlaceholder}
                           alt={outcome.strategy.company.name}
                         />
                       </div>
