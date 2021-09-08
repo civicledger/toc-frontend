@@ -2,6 +2,7 @@ import { LocationMarkerIcon, UserIcon, CalendarIcon } from '@heroicons/react/out
 import { shortDate, shortTime } from '../../utilities/format';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
+import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
 
 const OutcomeActivity = ({ activity }) => {
   return (
@@ -10,7 +11,11 @@ const OutcomeActivity = ({ activity }) => {
         <div className="">
           <div className="flex space-x-5">
             <Link to={`/entities/${activity.company.id}`} className="flex-shrink-0">
-              <img className="h-14 w-14 rounded-full" src={activity.company.logo} alt={activity.company.name} />
+              <img
+                className="h-14 w-14 rounded-full"
+                src={activity.company.logo ? activity.company.logo : CompanyLogoPlaceholder}
+                alt={activity.company.name}
+              />
             </Link>
             <h3 className="font-medium text-gray-900">{activity.name}</h3>
           </div>
