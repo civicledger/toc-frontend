@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import GoogleMapReact from 'google-map-react';
 
-import { placeQuery, goalsQuery } from '../../utilities/queries';
+import { goalsQuery, placesQuery } from '../../utilities/queries';
 
 import PageHeader from '../layout/PageHeader';
 import ArrangementView from '../place/ArrangementView';
@@ -11,9 +11,14 @@ import ArrangementView from '../place/ArrangementView';
 const Place = () => {
   const { params } = useRouteMatch();
 
-  const { data: place } = useQuery('getPlace', () => placeQuery(params.id), { keepPreviousData: true });
+  const { data: places } = useQuery('getPlaces', placesQuery, { keepPreviousData: true });
   const { data: goals } = useQuery('goals', goalsQuery, { keepPreviousData: true });
-  if (!place || !goals) return '';
+
+  if (!places || !goals) return '';
+
+  const place = places.find(place => place.name.toLowerCase() === params.place.split('-').join(' '));
+
+  if (!place) return '';
 
   let [lat, lng, zoom] = place?.geoPosition?.split(',');
   zoom = parseInt(zoom);
@@ -52,7 +57,7 @@ const Place = () => {
           <div className="px-5 py-2 text-center">2023</div>
         </div>
 
-        <ArrangementView strategies={place.strategies} goals={goals} />
+        <ArrangementView placeId={place.id} goals={goals} />
       </div>
     </>
   );

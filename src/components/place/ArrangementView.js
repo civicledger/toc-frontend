@@ -1,8 +1,14 @@
 import { Fragment } from 'react';
+import { useQuery } from 'react-query';
+import { placeQuery } from '../../utilities/queries';
 import ArrangmentInitiatives from './ArrangmentInitiatives';
 
-const ArrangementView = ({ strategies, goals }) => {
-  const outcomes = strategies.reduce((outcomes, strategy) => {
+const ArrangementView = ({ placeId, goals }) => {
+  const { data: place } = useQuery('getPlace', () => placeQuery(placeId), { keepPreviousData: true });
+
+  if (!place) return '';
+
+  const outcomes = place.strategies.reduce((outcomes, strategy) => {
     outcomes = [...outcomes, ...strategy.outcomes];
     return outcomes;
   }, []);
