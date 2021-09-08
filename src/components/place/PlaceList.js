@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/solid';
+import { urlString } from '../../utilities/format';
 
 const PlaceList = ({ places, strategies }) => {
   const strategiesObject = strategies.reduce((strategies, strategy) => {
@@ -15,7 +16,7 @@ const PlaceList = ({ places, strategies }) => {
       <ul className="divide-y divide-gray-200">
         {places.map(place => (
           <li key={place.id}>
-            <Link to={`/places/${place.name.toLowerCase().replaceAll(' ', '-')}`} className="block hover:bg-gray-50">
+            <Link to={`/places/${urlString(place.name)}`} className="block hover:bg-gray-50">
               <div className="px-4 py-4 flex items-center sm:px-6">
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                   <div className="flex space-x-3">

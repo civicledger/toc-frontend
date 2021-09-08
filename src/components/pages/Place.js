@@ -7,6 +7,7 @@ import { goalsQuery, placesQuery } from '../../utilities/queries';
 
 import PageHeader from '../layout/PageHeader';
 import ArrangementView from '../place/ArrangementView';
+import { urlString } from '../../utilities/format';
 
 const Place = () => {
   const { params } = useRouteMatch();
@@ -15,8 +16,6 @@ const Place = () => {
   const { data: goals } = useQuery('goals', goalsQuery, { keepPreviousData: true });
 
   if (!places || !goals) return '';
-
-  const urlString = string => string.toLowerCase().replaceAll(' ', '-');
 
   const place = places.find(place => params.place === urlString(place.name));
 
