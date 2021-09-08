@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { useQuery } from 'react-query';
+
 import { placeQuery } from '../../utilities/queries';
 import ArrangmentInitiatives from './ArrangmentInitiatives';
 

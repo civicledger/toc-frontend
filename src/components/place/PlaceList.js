@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/solid';
+
 import { urlString } from '../../utilities/format';
 
 const PlaceList = ({ places, strategies }) => {

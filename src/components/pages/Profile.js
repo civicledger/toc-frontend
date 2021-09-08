@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { CheckIcon, LocationMarkerIcon, ThumbUpIcon, UserIcon } from '@heroicons/react/solid';
+
 import { LoginContext } from '../../utilities/reducers';
 import { userQuery } from '../../utilities/queries';
-
 import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
 import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
 
