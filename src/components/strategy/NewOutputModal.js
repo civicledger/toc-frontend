@@ -3,29 +3,16 @@ import { useQueryClient } from 'react-query';
 import { Dialog, Transition } from '@headlessui/react';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import classNames from 'classnames';
-
-import SelectInitiative from './SelectInitiative';
 
 import { outputService } from '../../services/OutputService';
 import { newOutputValidation } from '../../utilities/validations';
 
-const NewOutputModal = ({ strategy }) => {
+const NewOutputModal = ({ initiative }) => {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
   const queryClient = useQueryClient();
 
-  if (!strategy) return '';
-
-  const initiatives = strategy.outcomes.reduce((initiatives, outcome) => {
-    return [...initiatives, ...outcome.initiatives];
-  }, []);
-
-  const buttonClass = classNames('p-2 px-4 text-white rounded', {
-    'bg-gray-500': initiatives.length === 0,
-    'bg-indigo-500 hover:bg-indigo-600': initiatives.length > 0,
-  });
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -60,19 +47,19 @@ const NewOutputModal = ({ strategy }) => {
                 <div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      New Output for {strategy.name}
+                      New Output for {initiative.name}
                     </Dialog.Title>
 
                     <hr className="mt-3" />
 
                     <Formik
-                      initialValues={{ name: '', description: '', initiativeId: initiatives[0]?.id }}
+                      initialValues={{ name: '', description: '', initiativeId: initiative.id }}
                       validationSchema={newOutputValidation}
                       onSubmit={(values, actions) => {
                         outputService
                           .create(values)
                           .then(() => {
-                            queryClient.invalidateQueries(['strategies', strategy.id]);
+                            queryClient.invalidateQueries(['strategies', initiative.strategyId]);
                             actions.resetForm();
                             setOpen(false);
                           })
@@ -85,16 +72,6 @@ const NewOutputModal = ({ strategy }) => {
                         return (
                           <Form>
                             <div className="mt-3">
-                              <div className="mb-5">
-                                <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
-                                  Select an initiative
-                                </label>
-                                <SelectInitiative
-                                  initiatives={strategy.initiatives}
-                                  setInitiative={initiativeId => props.setFieldValue('initiativeId', initiativeId)}
-                                />
-                                <p className="text-gray-600 text-sm mt-1 mx-2">An output must be connected to an existing initiative</p>
-                              </div>
                               <div className="mb-5">
                                 <label htmlFor="username" className="block font-medium text-gray-700 mb-1">
                                   Output Name
@@ -146,7 +123,7 @@ const NewOutputModal = ({ strategy }) => {
         </Dialog>
       </Transition.Root>
       <div>
-        <button className={buttonClass} disabled={initiatives.length === 0} onClick={() => setOpen(true)}>
+        <button className="p-2 px-4 text-white rounded bg-indigo-500 hover:bg-indigo-600" onClick={() => setOpen(true)}>
           <PlusCircleIcon className="w-5 inline-block mr-2" /> Create new Output
         </button>
       </div>

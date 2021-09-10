@@ -1,17 +1,29 @@
+import { useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 
 import PageHeader from '../layout/PageHeader';
-
-import { intiativeQuery } from '../../utilities/queries';
+import NewOutputModal from '../strategy/NewOutputModal';
+import { LoginContext } from '../../utilities/reducers';
+import { intiativeQuery, userQuery } from '../../utilities/queries';
 
 const Initiative = () => {
+  const { login } = useContext(LoginContext);
   const { params } = useRouteMatch();
   const { data: initiative } = useQuery(['initiatives', params.id], () => intiativeQuery(params.id), { keepPreviousData: true });
-  if (!initiative) return <></>;
+  const { data: user } = useQuery(['users', login.user.id], () => userQuery(login.user.id), { keepPreviousData: true });
+
+  if (!initiative || !user) return <></>;
   const outcome = initiative.outcome;
   const strategy = outcome.strategy;
+
+  const checkOwnership = user.companies.some(({ id, relationship }) => {
+    if (outcome.strategy.companyId !== id) return false;
+    if (relationship.type === 1) return true;
+    if (relationship.type === 2 && !relationship.pending) return true;
+    return false;
+  });
 
   return (
     <div className="p-10">
@@ -47,9 +59,14 @@ const Initiative = () => {
         </div>
       </div>
       <div className="mt-5">
-        <div className="mb-5 text-xl font-bold leading-7">Outputs</div>
-
+        <div className="flex justify-between">
+          <h3 className="mb-5 text-xl font-bold leading-7">Outputs</h3>
+          {checkOwnership && <NewOutputModal initiative={initiative} />}
+        </div>
         <div className="grid grid-cols-4 gap-5">
+          {initiative.outputs.length === 0 && (
+            <div className="col-span-4 border text-center p-3 bg-gray-50">There are currently no outputs for this initiative</div>
+          )}
           {initiative.outputs.map(output => (
             <div key={output.id} className="shadow p-3">
               <div className="text-xl">{output.name}</div>

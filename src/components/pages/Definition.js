@@ -30,8 +30,6 @@ const Definition = () => {
 
   if (!outcome || !user || !definition) return '';
 
-  console.log(definition);
-
   const checkOwnership = user.companies.some(({ id, relationship }) => {
     if (outcome.strategy.companyId !== id) return false;
     if (relationship.type === 1) return true;
