@@ -5,6 +5,7 @@ import { LoginContext } from '../../utilities/reducers';
 import { authService } from '../../services';
 
 import Logo from '../../assets/images/logo-white.png';
+import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
 
 const navigation = [
   { name: 'Dashboard', icon: HomeIcon, href: '/', current: true },
@@ -61,7 +62,7 @@ const UserNav = () => {
         <div href="#" className="flex-shrink-0 w-full block">
           <div className="flex items-center">
             <div>
-              <img className="inline-block h-9 w-9 rounded-full" src={user.image} alt="" />
+              <img className="inline-block h-9 w-9 rounded-full" src={user.image ? user.image : UserImagePlaceholder} alt="" />
             </div>
             <div className="ml-3 flex-grow">
               <p className="text-sm font-medium text-white">{user.name}</p>

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { LocationMarkerIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
+import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
+import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
+
 const companyTypes = {
   1: 'Company',
   2: 'Community Group',
@@ -20,7 +23,9 @@ const CompanyList = ({ companies }) => {
               <div className="px-4 py-4 flex items-center sm:px-6">
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                   <div className="flex space-x-3">
-                    <div className="w-16">{company.logo && <img src={company.logo} alt={`${company.name} logo`} />}</div>
+                    <div className="w-16">
+                      <img src={company.logo ? company.logo : CompanyLogoPlaceholder} alt={`${company.name} logo`} />
+                    </div>
                     <div className="truncate">
                       <div className="flex text-sm">
                         <p className="font-medium text-indigo-600 truncate">{company.name}</p>
@@ -37,7 +42,12 @@ const CompanyList = ({ companies }) => {
                   <div className="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
                     <div className="flex overflow-hidden -space-x-1">
                       {company.users.map(user => (
-                        <img key={user.email} className="inline-block h-6 w-6 rounded-full ring-2 ring-white" src={user.image} alt={user.name} />
+                        <img
+                          key={user.email}
+                          className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                          src={user.image ? user.image : UserImagePlaceholder}
+                          alt={user.name}
+                        />
                       ))}
                     </div>
                   </div>

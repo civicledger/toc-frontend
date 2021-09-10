@@ -14,3 +14,8 @@ export const shortRawDate = dateString => {
   if (!dateString) return '';
   return format(parseISO(dateString), 'dd MMM yyyy');
 };
+
+export const urlString = string => {
+  if (!string) return '';
+  return string.toLowerCase().replaceAll(' ', '-');
+};

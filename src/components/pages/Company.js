@@ -9,6 +9,8 @@ import CompanyStrategies from '../company/CompanyStrategies';
 import { shortRawDate } from '../../utilities/format';
 import { LoginContext } from '../../utilities/reducers';
 import { companyQuery, strategiesQuery, userQuery } from '../../utilities/queries';
+import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
+import CompanyLogoPlaceholder from '../../assets/images/companyLogoPlaceholder.png';
 
 const companyTypes = {
   1: 'Company',
@@ -105,7 +107,7 @@ const Company = () => {
                 <div className="w-full group block">
                   <div className="flex items-center">
                     <div>
-                      <img className="inline-block h-16 w-16 rounded" src={company.logo} alt="" />
+                      <img className="inline-block h-16 w-16 rounded" src={company.logo ? company.logo : CompanyLogoPlaceholder} alt="" />
                     </div>
                   </div>
                 </div>
@@ -202,7 +204,11 @@ const Company = () => {
                   <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
                     <div className="min-w-0 flex-1 flex items-center">
                       <div className="flex-shrink-0">
-                        <img className="h-12 w-12 rounded-full group-hover:opacity-75" src={candidate.image} alt="" />
+                        <img
+                          className="h-12 w-12 rounded-full group-hover:opacity-75"
+                          src={candidate.image ? candidate.image : UserImagePlaceholder}
+                          alt=""
+                        />
                       </div>
                       <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                         <div>

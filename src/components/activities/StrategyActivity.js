@@ -2,6 +2,7 @@ import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { shortDate, shortTime } from '../../utilities/format';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
+import UserImagePlaceholder from '../../assets/images/userImagePlaceholder.png';
 
 const StrategyActivity = ({ activity }) => {
   return (
@@ -11,7 +12,11 @@ const StrategyActivity = ({ activity }) => {
           <div className="flex space-x-3">
             <div className="flex items-start">
               <Link to={`/profiles/${activity.user.id}`} className="flex-shrink-0">
-                <img className="h-16 w-16 rounded-full" src={activity.user.image} alt={activity.user.name} />
+                <img
+                  className="h-16 w-16 rounded-full"
+                  src={activity.user.image ? activity.user.image : UserImagePlaceholder}
+                  alt={activity.user.name}
+                />
               </Link>
             </div>
 
@@ -37,8 +42,6 @@ const StrategyActivity = ({ activity }) => {
               </div>
 
               <div className="mt-3">
-                <h3 className="leading-6 font-medium text-gray-900">{activity.name}</h3>
-
                 <p>{activity.description}</p>
               </div>
             </div>

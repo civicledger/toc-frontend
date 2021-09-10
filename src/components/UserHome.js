@@ -41,7 +41,7 @@ const UserHome = () => {
             <Route path="/strategies/:id">
               <Strategy />
             </Route>
-            <Route path="/places/:id">
+            <Route path="/places/:place">
               <Place />
             </Route>
             <Route path="/places">

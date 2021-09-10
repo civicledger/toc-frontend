@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BriefcaseIcon, ChevronRightIcon, LocationMarkerIcon, CalendarIcon } from '@heroicons/react/solid';
 
 import { shortDate } from '../../utilities/format';
+import CompanyLogoPlaceholder from '../../assets/images/CompanyLogoPlaceholder.png';
 
 const companyTypes = {
   1: 'Company',
@@ -38,7 +39,7 @@ const CompanyHeadingInfo = ({ company }) => {
           <div className="w-full group block">
             <div className="flex items-center">
               <div>
-                <img className="inline-block h-16 w-16 rounded" src={company.logo} alt="" />
+                <img className="inline-block h-16 w-16 rounded" src={company.logo ? company.logo : CompanyLogoPlaceholder} alt="" />
               </div>
             </div>
           </div>
